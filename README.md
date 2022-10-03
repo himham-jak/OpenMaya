@@ -2,6 +2,11 @@
 
 ## Conventions to follow:
 
+- Blender Version 3.3+
+
+- Make the Blender addon folder your local repo
+  - Clone the online repo to %appdata%/Blender Foundation/Blender/{version number}/scripts/addons/OpenMaya
+
 - Use black formatter
   - <a href="https://packagecontrol.io/packages/python-black">Sublime Text</a>
   - <a href="https://dev.to/adamlombard/how-to-use-the-black-python-code-formatter-in-vscode-3lo0">VS Code</a>
