@@ -17,10 +17,8 @@ modules = ["example_file"]  # <module_name>.py
 
 
 ##############################################################################
-# Imports              Order: 3rd Party Imports, Python Built-ins, Our Modules
+# Imports           Order: 3rd Party Imports, Python Built-ins, Custom Modules
 ##############################################################################
-
-# import importlib
 
 
 for module in modules:  # Import all modules listed in the modules array

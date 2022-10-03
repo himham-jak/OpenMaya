@@ -8,7 +8,9 @@
 
 - Updating after modification
   - The best way to update the addon after an edit is to restart blender with the addon disabled and then enable it again afterwards.
-  - This obviously sucks, so 99% of the time, use the <a href="https://blender-addons.org/reboot-addon/">ReBoot</a> addon.
+  - This obviously sucks, so 99% of the time, use the <a href="https://blender-addons.org/reboot-addon/">re:Boot</a> addon.
+    - I'm going to make an edit to this that maps it to F8.
+  - The least effective update method is to use F3 > Reload Scripts, which kinda does nothing useful.
 
 - Naming Conventions
   - Variables/functions in snake_case
@@ -17,8 +19,11 @@
   - Double quotes for top level, single inside
 
 - Document Structure
-  - """info docstring"""
-  - imports
+  - """Info Docstring"""
+  - Imports
+  - Classes
+  - Functions
+  - Registration
   
 - Logic Principles
   - Single-responsibility
