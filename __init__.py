@@ -13,7 +13,7 @@ bl_info = {
 }
 
 
-modules = ["example_file"]  # <module_name>.py
+modules = ["level_panel"]  # <module_name>.py
 
 
 ##############################################################################
@@ -46,7 +46,7 @@ def register():
 
 def unregister():
 
-    for module in modules:  # Unregister all the modules
+    for module in reversed(modules):  # Unregister all the modules
         try:
             exec(f"{module}.unregister()")
             print(f"Unregistering {module}.py")

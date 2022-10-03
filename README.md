@@ -4,17 +4,17 @@
 
 - Blender Version 3.3+
 
-- Make the Blender addon folder your local repo
-  - Clone the online repo to %appdata%/Blender Foundation/Blender/{version number}/scripts/addons/OpenMaya
+- Recommendation: Make the Blender addon folder your local repo
+  - Clone the repo to %appdata%/Blender Foundation/Blender/{version number}/scripts/addons/OpenMaya
 
-- Use black formatter
+- Use black formatter (I have it format on save)
   - <a href="https://packagecontrol.io/packages/python-black">Sublime Text</a>
   - <a href="https://dev.to/adamlombard/how-to-use-the-black-python-code-formatter-in-vscode-3lo0">VS Code</a>
 
 - Updating after modification
   - The best way to update the addon after an edit is to restart blender with the addon disabled and then enable it again afterwards.
   - This obviously sucks, so 99% of the time, use the <a href="https://blender-addons.org/reboot-addon/">re:Boot</a> addon.
-    - I'm going to make an edit to this that maps it to F8.
+    - I made an <a href="https://github.com/himham-jak/re-Boot-with-Keymap/releases">edit</a> to this that maps it to Ctrl+F8.
   - The least effective update method is to use F3 > Reload Scripts, which kinda does nothing useful.
 
 - Naming Conventions
