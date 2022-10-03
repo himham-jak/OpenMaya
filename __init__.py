@@ -1,18 +1,29 @@
 bl_info = {
     "name": "OpenMaya",
-    "blender": (3, 3, 0),
-    "category": "Development",
+    "description": "Level editing tools for the OpenGoal version of the Jak and Daxter series.",
+    "author": "himham, tripp",
     "version": (0, 0, 1),
+    "blender": (3, 3, 0),
+    "location": "View3D > Tools > Level Info",
+    "warning": "Alpha Build",
+    "doc_url": "https://github.com/himham-jak/OpenMaya",
+    "tracker_url": "https://github.com/himham-jak/OpenMaya/issues",
+    "support": "COMMUNITY",
+    "category": "Development",
 }
 
 
-modules = ["example_file"]
+modules = ["example_file"]  # <module_name>.py
 
 
-# Imports
+##############################################################################
+# Imports              Order: 3rd Party Imports, Python Built-ins, Our Modules
+##############################################################################
+
+# import importlib
 
 
-for module in modules:
+for module in modules:  # Import all modules listed in the modules array
     try:
         exec(f"from . import {module}")
         print(f"Importing {module}.py")
@@ -20,14 +31,14 @@ for module in modules:
         print(e)
 
 
+##############################################################################
 # Registration
+##############################################################################
 
 
 def register():
 
-    import importlib
-
-    for module in modules:
+    for module in modules:  # Register all the modules
         try:
             exec(f"{module}.register()")
             print(f"Registering {module}.py")
@@ -37,7 +48,7 @@ def register():
 
 def unregister():
 
-    for module in modules:
+    for module in modules:  # Unregister all the modules
         try:
             exec(f"{module}.unregister()")
             print(f"Unregistering {module}.py")
@@ -45,5 +56,5 @@ def unregister():
             print(e)
 
 
-# if __name__ == "__main__":
+# if __name__ == "__main__":  # For internal Blender script testing
 #    register()
