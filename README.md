@@ -6,6 +6,10 @@
   - <a href="https://packagecontrol.io/packages/python-black">Sublime Text</a>
   - <a href="https://dev.to/adamlombard/how-to-use-the-black-python-code-formatter-in-vscode-3lo0">VS Code</a>
 
+- Updating after modification
+  - The best way to update the addon after an edit is to restart blender with the addon disabled and then enable it again afterwards.
+  - This obviously sucks, so 99% of the time, use the <a href="https://blender-addons.org/reboot-addon/">ReBoot</a> addon.
+
 - Naming Conventions
   - Variables/functions in snake_case
   - Classes in PascalCase(self)

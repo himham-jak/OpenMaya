@@ -18,7 +18,7 @@ class ObjectMoveX(bpy.types.Operator):
     """Move all objects in the scene by one unit in the x direction."""
 
     bl_idname = "object.move_x"  # Unique operator reference name
-    bl_label = "Move X by One"  # String for the UI
+    bl_label = "Move X by One3"  # String for the UI
     bl_options = {"REGISTER", "UNDO"}  # Enable undo for the operator
 
     def execute(self, context):  # execute() is called when running the operator
