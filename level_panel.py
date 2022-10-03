@@ -15,6 +15,8 @@ classes = []  # Initialize the class array to be registered
 
 
 class OBJECT_PT_LevelInfoPanel(bpy.types.Panel):
+    """"""
+
     bl_idname = "OBJECT_PT_level_info_panel"
     bl_label = "Level Info"
     bl_space_type = "VIEW_3D"

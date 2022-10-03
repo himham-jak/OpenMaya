@@ -14,12 +14,15 @@ import bpy
 classes = []  # Initialize the class array to be registered
 
 
-class SpawnActor(bpy.types.Operator):
-    """Move all objects in the scene by one unit in the x direction."""
+class ActorSpawnButton(bpy.types.Operator):
+    """Creates an actor mesh."""
 
     bl_idname = "object.move_x"  # Unique operator reference name
     bl_label = "Precursor Orb"  # String for the UI
     bl_options = {"REGISTER", "UNDO"}  # Enable undo for the operator
+
+    def __init__(self):  # __init__() is called when creating the operator
+        pass
 
     def execute(self, context):  # execute() is called when running the operator
 
@@ -28,11 +31,8 @@ class SpawnActor(bpy.types.Operator):
 
         return {"FINISHED"}  # Let Blender know the operator finished successfully
 
-    def spawn(self):
-        self.layout.operator(SpawnActor.bl_idname)
 
-
-classes.append(SpawnActor)  # Add the class to the array
+classes.append(ActorSpawnButton)  # Add the class to the array
 
 
 ##############################################################################
@@ -41,7 +41,7 @@ classes.append(SpawnActor)  # Add the class to the array
 
 
 def menu_func(self, context):
-    self.layout.operator(SpawnActor.bl_idname)
+    self.layout.operator(ActorSpawnButton.bl_idname)
 
 
 ##############################################################################
@@ -66,7 +66,7 @@ def unregister():
 
     bpy.types.VIEW3D_MT_mesh_add.remove(
         menu_func
-    )  # Add operators to the existing add mesh menu
+    )  # Remove operators to the existing add mesh menu
 
 
 # if __name__ == "__main__":  # For internal Blender script testing
