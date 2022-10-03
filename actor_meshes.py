@@ -14,11 +14,11 @@ import bpy
 classes = []  # Initialize the class array to be registered
 
 
-class ObjectMoveX(bpy.types.Operator):
+class SpawnActor(bpy.types.Operator):
     """Move all objects in the scene by one unit in the x direction."""
 
     bl_idname = "object.move_x"  # Unique operator reference name
-    bl_label = "Move X by One"  # String for the UI
+    bl_label = "Precursor Orb"  # String for the UI
     bl_options = {"REGISTER", "UNDO"}  # Enable undo for the operator
 
     def execute(self, context):  # execute() is called when running the operator
@@ -28,8 +28,11 @@ class ObjectMoveX(bpy.types.Operator):
 
         return {"FINISHED"}  # Let Blender know the operator finished successfully
 
+    def spawn(self):
+        self.layout.operator(SpawnActor.bl_idname)
 
-classes.append(ObjectMoveX)  # Add the class to the array
+
+classes.append(SpawnActor)  # Add the class to the array
 
 
 ##############################################################################
@@ -38,7 +41,7 @@ classes.append(ObjectMoveX)  # Add the class to the array
 
 
 def menu_func(self, context):
-    self.layout.operator(ObjectMoveX.bl_idname)
+    self.layout.operator(SpawnActor.bl_idname)
 
 
 ##############################################################################
@@ -51,14 +54,19 @@ def register():
     for cls in classes:  # Register all the classes
         bpy.utils.register_class(cls)
 
-    bpy.types.VIEW3D_MT_mesh_add.append(menu_func)
-    # bpy.types.VIEW3D_MT_object.append(menu_func)  # Add operators to an existing menu
+    bpy.types.VIEW3D_MT_mesh_add.append(
+        menu_func
+    )  # Add operators to the existing add mesh menu
 
 
 def unregister():
 
     for cls in reversed(classes):  # Unregister all the classes
         bpy.utils.unregister_class(cls)
+
+    bpy.types.VIEW3D_MT_mesh_add.remove(
+        menu_func
+    )  # Add operators to the existing add mesh menu
 
 
 # if __name__ == "__main__":  # For internal Blender script testing
