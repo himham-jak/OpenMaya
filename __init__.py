@@ -4,7 +4,7 @@ bl_info = {
     "author": "himham, tripp",
     "version": (0, 0, 1),
     "blender": (3, 3, 0),
-    "location": "View3D > Tools > Level Info",
+    "location": "View3D > N-Toolbar > Level Info",
     "warning": "Alpha Build",
     "doc_url": "https://github.com/himham-jak/OpenMaya",
     "tracker_url": "https://github.com/himham-jak/OpenMaya/issues",
