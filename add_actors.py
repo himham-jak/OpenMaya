@@ -62,7 +62,7 @@ classes.append(OrbSpawnButton)  # Add the class to the array
 
 def menu_func(self, context):
     self.layout.operator(ActorSpawnButton.bl_idname)
-
+    self.layout.operator(OrbSpawnButton.bl_idname)
 
 ##############################################################################
 # Registration
