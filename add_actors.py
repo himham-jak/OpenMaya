@@ -21,10 +21,10 @@ class ActorSpawnButton(bpy.types.operator, ABC):
     bl_label = "Precursor Orb"  # String for the UI
     bl_options = {"REGISTER", "UNDO"}  # Enable undo for the operator
 
-    def __init__(self):  # __init__() is called when creating the operator
+    def __init__(cls):  # __init__() is called when creating the operator
         pass
 
-    def execute(self, context):  # execute() is called when running the operator
+    def execute(cls, context):  # execute() is called when running the operator
 
         for obj in context.scene.objects:
             obj.location.x += 1.0
@@ -41,10 +41,10 @@ class OrbSpawnButton(ActorSpawnButton):
     bl_label = "Precursor Orb"  # String for the UI
     bl_options = {"REGISTER", "UNDO"}  # Enable undo for the operator
 
-    def __init__(self):  # __init__() is called when creating the operator
+    def __init__(cls):  # __init__() is called when creating the operator
         pass
 
-    def execute(self, context):  # execute() is called when running the operator
+    def execute(cls, context):  # execute() is called when running the operator
 
         for obj in context.scene.objects:
             obj.location.x += 1.0
