@@ -4,7 +4,7 @@
 
 
 import bpy
-
+import abc
 
 ##############################################################################
 # Classes
@@ -14,7 +14,7 @@ import bpy
 classes = []  # Initialize the class array to be registered
 
 
-class ActorSpawnButton(bpy.types.Operator):
+class ActorSpawnButton(bpy.types.operator, ABC):
     """Creates an actor mesh."""
 
     bl_idname = "object.move_x"  # Unique operator reference name
@@ -33,6 +33,26 @@ class ActorSpawnButton(bpy.types.Operator):
 
 
 classes.append(ActorSpawnButton)  # Add the class to the array
+
+class OrbSpawnButton(ActorSpawnButton):
+    """Creates an actor mesh."""
+
+    bl_idname = "object.move_x"  # Unique operator reference name
+    bl_label = "Precursor Orb"  # String for the UI
+    bl_options = {"REGISTER", "UNDO"}  # Enable undo for the operator
+
+    def __init__(self):  # __init__() is called when creating the operator
+        pass
+
+    def execute(self, context):  # execute() is called when running the operator
+
+        for obj in context.scene.objects:
+            obj.location.x += 1.0
+
+        return {"FINISHED"}  # Let Blender know the operator finished successfully
+
+
+classes.append(OrbSpawnButton)  # Add the class to the array
 
 
 ##############################################################################
