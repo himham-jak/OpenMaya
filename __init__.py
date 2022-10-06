@@ -1,7 +1,7 @@
 bl_info = {
     "name": "OpenMaya",
     "description": "Level editing tools for the OpenGoal version of the Jak and Daxter series.",
-    "author": "himham, tripp",
+    "author": "himham, tripp, kuitar",
     "version": (0, 0, 1),
     "blender": (3, 3, 0),
     "location": "View3D > N-Toolbar > Level Info",
@@ -13,7 +13,7 @@ bl_info = {
 }
 
 
-modules = ["level_panel", "add_actors", "actor_data"]  # <module_name>.py
+modules = ["level_panel", "add_actors"]  # <module_name>.py
 
 
 ##############################################################################

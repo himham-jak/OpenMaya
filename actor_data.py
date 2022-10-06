@@ -14,29 +14,21 @@ import bpy
 classes = []  # Initialize the class array to be registered
 
 
-class ActorType():
+class ActorType:
     """An OpenGoal actor type"""
 
-    __init__(cls, label, reference, category):
-        label = cls.label  # The name the Blender UI will use for the actor
-        reference = cls.reference  # The name OpenGoal uses for the actor
-        category = cls.category  # The category
+    def __init__(cls, label, reference, category):
+        cls.label = label  # The name the Blender UI will use for the actor
+        cls.reference = reference  # The name OpenGoal uses for the actor
+        cls.category = category  # The category
 
 
-classes.append(ActorType)  # Add the class to the array
+# Standard classes don't register
 
 
 ##############################################################################
 # Functions
 ##############################################################################
-
-
-def instantiate_actor_types():
-
-    actors = []  # Initialize the actor array to be instantiated
-
-    actor = ActorType("Precursor Orb","money","Collectible")
-    actors.append(actor)
 
 
 ##############################################################################
@@ -50,7 +42,6 @@ def register():
         bpy.utils.register_class(cls)
 
     instantiate_actor_types()
-    print(f"Test: {actors[0].label}")
 
 
 def unregister():

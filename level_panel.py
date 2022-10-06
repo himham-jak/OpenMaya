@@ -14,14 +14,14 @@ import bpy
 classes = []  # Initialize the class array to be registered
 
 
-class OBJECT_PT_LevelInfoPanel(bpy.types.Panel):
+class OBJECT_PT_LevelEditorMenu(bpy.types.Panel):
     """"""
 
-    bl_idname = "OBJECT_PT_level_info_panel"
+    bl_idname = "OBJECT_PT_LevelEditorMenu"
     bl_label = "Level Info"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "Level Editing"
+    bl_category = "Level Editor"
     bl_context = "objectmode"
 
     def draw(self, context):
@@ -33,7 +33,7 @@ class OBJECT_PT_LevelInfoPanel(bpy.types.Panel):
         layout.separator()
 
 
-classes.append(OBJECT_PT_LevelInfoPanel)  # Add the class to the array
+classes.append(OBJECT_PT_LevelEditorMenu)  # Add the class to the array
 
 
 ##############################################################################

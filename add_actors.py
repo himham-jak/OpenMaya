@@ -4,6 +4,8 @@
 
 
 import bpy
+import os
+import bpy.utils.previews
 
 
 ##############################################################################
@@ -14,6 +16,7 @@ import bpy
 classes = []  # Initialize the class array to be registered
 
 
+# name following the convention of existing menus
 class VIEW3D_MT_actor_add(bpy.types.Menu):
     """The OpenGoal actor menu"""
 
@@ -55,43 +58,76 @@ classes.append(ActorSpawnButton)  # Add the class to the array
 ##############################################################################
 
 
+custom_icons = bpy.utils.previews.new()
+
+
+def add_custom_icons():
+    """Add the necessary custom icons"""
+
+    # path to the folder where the icon is
+    # the path is calculated relative to this py file inside the addon folder
+    my_icons_dir = os.path.join(os.path.dirname(__file__), "icons")
+
+    # load a preview thumbnail of a file and store in the previews collection
+    for filename in os.listdir(my_icons_dir):
+        print(filename)
+        custom_icons.load(
+            filename.split(".")[0], os.path.join(my_icons_dir, filename), "IMAGE"
+        )
+
+
 def draw_actor_menu(self, context):
     """Draws the "add actors" menu"""
 
-    self.layout.menu(VIEW3D_MT_actor_add.bl_idname, icon="ERROR")
+    self.layout.menu(
+        VIEW3D_MT_actor_add.bl_idname,
+        icon_value=custom_icons["open-goal"].icon_id,
+    )
 
 
 def draw_buttons(self, context):
     """Draws the buttons within the "add actors" menu"""  # Eventually this will be automated when a new actor instance is created
 
     def label(txt, icn):
-        self.layout.label(text=txt, icon=icn)
+        self.layout.label(text=txt, icon_value=custom_icons[icn].icon_id)
 
     def button(txt, icn):
-        self.layout.operator(ActorSpawnButton.bl_idname, text=txt, icon=icn)
+        self.layout.operator(
+            ActorSpawnButton.bl_idname,
+            text=txt,
+            icon_value=custom_icons[icn].icon_id,
+        )
 
-    label("Collectables", "WORLD_DATA")
+    label("Collectables", "money")
 
-    button("Power Cell", "ERROR")
-    button("Precursor Orb", "ERROR")
-    button("Scout Fly", "ERROR")
-    button("Green Eco", "ERROR")
-    button("Blue Eco", "ERROR")
-    button("Yellow Eco", "ERROR")
-    button("Red Eco", "ERROR")
+    button("Power Cell", "fuel-cell")
+    button("Precursor Orb", "money")
+    button("Scout Fly", "open-goal")
+    button("Green Eco", "eco")
+    button("Blue Eco", "eco")
+    button("Yellow Eco", "eco")
+    button("Red Eco", "eco")
 
-    label("Crates", "WORLD_DATA")
+    label("Crates", "wooden-crate")
 
-    button("Wooden Crate", "ERROR")
-    button("Metal Crate", "ERROR")
-    button("Scout Fly Box", "ERROR")
-    button("Bucket", "ERROR")
+    button("Wooden Crate", "wooden-crate")
+    button("Steel Crate", "steel-crate")
+    button("Scout Fly Box", "buzzer-crate")
+    button("Bucket", "open-goal")
 
-    label("Other", "WORLD_DATA")
+    label("Lurkers", "babak")
 
-    button("Death Plane", "ERROR")
-    button("Checkpoint", "ERROR")
-    button("Load Boundary", "ERROR")
+    button("Gorilla Lurker", "babak")
+
+    label("Other", "open-goal")
+
+    button("Eco Vent", "eco-vent")
+    button("Jump Pad", "jump-pad")
+    button("Swing Pole", "swing-pole")
+    button("Floating Platform", "floating-plat")
+    button("Death Plane", "death-plane")
+    button("Continue", "continue")
+    button("Load Plane", "load-plane")
 
 
 ##############################################################################
@@ -103,6 +139,9 @@ def register():
 
     for cls in classes:  # Register all the classes
         bpy.utils.register_class(cls)
+
+    # Add the custom icons
+    add_custom_icons()
 
     # Add the "add actor" menu
     bpy.types.VIEW3D_MT_add.prepend(draw_actor_menu)
