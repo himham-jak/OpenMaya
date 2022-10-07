@@ -3,11 +3,8 @@
 ## Installation:
 
 - If you're using a release, just download the `.zip` file, don't extract it.
-
 - To make your own release, put all of the contents of this repo into a folder, then put that folder in a `.zip`
-
 - There must be a subfolder in the `.zip` or it won't work.
-
 - In Blender, choose `Edit > Preferences > Addons > Install` and select the `.zip`
 
 ## Tutorial:
@@ -37,13 +34,17 @@
 
 - Naming Conventions
   - Variables/functions in snake_case
-  - Classes in PascalCase(self)
-  - Class methods cls_<method_name>(cls)
-  - Double quotes for top level, single inside
+  - Classes inherited from Blender types should follow their naming conventions
+  - Custom classes in PascalCase
+  - Class methods use `cls` in place of `self`
+  - Double quotes for top level, single if nested
 
 - Document Structure
   - """Info Docstring"""
   - Imports
+    - Third Party
+    - Built-ins
+    - Custom Modules
   - Classes
   - Functions
   - Registration
