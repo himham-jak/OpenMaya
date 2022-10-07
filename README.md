@@ -33,7 +33,7 @@
   - The best way to update the addon after an edit is to restart blender with the addon disabled and then enable it again afterwards.
   - This obviously sucks, so 99% of the time, use the <a href="https://blender-addons.org/reboot-addon/">re:Boot</a> addon.
     - I made an <a href="https://github.com/himham-jak/re-Boot-with-Keymap/releases">edit</a> to this that maps it to Ctrl+F8.
-  - The least effective update method is to use F3 > Reload Scripts, which kinda does nothing useful.
+  - The least effective update method is to use `F3 > Reload Scripts`, which kinda does nothing useful.
 
 - Naming Conventions
   - Variables/functions in snake_case
