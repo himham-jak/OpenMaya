@@ -52,7 +52,7 @@ class LevelProperties(bpy.types.PropertyGroup):
     )
 
     custom_levels_path: bpy.props.StringProperty(
-        name="Custom Levels Path",
+        name="Working Directory",
         description="The path to /custom_levels/ in the OpenGOAL distribution",
         # default=json_data["Custom Levels Path"],
         maxlen=1024,
@@ -103,11 +103,16 @@ class OBJECT_PT_LevelInfoMenu(bpy.types.Panel):
         scene = context.scene
         level_properties = scene.level_properties
 
+        def input_valid(chars, value):
+            return not (bool(re.match(chars, value)) and value)
+
         # set these properties manually
         title = layout.row()
+        title.alert = input_valid("^[A-Za-z-]*$", level_properties.level_title)
         title.prop(level_properties, "level_title", icon="TEXT")
 
         nick = layout.row()
+        nick.alert = input_valid("^[A-Za-z]*$", level_properties.level_nickname)
         nick.prop(level_properties, "level_nickname", icon="TEXT")
 
         anch = layout.row()
@@ -150,14 +155,6 @@ classes.append(OBJECT_PT_LevelInfoMenu)  # Add the class to the array
 ##############################################################################
 
 
-def input_validation(self, context):
-    if not (
-        bool(re.match("^[A-Za-z-]*$", level_properties.level_title))
-        and level_properties.level_title
-    ):
-        title.alert = True
-
-
 ##############################################################################
 # Registration
 ##############################################################################
@@ -169,8 +166,6 @@ def register():
         bpy.utils.register_class(cls)
 
     bpy.types.Scene.level_properties = bpy.props.PointerProperty(type=LevelProperties)
-
-    bpy.types.OBJECT_PT_LevelInfoMenu.append(input_validation)
 
 
 def unregister():

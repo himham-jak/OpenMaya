@@ -5,6 +5,7 @@
 
 import bpy
 import os
+import json
 import bpy.utils.previews
 
 
@@ -42,7 +43,7 @@ class ActorSpawnButton(bpy.types.Operator):
 
     def execute(cls, context):  # execute() is called when running the operator
 
-        # print(f"Creating Actor: {cls.mesh_name}.glb")
+        print(f"Creating Actor: {cls.mesh_name}.glb")
 
         return {"FINISHED"}  # Let Blender know the operator finished successfully
 
@@ -97,40 +98,26 @@ def draw_buttons(self, context):
             )
             button.mesh_name = mesh
 
-    label("Collectables", "money")
+    json_path = os.path.join(os.path.dirname(__file__), "actor_types.json")
 
-    button("Power Cell", "fuel-cell", "fuel-cell")
-    button("Precursor Orb", "money", "money")
-    button("Scout Fly", "buzzer")
-    button("Green Eco", "eco")
-    button("Blue Eco", "eco")
-    button("Yellow Eco", "eco")
-    button("Red Eco", "eco")
-    button("Health Dot", "eco")
+    # Guard clause throwing an error if json file doesn't exist, replace with try, except eventually
+    if not os.path.exists(json_path):
+        print("actor_types.json not found")
+        return 0
 
-    label("Crates", "wooden-crate", False)
+    with open(json_path, "r") as f:
+        json_data = json.loads(f.read())
 
-    button("Wooden Crate", "wooden-crate", False)
-    button("Steel Crate", "steel-crate", False)
-    button("Scout Fly Box", "buzzer-crate", False)
-    button("Bucket", "open-goal", False)
+    for category in json_data:
+        label(category, json_data[category][0]["Icon"], json_data[category][0]["Show"])
 
-    label("Lurkers", "babak", False)
-
-    button("Gorilla Lurker", "babak", False)
-    button("Bone Lurker", "babak", False)
-    button("Spinny Lurker", "babak", False)
-    button("Kermit", "babak", False)
-
-    label("Other", "open-goal", False)
-
-    button("Eco Vent", "eco-vent", False)
-    button("Jump Pad", "jump-pad", False)
-    button("Swing Pole", "swing-pole", False)
-    button("Floating Platform", "floating-plat", False)
-    button("Death Plane", "death-plane", False)
-    button("Continue", "continue", False)
-    button("Load Plane", "load-plane", False)
+        for i in range(len(json_data[category]) - 1):
+            button(
+                json_data[category][i + 1]["Text"],
+                json_data[category][i + 1]["Icon"],
+                json_data[category][i + 1]["Mesh"],
+                json_data[category][i + 1]["Show"] and json_data[category][0]["Show"],
+            )
 
 
 ##############################################################################

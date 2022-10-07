@@ -1,0 +1,38 @@
+{
+  "Collectables" : 
+    [
+      {
+        "Icon" : "money",
+        "Show" : true
+      },
+
+      {
+        "Text" : "Precursor Orb",
+        "Icon" : "money",
+        "Mesh" : "money",
+        "Show" : true
+      },
+
+      {
+        "Text" : "Power Cell",
+        "Icon" : "fuel-cell",
+        "Mesh" : "fuel-cell",
+        "Show" : true
+      }
+    ],
+
+  "Other" : 
+    [
+      {
+        "Icon" : "open-goal",
+        "Show" : true
+      },
+      
+      {
+        "Text" : "Jump Pad",
+        "Icon" : "jump-pad",
+        "Mesh" : "jump-pad",
+        "Show" : true
+      }
+    ]
+}
