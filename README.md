@@ -5,7 +5,7 @@
 - If you're using a release, just download the `.zip` file, don't extract it
 - To make your own release, put all of the contents of this repo into a folder, then put that folder in a `.zip`
 - There must be a subfolder in the `.zip` or it won't work
-- In Blender, choose `Edit > Preferences... > Add-ons > Install...` and select the `.zip`
+- In Blender, choose `Edit > Preferences… > Add-ons > Install…` and select the `.zip`
 
 ## Tutorial:
 
