@@ -45,24 +45,29 @@
 
 ## To Do:
 
-- Config Save
-  - Not having to reselect your Open Goal folder
-- Menu Items
-  - PropertyGroup
-- Live Input Validation
-  - using re
-- Actor Type Data Class
-  - Automate Actor Add Button Creation
-    - use json
-- Import World Reference
-- Export Functionality
-  - Data Structure
-  - Geometry Export
-  - f strings
-- Error Messages
-  - popups
-- Actor Info
+- level_menu.py
+  - Config Save
+    - Open Goal folder
+  - Menu Items
+    - PropertyGroup
+  - Live Input Validation
+    - using re
+  - Error Messages
+    - popups
+- actor_types.json
+  - Actor Type Data Class
+    - Automate Actor Add Button Creation
+      - use json module
+- map_reference.py
+  - one operator, called from level_menu: Import World Reference
+- export.py
+  - Export Functionality
+    - Data Structure
+    - Geometry Export
+    - f strings
+    - .bak backups
+- actor_menu.py
   - Custom Properties
 - Actor Meshes
-  - Import?
-  - Creation
+  - try new model exporter
+  - Import from OG export folder
