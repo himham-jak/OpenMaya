@@ -34,11 +34,11 @@ classes.append(VIEW3D_MT_actor_add)  # Add the class to the array
 class ActorSpawnButton(bpy.types.Operator):
     """Creates an actor mesh"""  # Be careful, this docstring is exposed to the user
 
-    bl_idname = "object.move_x"  # Unique operator reference name
+    bl_idname = "object.spawn_actor"  # Unique operator reference name
     bl_label = "Actor"  # String for the UI
     bl_options = {"REGISTER", "UNDO"}  # Enable undo for the operator
 
-    mesh_name: bpy.props.StringProperty()
+    mesh_name: bpy.props.StringProperty()  # The name of the mesh that needs to be spawned
 
     def execute(cls, context):  # execute() is called when running the operator
 
