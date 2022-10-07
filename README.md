@@ -80,7 +80,7 @@
     - .bak backups
 - actor_menu.py
   - Custom Properties
-- mesh.glb
-  - Actor Meshes
-    - Try new model exporter
-    - Import from OG export out folder
+- add_actors.py
+  - Import from OG export out folder
+  - Add custom properties
+  - Remove from Scene Collection

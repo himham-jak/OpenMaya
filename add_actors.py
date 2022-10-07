@@ -43,7 +43,15 @@ class ActorSpawnButton(bpy.types.Operator):
 
     def execute(cls, context):  # execute() is called when running the operator
 
-        print(f"Creating Actor: {cls.mesh_name}.glb")
+        # Load the mesh
+        mesh = os.path.join(os.path.dirname(__file__), f"{cls.mesh_name}.glb")
+        bpy.ops.import_scene.gltf(filepath=mesh)
+
+        # Create the actor collection if needed
+        create_actor_collection()
+
+        # Add to the collection
+        bpy.ops.object.collection_link(collection="Actor Collection")
 
         return {"FINISHED"}  # Let Blender know the operator finished successfully
 
@@ -71,6 +79,20 @@ def add_custom_icons():
         custom_icons.load(
             filename.split(".")[0], os.path.join(my_icons_dir, filename), "IMAGE"
         )
+
+
+def create_actor_collection():
+    """Creates actor_collection"""
+
+    # check if there is already a collection of actors
+    if "actor_collection" in bpy.data.collections:
+        return 0
+
+    # create a collection to house the actors
+    actor_collection = bpy.data.collections.new("Actor Collection")
+
+    #  Add it as a child of the scene collection
+    bpy.context.scene.collection.children.link(actor_collection)
 
 
 def draw_actor_menu(self, context):
