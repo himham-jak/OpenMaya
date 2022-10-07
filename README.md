@@ -70,10 +70,6 @@
     - Working directory: custom_levels folder
   - Error Messages
     - Popups
-- actor_types.json
-  - Actor Type Data Class
-    - Automate Actor Add Button Creation
-      - Use json module
 - map_reference.py
   - One operator, called from level_menu: Import World Reference
 - export.py
@@ -84,7 +80,6 @@
     - .bak backups
 - actor_menu.py
   - Custom Properties
-  - Display in a PropertyGroup
 - mesh.glb
   - Actor Meshes
     - Try new model exporter
