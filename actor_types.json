@@ -7,6 +7,13 @@
       },
 
       {
+        "Text" : "Power Cell",
+        "Icon" : "fuel-cell",
+        "Mesh" : "fuel-cell",
+        "Show" : true
+      },
+
+      {
         "Text" : "Precursor Orb",
         "Icon" : "money",
         "Mesh" : "money",
@@ -14,9 +21,73 @@
       },
 
       {
-        "Text" : "Power Cell",
-        "Icon" : "fuel-cell",
-        "Mesh" : "fuel-cell",
+        "Text" : "Green Eco",
+        "Icon" : "eco",
+        "Mesh" : "money",
+        "Show" : true
+      },
+
+      {
+        "Text" : "Blue Eco",
+        "Icon" : "eco",
+        "Mesh" : "money",
+        "Show" : true
+      },
+
+      {
+        "Text" : "Red Eco",
+        "Icon" : "eco",
+        "Mesh" : "money",
+        "Show" : true
+      },
+
+      {
+        "Text" : "Yellow Eco",
+        "Icon" : "eco",
+        "Mesh" : "money",
+        "Show" : true
+      },
+
+      {
+        "Text" : "Health Dot",
+        "Icon" : "eco",
+        "Mesh" : "money",
+        "Show" : true
+      }
+    ],
+
+  "Crates" : 
+    [
+      {
+        "Icon" : "wooden-crate",
+        "Show" : true
+      },
+      
+      {
+        "Text" : "Wooden Crate",
+        "Icon" : "wooden-crate",
+        "Mesh" : "jump-pad",
+        "Show" : true
+      },
+      
+      {
+        "Text" : "Steel Crate",
+        "Icon" : "steel-crate",
+        "Mesh" : "jump-pad",
+        "Show" : true
+      },
+      
+      {
+        "Text" : "Scout Fly Crate",
+        "Icon" : "buzzer-crate",
+        "Mesh" : "jump-pad",
+        "Show" : true
+      },
+      
+      {
+        "Text" : "Bucket",
+        "Icon" : "open-goal",
+        "Mesh" : "jump-pad",
         "Show" : true
       }
     ],
@@ -29,8 +100,50 @@
       },
       
       {
+        "Text" : "Eco Vent",
+        "Icon" : "eco-vent",
+        "Mesh" : "jump-pad",
+        "Show" : true
+      },
+      
+      {
         "Text" : "Jump Pad",
         "Icon" : "jump-pad",
+        "Mesh" : "jump-pad",
+        "Show" : true
+      },
+      
+      {
+        "Text" : "Swing Pole",
+        "Icon" : "swing-pole",
+        "Mesh" : "jump-pad",
+        "Show" : true
+      },
+      
+      {
+        "Text" : "Floating Platform",
+        "Icon" : "floating-plat",
+        "Mesh" : "jump-pad",
+        "Show" : true
+      },
+      
+      {
+        "Text" : "Death Plane",
+        "Icon" : "death-plane",
+        "Mesh" : "jump-pad",
+        "Show" : true
+      },
+      
+      {
+        "Text" : "Continue",
+        "Icon" : "continue",
+        "Mesh" : "jump-pad",
+        "Show" : true
+      },
+      
+      {
+        "Text" : "Load Plane",
+        "Icon" : "load-plane",
         "Mesh" : "jump-pad",
         "Show" : true
       }
