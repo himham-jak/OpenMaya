@@ -42,3 +42,26 @@
     - Use composition
   - Dependency inversion
     - Classes should only depend on abstract classes
+
+## To Do:
+
+- Config Save
+  - Not having to reselect your Open Goal folder
+- Menu Items
+  - PropertyGroup
+- Live Input Validation
+  - using re
+- Actor Type Data Class
+  - Automate Actor Add Button Creation
+- Import World Reference
+- Export Functionality
+  - Data Structure
+  - Geometry Export
+- Error Messages
+  - popups
+- Actor Info
+  - Custom Properties
+- Actor Meshes
+  - Import?
+  - Creation
+- 
