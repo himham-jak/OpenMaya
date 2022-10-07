@@ -2,9 +2,9 @@
 
 ## Installation:
 
-- If you're using a release, just download the `.zip` file, don't extract it.
+- If you're using a release, just download the `.zip` file, don't extract it
 - To make your own release, put all of the contents of this repo into a folder, then put that folder in a `.zip`
-- There must be a subfolder in the `.zip` or it won't work.
+- There must be a subfolder in the `.zip` or it won't work
 - In Blender, choose `Edit > Preferences > Addons > Install` and select the `.zip`
 
 ## Tutorial:
@@ -28,12 +28,13 @@
 
 - Updating after modification
   - The best way to update the addon after an edit is to restart blender with the addon disabled and then enable it again afterwards.
-  - This obviously sucks, so 99% of the time, use the <a href="https://blender-addons.org/reboot-addon/">re:Boot</a> addon.
-    - I made an <a href="https://github.com/himham-jak/re-Boot-with-Keymap/releases">edit</a> to this that maps it to Ctrl+F8.
-  - The least effective update method is to use `F3 > Reload Scripts`, which kinda does nothing useful.
+  - This obviously sucks, so 99% of the time, use the <a href="https://blender-addons.org/reboot-addon/">re:Boot</a> addon
+    - I made an <a href="https://github.com/himham-jak/re-Boot-with-Keymap/releases">edit</a> to this that maps it to `Ctrl+F8`
+  - The least effective update method is to use `F3 > Reload Scripts`, which kinda does nothing useful
 
 - Naming Conventions
   - Variables/functions in snake_case
+  - Constants in UPPER_SNAKE
   - Classes inherited from Blender types should follow their naming conventions
   - Custom classes in PascalCase
   - Class methods use `cls` in place of `self`
@@ -49,7 +50,7 @@
   - Functions
   - Registration
   
-- Logic Principles
+- Logic Principles (these are mostly here for my benefit) 
   - Single-responsibility
     - Methods of a class should be alternatives to each other, not sequential steps
   - Open-closed
@@ -66,19 +67,19 @@
 
 - level_menu.py
   - Config Save
-    - Open Goal folder
+    - Working directory: custom_levels folder
   - Menu Items
     - PropertyGroup
   - Live Input Validation
-    - using re
+    - Using re
   - Error Messages
-    - popups
+    - Popups
 - actor_types.json
   - Actor Type Data Class
     - Automate Actor Add Button Creation
-      - use json module
+      - Use json module
 - map_reference.py
-  - one operator, called from level_menu: Import World Reference
+  - One operator, called from level_menu: Import World Reference
 - export.py
   - Export Functionality
     - Data Structure
@@ -87,6 +88,8 @@
     - .bak backups
 - actor_menu.py
   - Custom Properties
-- Actor Meshes
-  - try new model exporter
-  - Import from OG export folder
+  - Display in a PropertyGroup
+- mesh.glb
+  - Actor Meshes
+    - Try new model exporter
+    - Import from OG export out folder
