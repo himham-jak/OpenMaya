@@ -53,10 +53,12 @@
   - using re
 - Actor Type Data Class
   - Automate Actor Add Button Creation
+    - use json
 - Import World Reference
 - Export Functionality
   - Data Structure
   - Geometry Export
+  - f strings
 - Error Messages
   - popups
 - Actor Info
@@ -64,4 +66,3 @@
 - Actor Meshes
   - Import?
   - Creation
-- 
