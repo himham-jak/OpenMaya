@@ -10,14 +10,18 @@
         "Text" : "Power Cell",
         "Icon" : "fuel-cell",
         "Mesh" : "fuel-cell",
-        "Show" : true
+        "Show" : true,
+        "Actor Type": "fuel-cell",
+        "Game Task": 0
       },
 
       {
         "Text" : "Precursor Orb",
         "Icon" : "money",
         "Mesh" : "money",
-        "Show" : true
+        "Show" : true,
+        "Actor Type": "money",
+        "Game Task": 0
       },
 
       {

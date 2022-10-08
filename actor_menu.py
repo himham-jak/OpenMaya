@@ -23,120 +23,21 @@ class ActorProperties(bpy.types.PropertyGroup):
         maxlen=1024,
     )
 
-    actor_type: bpy.props.EnumProperty(
+    actor_type: bpy.props.StringProperty(
         name="Actor Type",
-        description="Apply Data to attribute.",
-        items=[
-            ("collectable", "", ""),
-            ("eco-collectable", "", ""),
-            ("eco", "", ""),
-            ("eco-yellow", "Yellow Eco", ""),
-            ("eco-red", "Red Eco", ""),
-            ("eco-blue", "Blue Eco", ""),
-            ("health", "Green Eco", ""),
-            ("eco-pill", "Green Eco Pill", ""),
-            ("money", "Precursor Orb", ""),
-            ("fuel-cell", "Power Cell", ""),
-            ("buzzer", "Scout Fly", ""),
-            ("ecovalve", "Eco Valve", ""),
-            ("vent", "", ""),
-            ("ventyellow", "Yellow Eco Vent", ""),
-            ("ventred", "Red Eco Vent", ""),
-            ("ventblue", "Blue Eco Vent", ""),
-            ("ecovent", "Eco Vent", ""),
-            ("vent-wait-for-touch", "", ""),
-            ("vent-pickup", "", ""),
-            ("vent-standard-event-handler", "", ""),
-            ("vent-blocked", "", ""),
-            ("ecovalve-init-by-other", "", ""),
-            ("*ecovalve-sg*", "", ""),
-            ("ecovalve-idle", "", ""),
-            ("*eco-pill-count*", "", ""),
-            ("birth-pickup-at-point", "", ""),
-            ("*buzzer-sg*", "", ""),
-            ("fuel-cell-pick-anim", "", ""),
-            ("fuel-cell-clone-anim", "", ""),
-            ("*fuel-cell-tune-pos*", "", ""),
-            ("*fuel-cell-sg*", "", ""),
-            ("othercam-init-by-other", "", ""),
-            ("fuel-cell-animate", "", ""),
-            ("*money-sg*", "", ""),
-            ("add-blue-motion", "", ""),
-            ("check-blue-suck", "", ""),
-            ("initialize-eco-by-other", "", ""),
-            ("add-blue-shake", "", ""),
-            ("money-init-by-other", "", ""),
-            ("money-init-by-other-no-bob", "", ""),
-            ("fuel-cell-init-by-other", "", ""),
-            ("fuel-cell-init-as-clone", "", ""),
-            ("buzzer-init-by-other", "", ""),
-            ("crate-post", "", ""),
-            ("*crate-iron-sg*", "", ""),
-            ("*crate-steel-sg*", "", ""),
-            ("*crate-darkeco-sg*", "", ""),
-            ("*crate-barrel-sg*", "", ""),
-            ("*crate-bucket-sg*", "", ""),
-            ("*crate-wood-sg*", "", ""),
-            ("*CRATE-bank*", "", ""),
-            ("crate-standard-event-handler", "", ""),
-            ("crate-init-by-other", "", ""),
-            ("crate-bank", "", ""),
-            (
-                "crate",
-                "",
-                "",
-            ),  # eco-info [item,quantity] item: 1=yellow 2=red 3=green 4=cell 5=orb 6=blue 7=pill 8=fly 9+=empty, enames=crate/iron,steel,bucket,barrel
-            ("barrel", "", ""),
-            ("bucket", "", ""),
-            ("crate-buzzer", "Scout Fly Box", ""),
-            ("pickup-spawner", "", ""),
-            ("double-lurker", "Double Lurker", ""),
-            ("evilbro", "Gol", ""),
-            ("evilsis", "Maya", ""),
-            ("explorer", "Explorer", ""),
-            ("farmer", "Farmer", ""),
-            ("balloon", "Balloon", ""),
-            ("spike", "Spike", ""),
-            ("crate-darkeco-cluster", "Cluster of Dark Eco Crates", ""),
-            ("flutflut", "Flut Flut", ""),
-            ("geologist", "Geologist", ""),
-            ("hopper", "Hopper", ""),
-            ("junglesnake", "Jungle Snake", ""),
-            ("kermit", "Kermit", ""),
-            ("lurkercrab", "Lurker Crab", ""),
-            ("lurkerpuppy", "Lurker Puppy", ""),
-            ("lurkerworm", "Lurker Worm", ""),
-            ("mother-spider", "Mother Spider", ""),
-            ("muse", "Muse", ""),
-            ("swamp-rat", "Swamp Rat", ""),
-            ("yeti", "Yeti", ""),
-            ("yakow", "Yakow", ""),
-            ("orbit-plat", "Orbiting Platform", ""),
-            ("steam-cap", "Steam Cap Platform", ""),
-            ("citb-plat", "Citadel B Platform", ""),
-            ("citb-button", "Citadel B Button", ""),
-            ("citb-drop-plat", "Citadel B Drop Platform", ""),
-            ("wall-plat", "Wall Platform", ""),
-            ("wedge-plat", "Wedge Platform", ""),
-            ("wedge-plat-outer", "Wedge Platform Outer", ""),
-            ("puffer", "Puffer", ""),
-            ("babak", "Gorilla", ""),
-            ("babak-with-cannon", "Gorilla with Cannon", ""),
-            ("seaweed", "Seaweed", ""),
-            ("ropebridge", "Rope Bridge", ""),
-        ],
+        description="The etype of the actor",
     )
 
-    actor_location: bpy.props.FloatVectorProperty(
-        name="Actor Location",
+    actor_translation: bpy.props.FloatVectorProperty(
+        name="Actor Translation",
         description="The location in 3d space to place your object (actor).\nDefault: -21.6238,20.0496,17.1191",
         default=(-21.6238, 20.0496, 17.1191),
         min=0.0,
         max=25.0,
     )
 
-    actor_rotation: bpy.props.FloatVectorProperty(
-        name="Actor Rotation",
+    actor_quaternion: bpy.props.FloatVectorProperty(
+        name="Actor Quaternion",
         description="The quaternion rotation in 3d space to place your object (actor.\nDefault: 0,0,0,1",
         default=(0.0, 0.0, 0.0),  # Blender doesn't want me to make a 4d vector
         min=0.0,
@@ -164,16 +65,40 @@ class OBJECT_PT_ActorInfoMenu(bpy.types.Panel):
         actor_properties = scene.actor_properties
 
         layout.prop(context.active_object, "name", text="Actor Name")
-        layout.prop(actor_properties, "actor_type")  # dummy
-        layout.prop(context.active_object, "type")
 
-        # these properties auto populate
-        layout.prop(context.active_object, "location", text="Actor Location")
+        # These properties auto populate
+
+        etype = layout.row()
+        etype.enabled = False
+
+        def custom_prop(name, parent=layout):
+
+            if bpy.data.objects[bpy.context.object.data.name].get(name) is not None:
+                parent.prop(
+                    bpy.data.objects[bpy.context.object.data.name], f'["{name}"]'
+                )
+
+        custom_prop("Actor Type", etype)
+
+        layout.prop(context.active_object, "location", text="Actor Translation")
+
+        # This won't display properly unless the object is in quaternion mode, so I force all actors into quat mode when added
         layout.prop(
-            context.active_object, "rotation_quaternion", text="Actor Rotation"
-        )  # this won't display properly unless the object is in quaternion mode, so I force all actors into quat mode when added
+            context.active_object, "rotation_quaternion", text="Actor Quaternion"
+        )
 
-        layout.label(text="Select an actor to see its properties.", icon="ERROR")
+        layout.separator()
+
+        layout.label(text="Custom Properties")
+
+        custom_prop("Game Task")
+
+        custom_prop("Crate Type")
+
+        # Todo: Not 100% sure how to do this one actually, might split up
+        custom_prop("Eco Info")
+
+        # layout.label(text="Select an actor to see its properties.", icon="ERROR")
 
         layout.separator()
 

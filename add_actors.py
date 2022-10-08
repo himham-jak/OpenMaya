@@ -47,11 +47,18 @@ class ActorSpawnButton(bpy.types.Operator):
         mesh = os.path.join(os.path.dirname(__file__), f"{cls.mesh_name}.glb")
         bpy.ops.import_scene.gltf(filepath=mesh)
 
+        # Set its rotation to quaternions
+        bpy.context.object.rotation_mode = "QUATERNION"
+
         # Create the actor collection if needed
         create_actor_collection()
 
         # Add to the collection
         bpy.ops.object.collection_link(collection="Actor Collection")
+
+        # Assign custom properties as needed
+        bpy.data.objects[bpy.context.object.data.name]["Actor Type"] = "money"
+        bpy.data.objects[bpy.context.object.data.name]["Game Task"] = 0
 
         return {"FINISHED"}  # Let Blender know the operator finished successfully
 
@@ -105,7 +112,7 @@ def draw_actor_menu(self, context):
 
 
 def draw_buttons(self, context):
-    """Draws the buttons within the "add actors" menu"""  # Eventually this will be automated when a new actor instance is created
+    """Draws the buttons within the "add actors" menu"""
 
     def label(txt, icn, visible=True):
         if visible:
@@ -134,6 +141,7 @@ def draw_buttons(self, context):
         label(category, json_data[category][0]["Icon"], json_data[category][0]["Show"])
 
         for i in range(len(json_data[category]) - 1):
+
             button(
                 json_data[category][i + 1]["Text"],
                 json_data[category][i + 1]["Icon"],
