@@ -79,8 +79,8 @@
     - f strings
     - .bak backups
 - actor_menu.py
-  - Custom Properties
+  - Add more custom properties
 - add_actors.py
-  - Import from OG export out folder
-  - Add custom properties
+  - Import from OG export out folder (might require rewriting extractor)
+  - Add custom properties from json
   - Remove from Scene Collection
