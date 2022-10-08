@@ -24,8 +24,8 @@ modules = ["level_menu", "actor_menu", "add_actors", "export"]  # <module_name>.
 for module in modules:  # Import all modules listed in the modules array
     try:
         exec(f"from . import {module}")
-        print(f"Importing {module}.py")
     except Exception as e:
+        print(f"Error importing {module}.py")
         print(e)
 
 
@@ -39,8 +39,8 @@ def register():
     for module in modules:  # Register all the modules
         try:
             exec(f"{module}.register()")
-            print(f"Registering {module}.py")
         except Exception as e:
+            print(f"Error registering {module}.py")
             print(e)
 
 
@@ -49,8 +49,8 @@ def unregister():
     for module in reversed(modules):  # Unregister all the modules
         try:
             exec(f"{module}.unregister()")
-            print(f"Unregistering {module}.py")
         except Exception as e:
+            print(f"Error unregistering {module}.py")
             print(e)
 
 

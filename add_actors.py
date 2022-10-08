@@ -133,7 +133,8 @@ def draw_buttons(self, context):
             button.mesh_name = mesh
 
     # Create the path to the json file with the actors in it
-    json_path = os.path.join(os.path.dirname(__file__), "actor_types.json")
+    filename = "actor_types.json"
+    json_path = os.path.join(os.path.dirname(__file__), filename)
 
     # Try to open the json file and create all the necessary labels and buttons
     try:
@@ -160,7 +161,7 @@ def draw_buttons(self, context):
                     ],  # Show the button if the button and category are visible
                 )
     except Exception as e:
-        print("actor_types.json not found")
+        print(f"File not found: {filename}")
         print(e)
 
 
@@ -188,9 +189,6 @@ def unregister():
 
     for cls in reversed(classes):  # Unregister all the classes
         bpy.utils.unregister_class(cls)
-
-    # Remove buttons from the "add actor" menu
-    bpy.types.VIEW3D_MT_actor_add.remove(draw_buttons)
 
     # Remove the "add actor" menu
     bpy.types.VIEW3D_MT_add.remove(draw_actor_menu)
