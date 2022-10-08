@@ -80,11 +80,11 @@ custom_icons = bpy.utils.previews.new()
 def add_custom_icons():
     """Add the necessary custom icons"""
 
-    # path to the folder where the icon is
-    # the path is calculated relative to this py file inside the addon folder
+    # Path to the folder where the icon is
+    # The path is calculated relative to this py file inside the addon folder
     my_icons_dir = os.path.join(os.path.dirname(__file__), "icons")
 
-    # load a preview thumbnail of a file and store in the previews collection
+    # Load a preview thumbnail of a file and store in the previews collection
     for filename in os.listdir(my_icons_dir):
         custom_icons.load(
             filename.split(".")[0], os.path.join(my_icons_dir, filename), "IMAGE"
@@ -94,11 +94,11 @@ def add_custom_icons():
 def create_actor_collection():
     """Creates actor_collection"""
 
-    # check if there is already a collection of actors
+    # Check if there is already a collection of actors
     if "Actor Collection" in bpy.data.collections:
         return 0
 
-    # create a collection to house the actors
+    # Create a collection to house the actors
     actor_collection = bpy.data.collections.new("Actor Collection")
 
     #  Add it as a child of the scene collection
@@ -106,7 +106,7 @@ def create_actor_collection():
 
 
 def draw_actor_menu(self, context):
-    """Draws the "add actors" menu"""
+    """Draws the "add actor" menu"""
 
     self.layout.menu(
         VIEW3D_MT_actor_add.bl_idname,
@@ -115,12 +115,14 @@ def draw_actor_menu(self, context):
 
 
 def draw_buttons(self, context):
-    """Draws the buttons within the "add actors" menu"""
+    """Draws the buttons within the "add actor" menu"""
 
+    # Create a label in the "add actor" menu
     def label(txt, icn, visible=True):
         if visible:
             self.layout.label(text=txt, icon_value=custom_icons[icn].icon_id)
 
+    # Create a button in the "add actor" menu
     def button(txt, icn="open-goal", mesh="default", visible=True):
         if visible:
             button = self.layout.operator(
@@ -130,27 +132,36 @@ def draw_buttons(self, context):
             )
             button.mesh_name = mesh
 
+    # Create the path to the json file with the actors in it
     json_path = os.path.join(os.path.dirname(__file__), "actor_types.json")
 
-    # Guard clause throwing an error if json file doesn't exist, replace with try, except eventually
-    if not os.path.exists(json_path):
-        print("actor_types.json not found")
-        return 0
+    # Try to open the json file and create all the necessary labels and buttons
+    try:
+        with open(json_path, "r") as f:
+            json_data = json.loads(f.read())
 
-    with open(json_path, "r") as f:
-        json_data = json.loads(f.read())
+        for category in json_data:
 
-    for category in json_data:
-        label(category, json_data[category][0]["Icon"], json_data[category][0]["Show"])
-
-        for i in range(len(json_data[category]) - 1):
-
-            button(
-                json_data[category][i + 1]["Text"],
-                json_data[category][i + 1]["Icon"],
-                json_data[category][i + 1]["Mesh"],
-                json_data[category][i + 1]["Show"] and json_data[category][0]["Show"],
+            # Create a label from the first entry in the category
+            label(
+                category, json_data[category][0]["Icon"], json_data[category][0]["Show"]
             )
+
+            # For all other entries, create a button
+            for i in range(len(json_data[category]) - 1):
+
+                button(
+                    json_data[category][i + 1]["Text"],
+                    json_data[category][i + 1]["Icon"],
+                    json_data[category][i + 1]["Mesh"],
+                    json_data[category][i + 1]["Show"]
+                    and json_data[category][0][
+                        "Show"
+                    ],  # Show the button if the button and category are visible
+                )
+    except Exception as e:
+        print("actor_types.json not found")
+        print(e)
 
 
 ##############################################################################
