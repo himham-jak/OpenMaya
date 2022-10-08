@@ -6,6 +6,8 @@
 import bpy
 import re
 
+import export
+
 
 ##############################################################################
 # Classes
@@ -138,7 +140,7 @@ class OBJECT_PT_LevelInfoMenu(bpy.types.Panel):
 
         layout.prop(level_properties, "should_playtest_level")
 
-        # layout.operator("wm.export")
+        layout.operator("wm.export")
 
         layout.label(
             text="Options with * do not currently export/function.", icon="ERROR"

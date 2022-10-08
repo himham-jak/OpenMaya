@@ -14,11 +14,11 @@ import bpy
 classes = []  # Initialize the class array to be registered
 
 
-class ObjectMoveX(bpy.types.Operator):
+class ExportOperator(bpy.types.Operator):
     """Move all objects in the scene by one unit in the x direction."""
 
-    bl_idname = "object.move_x"  # Unique operator reference name
-    bl_label = "Move X by One"  # String for the UI
+    bl_idname = "wm.export"  # Unique operator reference name
+    bl_label = "Export"  # String for the UI
     bl_options = {"REGISTER", "UNDO"}  # Enable undo for the operator
 
     def execute(self, context):  # execute() is called when running the operator
@@ -29,7 +29,7 @@ class ObjectMoveX(bpy.types.Operator):
         return {"FINISHED"}  # Let Blender know the operator finished successfully
 
 
-classes.append(ObjectMoveX)  # Add the class to the array
+classes.append(ExportOperator)  # Add the class to the array
 
 
 ##############################################################################
@@ -38,7 +38,7 @@ classes.append(ObjectMoveX)  # Add the class to the array
 
 
 def menu_func(self, context):
-    self.layout.operator(ObjectMoveX.bl_idname)
+    self.layout.operator(ExportOperator.bl_idname)
 
 
 ##############################################################################

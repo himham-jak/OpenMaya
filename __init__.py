@@ -13,7 +13,7 @@ bl_info = {
 }
 
 
-modules = ["level_menu", "actor_menu", "add_actors"]  # <module_name>.py
+modules = ["level_menu", "actor_menu", "add_actors", "export"]  # <module_name>.py
 
 
 ##############################################################################
