@@ -64,13 +64,6 @@ class OBJECT_PT_ActorInfoMenu(bpy.types.Panel):
         scene = context.scene
         actor_properties = scene.actor_properties
 
-        layout.prop(context.active_object, "name", text="Actor Name")
-
-        # These properties auto populate
-
-        etype = layout.row()
-        etype.enabled = False
-
         def custom_prop(name, parent=layout):
 
             if bpy.data.objects[bpy.context.object.data.name].get(name) is not None:
@@ -78,27 +71,37 @@ class OBJECT_PT_ActorInfoMenu(bpy.types.Panel):
                     bpy.data.objects[bpy.context.object.data.name], f'["{name}"]'
                 )
 
-        custom_prop("Actor Type", etype)
+        # Only populate the actor info if an actor is selected
+        if "Actor Type" in context.active_object.keys():
 
-        layout.prop(context.active_object, "location", text="Actor Translation")
+            layout.prop(context.active_object, "name", text="Actor Name")
 
-        # This won't display properly unless the object is in quaternion mode, so I force all actors into quat mode when added
-        layout.prop(
-            context.active_object, "rotation_quaternion", text="Actor Quaternion"
-        )
+            etype = layout.row()
+            etype.enabled = False
 
-        layout.separator()
+            custom_prop("Actor Type", etype)
 
-        layout.label(text="Custom Properties")
+            layout.prop(context.active_object, "location", text="Actor Translation")
 
-        custom_prop("Game Task")
+            # This won't display properly unless the object is in quaternion mode, so I force all actors into quat mode when added
+            layout.prop(
+                context.active_object, "rotation_quaternion", text="Actor Quaternion"
+            )
 
-        custom_prop("Crate Type")
+            layout.separator()
 
-        # Todo: Not 100% sure how to do this one actually, might split up
-        custom_prop("Eco Info")
+            layout.label(text="Custom Properties")
 
-        # layout.label(text="Select an actor to see its properties.", icon="ERROR")
+            custom_prop("Game Task")
+
+            custom_prop("Crate Type")
+
+            # Todo: Not 100% sure how to do this one actually, might split up
+            custom_prop("Eco Info")
+
+        # Display if something other than an actor is selected
+        else:
+            layout.label(text="Select an actor to see its properties.", icon="ERROR")
 
         layout.separator()
 

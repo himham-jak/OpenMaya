@@ -50,6 +50,9 @@ class ActorSpawnButton(bpy.types.Operator):
         # Set its rotation to quaternions
         bpy.context.object.rotation_mode = "QUATERNION"
 
+        # Translate it to the cursor position
+        bpy.context.object.location = bpy.data.scenes["Scene"].cursor.location
+
         # Create the actor collection if needed
         create_actor_collection()
 
@@ -92,7 +95,7 @@ def create_actor_collection():
     """Creates actor_collection"""
 
     # check if there is already a collection of actors
-    if "actor_collection" in bpy.data.collections:
+    if "Actor Collection" in bpy.data.collections:
         return 0
 
     # create a collection to house the actors

@@ -11,6 +11,7 @@
         "Icon" : "fuel-cell",
         "Mesh" : "fuel-cell",
         "Show" : true,
+
         "Actor Type": "fuel-cell",
         "Game Task": 0
       },
@@ -20,6 +21,7 @@
         "Icon" : "money",
         "Mesh" : "money",
         "Show" : true,
+
         "Actor Type": "money",
         "Game Task": 0
       },
@@ -27,35 +29,41 @@
       {
         "Text" : "Green Eco",
         "Icon" : "eco",
-        "Mesh" : "money",
+        "Mesh" : "",
         "Show" : true
       },
 
       {
         "Text" : "Blue Eco",
         "Icon" : "eco",
-        "Mesh" : "money",
-        "Show" : true
+        "Mesh" : "",
+        "Show" : true,
+
+        "Actor Type" : "eco-blue"
       },
 
       {
         "Text" : "Red Eco",
         "Icon" : "eco",
-        "Mesh" : "money",
-        "Show" : true
+        "Mesh" : "",
+        "Show" : true,
+
+        "Actor Type" : "eco-red"
       },
 
       {
         "Text" : "Yellow Eco",
         "Icon" : "eco",
-        "Mesh" : "money",
-        "Show" : true
+        "Mesh" : "",
+        "Show" : true,
+
+        "Actor Type" : "eco-yellow"
       },
 
       {
         "Text" : "Health Dot",
         "Icon" : "eco",
-        "Mesh" : "money",
+        "Mesh" : "",
         "Show" : true
       }
     ],
@@ -70,29 +78,41 @@
       {
         "Text" : "Wooden Crate",
         "Icon" : "wooden-crate",
-        "Mesh" : "jump-pad",
-        "Show" : true
+        "Mesh" : "",
+        "Show" : true,
+
+        "Actor Type" : "crate",
+        "crate-type" : ""
       },
       
       {
         "Text" : "Steel Crate",
         "Icon" : "steel-crate",
-        "Mesh" : "jump-pad",
-        "Show" : true
+        "Mesh" : "",
+        "Show" : true,
+
+        "Actor Type" : "crate",
+        "crate-type" : "'steel"
       },
       
       {
         "Text" : "Scout Fly Crate",
         "Icon" : "buzzer-crate",
-        "Mesh" : "jump-pad",
-        "Show" : true
+        "Mesh" : "",
+        "Show" : true,
+
+        "Actor Type" : "crate",
+        "crate-type" : ""
       },
       
       {
         "Text" : "Bucket",
         "Icon" : "open-goal",
         "Mesh" : "jump-pad",
-        "Show" : true
+        "Show" : true,
+
+        "Actor Type" : "crate",
+        "crate-type" : ""
       }
     ],
 
@@ -106,49 +126,49 @@
       {
         "Text" : "Eco Vent",
         "Icon" : "eco-vent",
-        "Mesh" : "jump-pad",
+        "Mesh" : "",
         "Show" : true
       },
       
       {
         "Text" : "Jump Pad",
         "Icon" : "jump-pad",
-        "Mesh" : "jump-pad",
+        "Mesh" : "",
         "Show" : true
       },
       
       {
         "Text" : "Swing Pole",
         "Icon" : "swing-pole",
-        "Mesh" : "jump-pad",
+        "Mesh" : "",
         "Show" : true
       },
       
       {
         "Text" : "Floating Platform",
         "Icon" : "floating-plat",
-        "Mesh" : "jump-pad",
+        "Mesh" : "",
         "Show" : true
       },
       
       {
         "Text" : "Death Plane",
         "Icon" : "death-plane",
-        "Mesh" : "jump-pad",
+        "Mesh" : "",
         "Show" : true
       },
       
       {
         "Text" : "Continue",
         "Icon" : "continue",
-        "Mesh" : "jump-pad",
+        "Mesh" : "",
         "Show" : true
       },
       
       {
         "Text" : "Load Plane",
         "Icon" : "load-plane",
-        "Mesh" : "jump-pad",
+        "Mesh" : "",
         "Show" : true
       }
     ]
