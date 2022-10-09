@@ -1,0 +1,4 @@
+("${level_NICKNAME}.DGO"
+  ("static-screen.o" "static-screen")
+  ("${level_title}.go" "${level_title}")
+  )

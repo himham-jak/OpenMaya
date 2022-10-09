@@ -4,7 +4,10 @@
 
 
 import bpy
+import typing
 import re
+import os
+import json
 
 from . import export
 
@@ -45,6 +48,7 @@ class LevelProperties(bpy.types.PropertyGroup):
         default=(0.0, 0.0, 0.0),
     )
 
+    # Need to find a way to make this a quaternion
     level_rotation: bpy.props.FloatVectorProperty(
         name="Level Rotation",
         description="The quaternion rotation in 3d space to place your custom level.\nDefault: 0,0,0,1",
@@ -56,7 +60,7 @@ class LevelProperties(bpy.types.PropertyGroup):
     custom_levels_path: bpy.props.StringProperty(
         name="Working Directory",
         description="The path to /custom_levels/ in the OpenGOAL distribution",
-        # default=json_data["Custom Levels Path"],
+        default="",
         maxlen=1024,
         subtype="DIR_PATH",
     )
@@ -122,11 +126,11 @@ class OBJECT_PT_LevelInfoMenu(bpy.types.Panel):
             level_properties, "anchor", scene, "objects", icon="EMPTY_AXIS"
         )
 
-        layout.prop(level_properties, "spawn_location", text="Spawn Location*")
+        layout.prop(level_properties, "spawn_location")
 
         # layout.prop(bpy.context.scene.objects[level_properties.anchor], "location", text="Anchor Location*")
 
-        layout.prop(level_properties, "level_rotation", text="Level Rotation*")
+        layout.prop(level_properties, "level_rotation")
 
         # layout.operator("wm.create_world_reference")
 
@@ -134,17 +138,13 @@ class OBJECT_PT_LevelInfoMenu(bpy.types.Panel):
 
         layout.prop(level_properties, "should_export_level_info")
 
-        layout.prop(level_properties, "should_export_actor_info", text="Actor Info*")
+        layout.prop(level_properties, "should_export_actor_info")
 
         layout.prop(level_properties, "should_export_geometry")
 
         layout.prop(level_properties, "should_playtest_level")
 
         layout.operator("wm.export")
-
-        layout.label(
-            text="Options with * do not currently export/function.", icon="ERROR"
-        )
 
         layout.separator()
 

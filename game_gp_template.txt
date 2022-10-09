@@ -1,0 +1,4 @@
+
+
+(build-custom-level "${level_title}")
+(custom-level-cgo "${level_NICKNAME}.DGO" "${level_title}/${leveltitle}.gd")

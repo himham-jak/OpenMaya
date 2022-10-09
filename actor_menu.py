@@ -14,40 +14,6 @@ import bpy
 classes = []  # Initialize the class array to be registered
 
 
-class ActorProperties(bpy.types.PropertyGroup):
-
-    actor_name: bpy.props.StringProperty(
-        name="Actor Name",
-        description="The name of your object (actor).\nOnly lowercase letters and dashes are allowed.\nDefault: my-level",
-        default="my-actor",
-        maxlen=1024,
-    )
-
-    actor_type: bpy.props.StringProperty(
-        name="Actor Type",
-        description="The etype of the actor",
-    )
-
-    actor_translation: bpy.props.FloatVectorProperty(
-        name="Actor Translation",
-        description="The location in 3d space to place your object (actor).\nDefault: -21.6238,20.0496,17.1191",
-        default=(-21.6238, 20.0496, 17.1191),
-        min=0.0,
-        max=25.0,
-    )
-
-    actor_quaternion: bpy.props.FloatVectorProperty(
-        name="Actor Quaternion",
-        description="The quaternion rotation in 3d space to place your object (actor.\nDefault: 0,0,0,1",
-        default=(0.0, 0.0, 0.0),  # Blender doesn't want me to make a 4d vector
-        min=0.0,
-        max=1.0,
-    )
-
-
-classes.append(ActorProperties)  # Add the class to the array
-
-
 class OBJECT_PT_ActorInfoMenu(bpy.types.Panel):
     """"""
 
@@ -62,7 +28,6 @@ class OBJECT_PT_ActorInfoMenu(bpy.types.Panel):
 
         layout = self.layout
         scene = context.scene
-        actor_properties = scene.actor_properties
 
         def custom_prop(name, parent=layout):
 
@@ -71,8 +36,8 @@ class OBJECT_PT_ActorInfoMenu(bpy.types.Panel):
                     bpy.data.objects[bpy.context.object.data.name], f'["{name}"]'
                 )
 
-        # Only populate the actor info if an actor is selected
-        if "Actor Type" in context.active_object.keys():
+        # Only populate the actor info if something is selected and it's an actor
+        if context.active_object and ("Actor Type" in context.active_object.keys()):
 
             layout.prop(context.active_object, "name", text="Actor Name")
 
@@ -92,12 +57,10 @@ class OBJECT_PT_ActorInfoMenu(bpy.types.Panel):
 
             layout.label(text="Custom Properties")
 
-            custom_prop("Game Task")
-
-            custom_prop("Crate Type")
-
-            # Todo: Not 100% sure how to do this one actually, might split up
-            custom_prop("Eco Info")
+            # Show all of the custom properties
+            for key, value in context.active_object.items():
+                if not key == "Actor Type":
+                    custom_prop(key)
 
         # Display if something other than an actor is selected
         else:
@@ -123,8 +86,6 @@ def register():
 
     for cls in classes:  # Register all the classes
         bpy.utils.register_class(cls)
-
-    bpy.types.Scene.actor_properties = bpy.props.PointerProperty(type=ActorProperties)
 
 
 def unregister():
