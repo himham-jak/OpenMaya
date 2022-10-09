@@ -57,9 +57,10 @@ class ExportOperator(bpy.types.Operator):
         leveltitle = props.level_title.replace("-", "")
 
         # Fields to fill in the template files
-        fields = {
+        level_fields = {
             "level_title": props.level_title,
             "leveltitle": leveltitle,
+            "LEVELTITLE": leveltitle.upper(),
             "level_nickname": props.level_nickname.lower(),
             "level_NICKNAME": props.level_nickname.upper(),
         }
@@ -73,6 +74,21 @@ class ExportOperator(bpy.types.Operator):
             with open(file, "w") as f:
                 f.write(text)
 
+        def insert_file(file, text, divider):
+            with open(file, "r") as f:
+                contents = f.readlines()
+
+            with open(file, "w") as f:
+                for line in contents:
+                    f.write(line)
+                    # This is a shitty implementation
+                    if (
+                        line
+                        == ";; it should point to the .jsonc file that specifies the level.\n"
+                    ):
+                        print(line)
+                        f.write(text)
+
         def append_file(file, text):
             with open(file, "a") as f:
                 f.write(text)
@@ -82,25 +98,21 @@ class ExportOperator(bpy.types.Operator):
 
             # leveltitle.gd
             content = fill_template(
-                os.path.join(script_path, "leveltitle_gd_template.txt"), fields
+                os.path.join(script_path, "leveltitle_gd_template.txt"), level_fields
             )
             write_file(os.path.join(level_path, f"{leveltitle}.gd"), content)
 
             # ../goal_src/jak1/game.gp
             content = fill_template(
-                os.path.join(script_path, "game_gp_template.txt"), fields
+                os.path.join(script_path, "game_gp_template.txt"), level_fields
             )
-            append_file(os.path.join(game_path, "game.gp"), content)
+            insert_file(os.path.join(game_path, "game.gp"), content, "")
 
             # ../goal_src/jak1/engine/level/level-info.gc
             content = fill_template(
-                os.path.join(script_path, "level-info_gc_template.txt"), fields
+                os.path.join(script_path, "level-info_gc_template.txt"), level_fields
             )
             append_file(os.path.join(level_info_path, "level-info.gc"), content)
-
-            print(props.anchor)
-            print(props.spawn_location[0])
-            print(props.level_rotation)
 
         # Check if there is a collection of actors and if the user wants to export them
         if (
@@ -108,8 +120,27 @@ class ExportOperator(bpy.types.Operator):
         ) and props.should_export_actor_info:
             actors = bpy.data.collections["Actor Collection"].objects
 
+            # leveltitle.gd
+            content = fill_template(
+                os.path.join(script_path, "level-title_jsonc_template.txt"),
+                level_fields,
+            )
+            write_file(os.path.join(level_path, f"{level_title}.jsonc"), content)
+
             # Iterate through the actors and export the actor info
             for actor in actors:
+
+                # Fields to fill in the template file
+                actor_fields = {
+                    "actor_name": actor.name,
+                    "actor_translation_x": actor.location[0],
+                    "actor_translation_y": actor.location[1],
+                    "actor_translation_z": actor.location[2],
+                    "actor_quaternion_w": actor.rotation_quaternion[0],
+                    "actor_quaternion_x": actor.rotation_quaternion[1],
+                    "actor_quaternion_y": actor.rotation_quaternion[2],
+                    "actor_quaternion_z": actor.rotation_quaternion[3],
+                }
 
                 # Export the normal properties
                 print(actor.name)

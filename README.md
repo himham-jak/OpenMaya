@@ -74,9 +74,8 @@
   - One operator, called from level_menu: Import World Reference
 - export.py
   - Export Functionality
-    - Data Structure
-    - Geometry Export
-    - f strings
+    - Fix insert_file() to not be poorly implemented
+    - Actor exports
     - .bak backups
     - Save .blend file
 - actor_menu.py
@@ -84,4 +83,4 @@
 - add_actors.py
   - Import from OG export out folder (might require rewriting extractor)
   - Add custom properties from json
-  - Remove from Scene Collection
+  - Remove from Scene Collection after creation
