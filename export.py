@@ -98,19 +98,22 @@ class ExportOperator(bpy.types.Operator):
 
             # leveltitle.gd
             content = fill_template(
-                os.path.join(script_path, "leveltitle_gd_template.txt"), level_fields
+                os.path.join(script_path, "templates\\leveltitle_gd_template.txt"),
+                level_fields,
             )
             write_file(os.path.join(level_path, f"{leveltitle}.gd"), content)
 
             # ../goal_src/jak1/game.gp
             content = fill_template(
-                os.path.join(script_path, "game_gp_template.txt"), level_fields
+                os.path.join(script_path, "templates\\game_gp_template.txt"),
+                level_fields,
             )
             insert_file(os.path.join(game_path, "game.gp"), content, "")
 
             # ../goal_src/jak1/engine/level/level-info.gc
             content = fill_template(
-                os.path.join(script_path, "level-info_gc_template.txt"), level_fields
+                os.path.join(script_path, "templates\\level-info_gc_template.txt"),
+                level_fields,
             )
             append_file(os.path.join(level_info_path, "level-info.gc"), content)
 
@@ -122,7 +125,7 @@ class ExportOperator(bpy.types.Operator):
 
             # leveltitle.gd
             content = fill_template(
-                os.path.join(script_path, "level-title_jsonc_template.txt"),
+                os.path.join(script_path, "templates\\level-title_jsonc_template.txt"),
                 level_fields,
             )
             write_file(os.path.join(level_path, f"{level_title}.jsonc"), content)
