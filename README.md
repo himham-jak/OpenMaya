@@ -81,6 +81,11 @@
 - actor_menu.py
   - Add more custom properties
 - add_actors.py
-  - Import from OG export out folder (might require rewriting extractor)
+  - Import meshes from OG export out folder (might require rewriting extractor)
   - Add custom properties from json
   - Remove from Scene Collection after creation
+- Dev options
+  - Create json structure from actor
+    - Can just add new custom properties to a new actor, export that, then add to actor_types.json
+  - Playtest
+    - Use the pre-made bash scripts
