@@ -40,6 +40,8 @@ class ActorSpawnButton(bpy.types.Operator):
     bl_options = {"REGISTER", "UNDO"}  # Enable undo for the operator
 
     mesh_name: bpy.props.StringProperty()  # The name of the mesh that needs to be spawned
+    json_cat: bpy.props.StringProperty()  # The category in which to find all the actor data in the json file
+    json_idx: bpy.props.IntProperty()  # The index in that category to find all the actor data in the json file
 
     def execute(cls, context):  # execute() is called when running the operator
 
@@ -59,9 +61,27 @@ class ActorSpawnButton(bpy.types.Operator):
         # Add to the collection
         bpy.ops.object.collection_link(collection="Actor Collection")
 
-        # Assign custom properties as needed
-        bpy.data.objects[bpy.context.object.data.name]["Actor Type"] = "money"
-        bpy.data.objects[bpy.context.object.data.name]["Game Task"] = 0
+        # Create the path to the json file with the actors in it
+        filename = "actor_types.json"
+        json_path = os.path.join(os.path.dirname(__file__), filename)
+
+        # I hate that the json has to open twice, but I couldn't find a more elegant solution
+        # Try to open the json file and create all the necessary custom properties
+        try:
+            with open(json_path, "r") as f:
+                json_data = json.loads(f.read())
+
+                for prop in json_data[cls.json_cat][cls.json_idx]:
+                    if prop in ["Text", "Icon", "Mesh", "Show"]:
+                        continue
+                    print(f"{prop} : {json_data[cls.json_cat][cls.json_idx][prop]}")
+                    bpy.data.objects[bpy.context.object.data.name][prop] = json_data[
+                        cls.json_cat
+                    ][cls.json_idx][prop]
+
+        except Exception as e:
+            print(f"File not found: {filename}")
+            print(e)
 
         return {"FINISHED"}  # Let Blender know the operator finished successfully
 
@@ -123,7 +143,7 @@ def draw_buttons(self, context):
             self.layout.label(text=txt, icon_value=custom_icons[icn].icon_id)
 
     # Create a button in the "add actor" menu
-    def button(txt, icn="open-goal", mesh="default", visible=True):
+    def button(txt, icn, mesh, visible, json_cat, json_idx):
         if visible:
             button = self.layout.operator(
                 ActorSpawnButton.bl_idname,
@@ -131,6 +151,8 @@ def draw_buttons(self, context):
                 icon_value=custom_icons[icn].icon_id,
             )
             button.mesh_name = mesh
+            button.json_cat = json_cat
+            button.json_idx = json_idx
 
     # Create the path to the json file with the actors in it
     filename = "actor_types.json"
@@ -159,7 +181,10 @@ def draw_buttons(self, context):
                     and json_data[category][0][
                         "Show"
                     ],  # Show the button if the button and category are visible
+                    category,
+                    i + 1,
                 )
+
     except Exception as e:
         print(f"File not found: {filename}")
         print(e)

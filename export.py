@@ -82,11 +82,7 @@ class ExportOperator(bpy.types.Operator):
                 for line in contents:
                     f.write(line)
                     # This is a shitty implementation
-                    if (
-                        line
-                        == ";; it should point to the .jsonc file that specifies the level.\n"
-                    ):
-                        print(line)
+                    if divider in line:
                         f.write(text)
 
         def append_file(file, text):
@@ -96,7 +92,7 @@ class ExportOperator(bpy.types.Operator):
         # Check if the user wants to export level info
         if props.should_export_level_info:
 
-            # leveltitle.gd
+            # ./leveltitle.gd
             content = fill_template(
                 os.path.join(script_path, "templates\\leveltitle_gd_template.txt"),
                 level_fields,
@@ -108,7 +104,11 @@ class ExportOperator(bpy.types.Operator):
                 os.path.join(script_path, "templates\\game_gp_template.txt"),
                 level_fields,
             )
-            insert_file(os.path.join(game_path, "game.gp"), content, "")
+            insert_file(
+                os.path.join(game_path, "game.gp"),
+                content,
+                ";; it should point to the .jsonc file that specifies the level.\n",
+            )
 
             # ../goal_src/jak1/engine/level/level-info.gc
             content = fill_template(
@@ -117,18 +117,20 @@ class ExportOperator(bpy.types.Operator):
             )
             append_file(os.path.join(level_info_path, "level-info.gc"), content)
 
+            # ./level-title.jsonc
+            content = fill_template(
+                os.path.join(script_path, "templates\\level-title_jsonc_template.txt"),
+                level_fields,
+            )
+            write_file(os.path.join(level_path, f"{props.level_title}.jsonc"), content)
+
         # Check if there is a collection of actors and if the user wants to export them
         if (
             "Actor Collection" in bpy.data.collections
         ) and props.should_export_actor_info:
             actors = bpy.data.collections["Actor Collection"].objects
 
-            # leveltitle.gd
-            content = fill_template(
-                os.path.join(script_path, "templates\\level-title_jsonc_template.txt"),
-                level_fields,
-            )
-            write_file(os.path.join(level_path, f"{level_title}.jsonc"), content)
+            add_comma = False
 
             # Iterate through the actors and export the actor info
             for actor in actors:
@@ -143,16 +145,61 @@ class ExportOperator(bpy.types.Operator):
                     "actor_quaternion_x": actor.rotation_quaternion[1],
                     "actor_quaternion_y": actor.rotation_quaternion[2],
                     "actor_quaternion_z": actor.rotation_quaternion[3],
+                    "actor_etype": actor["Actor Type"],
+                    "actor_game_task": actor["Game Task"],
                 }
 
                 # Export the normal properties
-                print(actor.name)
-                print(actor.location)
-                print(actor.rotation_quaternion)
+                content = fill_template(
+                    os.path.join(script_path, "templates\\jsonc_actor_template.txt"),
+                    actor_fields,
+                )
+
+                if add_comma:
+                    content += ",\n"
+                else:
+                    content += "\n"
+
+                add_comma = True
+
+                print(content)
+                insert_file(
+                    os.path.join(level_path, f"{props.level_title}.jsonc"),
+                    content,
+                    '"actors"',
+                )
+
+                add_comma = False
 
                 # Export the custom properties
                 for key, value in actor.items():
-                    print(f"{key}:{value}")
+
+                    if key in ["Actor Type", "Game Task"]:
+                        continue
+
+                    custom_fields = {
+                        "key": key,
+                        "value": value,
+                    }
+                    content = fill_template(
+                        os.path.join(
+                            script_path, "templates\\jsonc_cust_prop_template.txt"
+                        ),
+                        custom_fields,
+                    )
+
+                    if add_comma:
+                        content += ","
+                    else:
+                        content += "\n"
+
+                    add_comma = True
+
+                    insert_file(
+                        os.path.join(level_path, f"{props.level_title}.jsonc"),
+                        content,
+                        f'"name":"{actor.name}"',
+                    )
 
         # Check if the user wants to export the geometry
         if props.should_export_geometry:

@@ -36,27 +36,6 @@ class LevelProperties(bpy.types.PropertyGroup):
         maxlen=3,
     )
 
-    anchor: bpy.props.StringProperty(
-        name="Anchor",
-        description="The Parent of all your level geometry. The anchor itself will not export.\nSuggestion: Create a new empty, Parent all your geometry to it. Select the empty here.",
-        maxlen=1024,
-    )
-
-    spawn_location: bpy.props.FloatVectorProperty(
-        name="Spawn Location",
-        description="The location in 3d space to place Jak.\nDefault: 0,0,0",
-        default=(0.0, 0.0, 0.0),
-    )
-
-    # Need to find a way to make this a quaternion
-    level_rotation: bpy.props.FloatVectorProperty(
-        name="Level Rotation",
-        description="The quaternion rotation in 3d space to place your custom level.\nDefault: 0,0,0,1",
-        default=(0.0, 0.0, 0.0),  # Blender doesn't want me to make a 4d vector
-        min=0.0,
-        max=1.0,
-    )
-
     custom_levels_path: bpy.props.StringProperty(
         name="Working Directory",
         description="The path to /custom_levels/ in the OpenGOAL distribution",
@@ -120,17 +99,6 @@ class OBJECT_PT_LevelInfoMenu(bpy.types.Panel):
         nick = layout.row()
         nick.alert = input_valid("^[A-Za-z]*$", level_properties.level_nickname)
         nick.prop(level_properties, "level_nickname", icon="TEXT")
-
-        anch = layout.row()
-        anch.prop_search(
-            level_properties, "anchor", scene, "objects", icon="EMPTY_AXIS"
-        )
-
-        layout.prop(level_properties, "spawn_location")
-
-        # layout.prop(bpy.context.scene.objects[level_properties.anchor], "location", text="Anchor Location*")
-
-        layout.prop(level_properties, "level_rotation")
 
         # layout.operator("wm.create_world_reference")
 
