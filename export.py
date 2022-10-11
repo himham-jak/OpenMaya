@@ -33,6 +33,11 @@ class ExportOperator(bpy.types.Operator):
 
         # Validate the above info
 
+        # Save the blend file
+        bpy.ops.wm.save_as_mainfile(
+            filepath=os.path.join(working_dir, f"{props.level_title}.blend")
+        )
+
         # Path to this script
         script_path = os.path.dirname(__file__)
 
@@ -89,6 +94,14 @@ class ExportOperator(bpy.types.Operator):
             with open(file, "a") as f:
                 f.write(text)
 
+        def backup_file(file, backup):
+            with open(file, "r") as f:
+                contents = f.readlines()
+
+            with open(backup, "w") as f:
+                for line in contents:
+                    f.write(line)
+
         # Check if the user wants to export level info
         if props.should_export_level_info:
 
@@ -104,6 +117,12 @@ class ExportOperator(bpy.types.Operator):
                 os.path.join(script_path, "templates\\game_gp_template.txt"),
                 level_fields,
             )
+
+            backup_file(
+                os.path.join(game_path, "game.gp"),
+                os.path.join(game_path, "game.bak"),
+            )
+
             insert_file(
                 os.path.join(game_path, "game.gp"),
                 content,
@@ -115,6 +134,12 @@ class ExportOperator(bpy.types.Operator):
                 os.path.join(script_path, "templates\\level-info_gc_template.txt"),
                 level_fields,
             )
+
+            backup_file(
+                os.path.join(level_info_path, "level-info.gc"),
+                os.path.join(level_info_path, "level-info.bak"),
+            )
+
             append_file(os.path.join(level_info_path, "level-info.gc"), content)
 
             # ./level-title.jsonc
@@ -122,6 +147,7 @@ class ExportOperator(bpy.types.Operator):
                 os.path.join(script_path, "templates\\level-title_jsonc_template.txt"),
                 level_fields,
             )
+
             write_file(os.path.join(level_path, f"{props.level_title}.jsonc"), content)
 
         # Check if there is a collection of actors and if the user wants to export them
@@ -162,7 +188,6 @@ class ExportOperator(bpy.types.Operator):
 
                 add_comma = True
 
-                print(content)
                 insert_file(
                     os.path.join(level_path, f"{props.level_title}.jsonc"),
                     content,
