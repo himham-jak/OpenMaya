@@ -74,18 +74,16 @@
   - One operator, called from level_menu: Import World Reference
 - export.py
   - Export Functionality
-    - Fix insert_file() to not be poorly implemented
-    - Actor exports
-    - .bak backups
-    - Save .blend file
-- actor_menu.py
+    - Upgrade to writing the level and actor info into the .glb itself
+- actor_types.json
+  - Add more actors
   - Add more custom properties
 - add_actors.py
   - Import meshes from OG export out folder (might require rewriting extractor)
-  - Add custom properties from json
   - Remove from Scene Collection after creation
 - Dev options
   - Create json structure from actor
     - Can just add new custom properties to a new actor, export that, then add to actor_types.json
   - Playtest
     - Use the pre-made bash scripts
+  - Move add actors to bottom of add list
