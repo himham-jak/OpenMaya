@@ -84,6 +84,9 @@
 
 ## Eventually:
 
+- <a href="https://github.com/CGCookie/blender-addon-updater">Auto Updates</a>
+- <a href="https://devtalk.blender.org/t/gizmogroup-gizmo-gt-button-2d-not-working-on-autoload/6791">2D Overlays</a>
+  - Show contents of crates
 - actor_types.json
   - Add more actors
   - Add more custom properties
