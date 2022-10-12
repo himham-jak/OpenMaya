@@ -72,12 +72,6 @@
     - Popups
 - map_reference.py
   - One operator, called from level_menu: Import World Reference
-- export.py
-  - Export Functionality
-    - Upgrade to writing the level and actor info into the .glb itself
-- actor_types.json
-  - Add more actors
-  - Add more custom properties
 - add_actors.py
   - Import meshes from OG export out folder (might require rewriting extractor)
   - Remove from Scene Collection after creation
@@ -87,3 +81,12 @@
   - Playtest
     - Use the pre-made bash scripts
   - Move add actors to bottom of add list
+
+## Eventually:
+
+- actor_types.json
+  - Add more actors
+  - Add more custom properties
+- export.py
+  - Export Functionality
+    - Upgrade to writing the level and actor info into the .glb itself

@@ -68,6 +68,26 @@ class LevelProperties(bpy.types.PropertyGroup):
         default=True,
     )
 
+    automatic_wall_detection: bpy.props.BoolProperty(
+        name="Auto Wall Detection",
+        description="Check if you'd like the level to automatically create walls above a certain angle",
+        default=True,
+    )
+
+    automatic_wall_angle: bpy.props.FloatProperty(
+        name="Auto Wall Angle",
+        description="The angle you'd like the level to automatically create walls above",
+        min=0.0,
+        max=90.0,
+        default=45.0,
+    )
+
+    double_sided_collide: bpy.props.BoolProperty(
+        name="Double Sided Collision",
+        description="Check if you'd like to make all collision mesh triangles double sided",
+        default=False,
+    )
+
 
 classes.append(LevelProperties)  # Add the class to the array
 
@@ -88,16 +108,17 @@ class OBJECT_PT_LevelInfoMenu(bpy.types.Panel):
         scene = context.scene
         level_properties = scene.level_properties
 
-        def input_valid(chars, value):
+        def input_invalid(chars, value):
             return not (bool(re.match(chars, value)) and value)
 
         # set these properties manually
         title = layout.row()
-        title.alert = input_valid("^[A-Za-z-]*$", level_properties.level_title)
+        title.alert = input_invalid("^[A-Za-z-]*$", level_properties.level_title)
+
         title.prop(level_properties, "level_title", icon="TEXT")
 
         nick = layout.row()
-        nick.alert = input_valid("^[A-Za-z]*$", level_properties.level_nickname)
+        nick.alert = input_invalid("^[A-Za-z]*$", level_properties.level_nickname)
         nick.prop(level_properties, "level_nickname", icon="TEXT")
 
         # layout.operator("wm.create_world_reference")
@@ -116,6 +137,12 @@ class OBJECT_PT_LevelInfoMenu(bpy.types.Panel):
 
         layout.separator()
 
+        layout.prop(level_properties, "automatic_wall_detection")
+
+        layout.prop(level_properties, "automatic_wall_angle")
+
+        layout.prop(level_properties, "double_sided_collide")
+
 
 classes.append(OBJECT_PT_LevelInfoMenu)  # Add the class to the array
 
@@ -123,6 +150,16 @@ classes.append(OBJECT_PT_LevelInfoMenu)  # Add the class to the array
 ##############################################################################
 # Functions
 ##############################################################################
+
+
+# Need to implement a singleton pattern so this only shows once per error
+def show_message(message, title="Message", icon="INFO"):
+    """Make a little popup"""
+
+    def draw(self, context):
+        self.layout.label(text=message)
+
+    bpy.context.window_manager.popup_menu(draw, title=title, icon=icon)
 
 
 ##############################################################################

@@ -61,6 +61,11 @@ class ExportOperator(bpy.types.Operator):
         # Level title with no dash
         leveltitle = props.level_title.replace("-", "")
 
+        def bool_to_string(cond):
+            if cond:
+                return "true"
+            return "false"
+
         # Fields to fill in the template files
         level_fields = {
             "level_title": props.level_title,
@@ -68,6 +73,9 @@ class ExportOperator(bpy.types.Operator):
             "LEVELTITLE": leveltitle.upper(),
             "level_nickname": props.level_nickname.lower(),
             "level_NICKNAME": props.level_nickname.upper(),
+            "automatic_wall_detection": bool_to_string(props.automatic_wall_detection),
+            "automatic_wall_angle": props.automatic_wall_angle,
+            "double_sided_collide": bool_to_string(props.double_sided_collide),
         }
 
         def fill_template(template, fields):

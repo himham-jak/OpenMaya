@@ -29,42 +29,51 @@
       {
         "Text" : "Green Eco",
         "Icon" : "eco",
-        "Mesh" : "",
-        "Show" : true
+        "Mesh" : "money",
+        "Show" : true,
+
+        "Actor Type": "",
+        "Game Task": 0
       },
 
       {
         "Text" : "Blue Eco",
         "Icon" : "eco",
-        "Mesh" : "",
+        "Mesh" : "money",
         "Show" : true,
 
-        "Actor Type" : "eco-blue"
+        "Actor Type" : "eco-blue",
+        "Game Task": 0
       },
 
       {
         "Text" : "Red Eco",
         "Icon" : "eco",
-        "Mesh" : "",
+        "Mesh" : "money",
         "Show" : true,
 
-        "Actor Type" : "eco-red"
+        "Actor Type" : "eco-red",
+        "Game Task": 0
       },
 
       {
         "Text" : "Yellow Eco",
         "Icon" : "eco",
-        "Mesh" : "",
+        "Mesh" : "money",
         "Show" : true,
 
-        "Actor Type" : "eco-yellow"
+        "Actor Type" : "eco-yellow",
+        "Game Task": 0
       },
 
       {
         "Text" : "Health Dot",
         "Icon" : "eco",
-        "Mesh" : "",
-        "Show" : true
+        "Mesh" : "money",
+        "Show" : true,
+
+        "Actor Type": "",
+        "Game Task": 0
       }
     ],
 
@@ -90,30 +99,33 @@
       {
         "Text" : "Steel Crate",
         "Icon" : "steel-crate",
-        "Mesh" : "",
+        "Mesh" : "money",
         "Show" : true,
 
         "Actor Type" : "crate",
+        "Game Task": 0,
         "Crate Type" : "'steel"
       },
       
       {
         "Text" : "Scout Fly Crate",
         "Icon" : "buzzer-crate",
-        "Mesh" : "",
+        "Mesh" : "money",
         "Show" : true,
 
         "Actor Type" : "crate",
+        "Game Task": 0,
         "Crate Type" : ""
       },
       
       {
         "Text" : "Bucket",
         "Icon" : "open-goal",
-        "Mesh" : "jump-pad",
+        "Mesh" : "money",
         "Show" : true,
 
         "Actor Type" : "crate",
+        "Game Task": 0,
         "Crate Type" : ""
       }
     ],
@@ -128,50 +140,71 @@
       {
         "Text" : "Eco Vent",
         "Icon" : "eco-vent",
-        "Mesh" : "",
-        "Show" : true
+        "Mesh" : "money",
+        "Show" : true,
+
+        "Actor Type": "",
+        "Game Task": 0
       },
       
       {
         "Text" : "Jump Pad",
         "Icon" : "jump-pad",
-        "Mesh" : "",
-        "Show" : true
+        "Mesh" : "money",
+        "Show" : true,
+
+        "Actor Type": "",
+        "Game Task": 0
       },
       
       {
         "Text" : "Swing Pole",
         "Icon" : "swing-pole",
-        "Mesh" : "",
-        "Show" : true
+        "Mesh" : "money",
+        "Show" : true,
+
+        "Actor Type": "",
+        "Game Task": 0
       },
       
       {
         "Text" : "Floating Platform",
         "Icon" : "floating-plat",
-        "Mesh" : "",
-        "Show" : true
+        "Mesh" : "money",
+        "Show" : true,
+
+        "Actor Type": "",
+        "Game Task": 0
       },
       
       {
         "Text" : "Death Plane",
         "Icon" : "death-plane",
-        "Mesh" : "",
-        "Show" : true
+        "Mesh" : "money",
+        "Show" : true,
+
+        "Actor Type": "",
+        "Game Task": 0
       },
       
       {
         "Text" : "Continue",
         "Icon" : "continue",
-        "Mesh" : "",
-        "Show" : true
+        "Mesh" : "money",
+        "Show" : true,
+
+        "Actor Type": "",
+        "Game Task": 0
       },
       
       {
         "Text" : "Load Plane",
         "Icon" : "load-plane",
-        "Mesh" : "",
-        "Show" : true
+        "Mesh" : "money",
+        "Show" : true,
+
+        "Actor Type": "",
+        "Game Task": 0
       }
     ]
 }

@@ -3,10 +3,10 @@
   "iso_name": "${LEVELTITLE}",
   "nickname": "${level_NICKNAME}", // 3 char name, all uppercase
   "gltf_file": "custom_levels/${level_title}/${level_title}.glb",
-  "automatic_wall_detection": true,
-  "automatic_wall_angle": 45.0,
+  "automatic_wall_detection": ${automatic_wall_detection},
+  "automatic_wall_angle": ${automatic_wall_angle},
 
-  "double_sided_collide": false,
+  "double_sided_collide": ${double_sided_collide},
 
   "actors" : [
   ]
