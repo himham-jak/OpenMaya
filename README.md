@@ -70,6 +70,11 @@
     - Working directory: custom_levels folder
   - Error Messages
     - Popups
+- saved_actors.json
+    - a user created file of preset actors with all associated custom properties
+    - automatically added to the "saved" subfolder of the "add actor" menu
+-save_actor.py
+    - writes the above file from an operator in the actor menu when user requests
 - map_reference.py
   - One operator, called from level_menu: Import World Reference
 - add_actors.py
@@ -81,6 +86,7 @@
   - Playtest
     - Use the pre-made bash scripts
   - Move add actors to bottom of add list
+  - Choose between toolbar and properties area for OpenMaya
 
 ## Eventually:
 
