@@ -86,7 +86,7 @@
   - Playtest
     - Use the pre-made bash scripts
   - Move add actors to bottom of add list
-  - Choose between toolbar and properties area for OpenMaya
+  - Choose between toolbar and <a href="https://blender.stackexchange.com/questions/214228/how-do-i-add-a-new-panel-to-the-properties-editor">properties area</a> for OpenMaya
 
 ## Eventually:
 
