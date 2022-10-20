@@ -17,7 +17,7 @@ classes = []  # Initialize the class array to be registered
 
 
 class ExportOperator(bpy.types.Operator):
-    """Move all objects in the scene by one unit in the x direction."""
+    """Export the selected options"""  # Be careful, operator docstrings are exposed to the user
 
     bl_idname = "wm.export"  # Unique operator reference name
     bl_label = "Export"  # String for the UI
@@ -87,7 +87,7 @@ class ExportOperator(bpy.types.Operator):
             with open(file, "w") as f:
                 f.write(text)
 
-        def insert_file(file, text, divider):
+        def insert_after(file, text, divider):
             with open(file, "r") as f:
                 contents = f.readlines()
 
@@ -131,7 +131,7 @@ class ExportOperator(bpy.types.Operator):
                 os.path.join(game_path, "game.bak"),
             )
 
-            insert_file(
+            insert_after(
                 os.path.join(game_path, "game.gp"),
                 content,
                 ";; it should point to the .jsonc file that specifies the level.\n",
@@ -196,7 +196,7 @@ class ExportOperator(bpy.types.Operator):
 
                 add_comma = True
 
-                insert_file(
+                insert_after(
                     os.path.join(level_path, f"{props.level_title}.jsonc"),
                     content,
                     '"actors"',
@@ -207,7 +207,15 @@ class ExportOperator(bpy.types.Operator):
                 # Export the custom properties
                 for key, value in actor.items():
 
-                    if key in ["Actor Type", "Game Task"]:
+                    # Skip some properties that are irrelevant or already exported
+                    if key in [
+                        "Actor Type",
+                        "Game Task",
+                        "Mesh",
+                        "Icon",
+                        "JSON Category",
+                        "JSON Index",
+                    ]:
                         continue
 
                     custom_fields = {
@@ -228,7 +236,7 @@ class ExportOperator(bpy.types.Operator):
 
                     add_comma = True
 
-                    insert_file(
+                    insert_after(
                         os.path.join(level_path, f"{props.level_title}.jsonc"),
                         content,
                         f'"name":"{actor.name}"',

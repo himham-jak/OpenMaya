@@ -81,6 +81,7 @@
   - Playtest
     - Use the pre-made bash scripts
   - Move add actors to bottom of add list
+  - Turn off the icons from "add actors" menu
 
 ## Eventually:
 

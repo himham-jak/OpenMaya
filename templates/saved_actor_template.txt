@@ -1,0 +1,11 @@
+,
+
+      {
+        "Text" : "${actor_name}",
+        "Icon" : "${actor_icon_name}",
+        "Mesh" : "${actor_mesh_name}",
+        "Show" : true,
+
+        "Actor Type": "${actor_etype}",
+        "Game Task": ${actor_game_task}
+      }

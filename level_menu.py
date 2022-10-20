@@ -88,6 +88,12 @@ class LevelProperties(bpy.types.PropertyGroup):
         default=False,
     )
 
+    show_icons: bpy.props.BoolProperty(
+        name="Icons?",
+        description="Check if you'd like to make all collision mesh triangles double sided",
+        default=False,
+    )
+
 
 classes.append(LevelProperties)  # Add the class to the array
 
@@ -142,6 +148,8 @@ class OBJECT_PT_LevelInfoMenu(bpy.types.Panel):
         layout.prop(level_properties, "automatic_wall_angle")
 
         layout.prop(level_properties, "double_sided_collide")
+
+        layout.prop(level_properties, "show_icons")
 
 
 classes.append(OBJECT_PT_LevelInfoMenu)  # Add the class to the array

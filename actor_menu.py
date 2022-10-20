@@ -5,6 +5,8 @@
 
 import bpy
 
+from . import save_actor
+
 
 ##############################################################################
 # Classes
@@ -59,8 +61,17 @@ class OBJECT_PT_ActorInfoMenu(bpy.types.Panel):
 
             # Show all of the custom properties
             for key, value in context.active_object.items():
-                if not key == "Actor Type":
+                if key not in [
+                    "Actor Type",
+                    "Mesh",
+                    "Icon",
+                    "JSON Category",
+                    "JSON Index",
+                ]:
                     custom_prop(key)
+
+            # Provide the option to save the actor as a preset
+            # layout.operator("wm.save_actor")
 
         # Display if something other than an actor is selected
         else:

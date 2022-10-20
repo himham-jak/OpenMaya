@@ -33,13 +33,14 @@ classes.append(VIEW3D_MT_actor_add)  # Add the class to the array
 
 
 class ActorSpawnButton(bpy.types.Operator):
-    """Creates an actor mesh"""  # Be careful, this docstring is exposed to the user
+    """Creates an actor mesh"""  # Be careful, operator docstrings are exposed to the user
 
     bl_idname = "object.spawn_actor"  # Unique operator reference name
     bl_label = "Actor"  # String for the UI
     bl_options = {"REGISTER", "UNDO"}  # Enable undo for the operator
 
     mesh_name: bpy.props.StringProperty()  # The name of the mesh that needs to be spawned
+    icon_name: bpy.props.StringProperty()  # The name of the icon on this button
     json_cat: bpy.props.StringProperty()  # The category in which to find all the actor data in the json file
     json_idx: bpy.props.IntProperty()  # The index in that category to find all the actor data in the json file
 
@@ -74,7 +75,7 @@ class ActorSpawnButton(bpy.types.Operator):
                 for prop in json_data[cls.json_cat][cls.json_idx]:
                     if prop in ["Text", "Icon", "Mesh", "Show"]:
                         continue
-                    print(f"{prop} : {json_data[cls.json_cat][cls.json_idx][prop]}")
+                    # print(f"{prop} : {json_data[cls.json_cat][cls.json_idx][prop]}")
                     bpy.data.objects[bpy.context.object.data.name][prop] = json_data[
                         cls.json_cat
                     ][cls.json_idx][prop]
@@ -82,6 +83,12 @@ class ActorSpawnButton(bpy.types.Operator):
         except Exception as e:
             print(f"File not found: {filename}")
             print(e)
+
+        # Add the mesh_name, json_cat, and json_idx to the actor
+        bpy.data.objects[bpy.context.object.data.name]["Mesh"] = cls.mesh_name
+        bpy.data.objects[bpy.context.object.data.name]["Icon"] = cls.icon_name
+        bpy.data.objects[bpy.context.object.data.name]["JSON Category"] = cls.json_cat
+        bpy.data.objects[bpy.context.object.data.name]["JSON Index"] = cls.json_idx
 
         return {"FINISHED"}  # Let Blender know the operator finished successfully
 
@@ -151,6 +158,7 @@ def draw_buttons(self, context):
                 icon_value=custom_icons[icn].icon_id,
             )
             button.mesh_name = mesh
+            button.icon_name = icn
             button.json_cat = json_cat
             button.json_idx = json_idx
 
