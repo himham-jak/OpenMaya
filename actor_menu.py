@@ -30,6 +30,7 @@ class OBJECT_PT_ActorInfoMenu(bpy.types.Panel):
 
         layout = self.layout
         scene = context.scene
+        obj = context.active_object
 
         def custom_prop(name, parent=layout):
 
@@ -39,7 +40,7 @@ class OBJECT_PT_ActorInfoMenu(bpy.types.Panel):
                 )
 
         # Only populate the actor info if something is selected and it's an actor
-        if context.active_object and ("Actor Type" in context.active_object.keys()):
+        if obj.select_get() and ("Actor Type" in context.active_object.keys()):
 
             layout.prop(context.active_object, "name", text="Actor Name")
 

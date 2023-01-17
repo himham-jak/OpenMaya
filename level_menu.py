@@ -38,7 +38,7 @@ class LevelProperties(bpy.types.PropertyGroup):
 
     custom_levels_path: bpy.props.StringProperty(
         name="Working Directory",
-        description="The path to /custom_levels/ in the OpenGOAL distribution",
+        description="The path to \\custom_levels\\ in the OpenGOAL distribution",
         default="",
         maxlen=1024,
         subtype="DIR_PATH",
@@ -84,12 +84,6 @@ class LevelProperties(bpy.types.PropertyGroup):
 
     double_sided_collide: bpy.props.BoolProperty(
         name="Double Sided Collision",
-        description="Check if you'd like to make all collision mesh triangles double sided",
-        default=False,
-    )
-
-    show_icons: bpy.props.BoolProperty(
-        name="Icons?",
         description="Check if you'd like to make all collision mesh triangles double sided",
         default=False,
     )

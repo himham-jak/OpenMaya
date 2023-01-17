@@ -18,6 +18,7 @@ modules = [
     "actor_menu",
     "add_actor",
     "export",
+    "gizmos",
 ]  # <module_name>.py
 
 
