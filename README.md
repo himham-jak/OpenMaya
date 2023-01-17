@@ -21,6 +21,7 @@
 
 - Recommendation: Make the Blender addon folder your local repo
   - Clone the repo to %appdata%/Blender Foundation/Blender/{version number}/scripts/addons/OpenMaya
+  - This way, all changes to the project can be immediately loaded into Blender
 
 - Use black formatter (I have it format on save)
   - <a href="https://packagecontrol.io/packages/python-black">Sublime Text</a>
@@ -29,7 +30,7 @@
 - Updating after modification
   - The best way to update the addon after an edit is to restart blender with the addon disabled and then enable it again afterwards.
   - This obviously sucks, so 99% of the time, use the <a href="https://blender-addons.org/reboot-addon/">re:Boot</a> addon
-    - I made an <a href="https://github.com/himham-jak/re-Boot-with-Keymap/releases">edit</a> to this that maps it to `Ctrl+F8`
+    - I made an <a href="https://github.com/himham-jak/re-Boot-with-Keymap/releases">edit</a> to this that maps it to `Ctrl+F8` and improves a few things.
   - The least effective update method is to use `F3 > Reload Scripts`, which kinda does nothing useful
 
 - Naming Conventions
@@ -50,7 +51,7 @@
   - Functions
   - Registration
   
-- Logic Principles (these are mostly here for my benefit) 
+- Logic Principles (these are mostly here for my benefit)
   - Single-responsibility
     - Methods of a class should be alternatives to each other, not sequential steps
   - Open-closed
@@ -68,12 +69,16 @@
 - level_menu.py
   - Config Save
     - Working directory: custom_levels folder
+    - Collapse Add actor menu?
+    - Add actors at top or bottom of add menu?
+    - Gizmo visibility
+    - Choose between toolbar and <a href="https://blender.stackexchange.com/questions/214228/how-do-i-add-a-new-panel-to-the-properties-editor">properties area</a> for OpenMaya
   - Error Messages
     - Popups
 - saved_actors.json
     - a user created file of preset actors with all associated custom properties
     - automatically added to the "saved" subfolder of the "add actor" menu
--save_actor.py
+- save_actor.py
     - writes the above file from an operator in the actor menu when user requests
 - map_reference.py
   - One operator, called from level_menu: Import World Reference
@@ -86,13 +91,13 @@
   - Playtest
     - Use the pre-made bash scripts
   - Move add actors to bottom of add list
-  - Choose between toolbar and <a href="https://blender.stackexchange.com/questions/214228/how-do-i-add-a-new-panel-to-the-properties-editor">properties area</a> for OpenMaya
 
 ## Eventually:
 
 - <a href="https://github.com/CGCookie/blender-addon-updater">Auto Updates</a>
 - <a href="https://devtalk.blender.org/t/gizmogroup-gizmo-gt-button-2d-not-working-on-autoload/6791">2D Overlays</a>
   - Show contents of crates
+  - Show type of eco on top of vents etc
 - actor_types.json
   - Add more actors
   - Add more custom properties
