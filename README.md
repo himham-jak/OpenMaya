@@ -70,6 +70,11 @@
     - Working directory: custom_levels folder
   - Error Messages
     - Popups
+- saved_actors.json
+    - a user created file of preset actors with all associated custom properties
+    - automatically added to the "saved" subfolder of the "add actor" menu
+-save_actor.py
+    - writes the above file from an operator in the actor menu when user requests
 - map_reference.py
   - One operator, called from level_menu: Import World Reference
 - add_actors.py
@@ -81,10 +86,13 @@
   - Playtest
     - Use the pre-made bash scripts
   - Move add actors to bottom of add list
-  - Turn off the icons from "add actors" menu
+  - Choose between toolbar and <a href="https://blender.stackexchange.com/questions/214228/how-do-i-add-a-new-panel-to-the-properties-editor">properties area</a> for OpenMaya
 
 ## Eventually:
 
+- <a href="https://github.com/CGCookie/blender-addon-updater">Auto Updates</a>
+- <a href="https://devtalk.blender.org/t/gizmogroup-gizmo-gt-button-2d-not-working-on-autoload/6791">2D Overlays</a>
+  - Show contents of crates
 - actor_types.json
   - Add more actors
   - Add more custom properties
