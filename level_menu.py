@@ -9,7 +9,7 @@ import re
 import os
 import json
 
-from . import export
+from . import export, addon_updater_ops
 
 
 ##############################################################################
@@ -108,6 +108,9 @@ class OBJECT_PT_LevelInfoMenu(bpy.types.Panel):
         scene = context.scene
         level_properties = scene.level_properties
 
+        # Check for update when opened
+        addon_updater_ops.check_for_update_background()
+
         def input_invalid(chars, value):
             return not (bool(re.match(chars, value)) and value)
 
@@ -144,6 +147,9 @@ class OBJECT_PT_LevelInfoMenu(bpy.types.Panel):
         layout.prop(level_properties, "double_sided_collide")
 
         layout.prop(level_properties, "show_icons")
+
+        # Announce a new update if available
+        addon_updater_ops.update_notice_box_ui(self, context)
 
 
 classes.append(OBJECT_PT_LevelInfoMenu)  # Add the class to the array
