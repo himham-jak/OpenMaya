@@ -6,6 +6,8 @@
 import bpy
 from bpy.types import GizmoGroup
 from bpy_extras import view3d_utils
+import gpu
+from gpu_extras.batch import batch_for_shader
 
 
 ##############################################################################
@@ -59,13 +61,28 @@ class ActorGizmos(GizmoGroup):
         self.foo_gizmo.matrix_basis[0][3] = view3d_position[0]
         self.foo_gizmo.matrix_basis[1][3] = view3d_position[1]
 
+        # Move the icon too
+        move_pseudo_icon(view3d_position, 10, 10)
+
     def setup(self, context):
+        # Get currently selected object
         obj = context.active_object
 
+        # Grab the 2D position of the object in viewport
+        view3d_position = view3d_utils.location_3d_to_region_2d(
+            bpy.context.region,
+            bpy.context.space_data.region_3d,
+            obj.location,
+            default=None,
+        )
+
+        # Create a 2d gizmo
         giz = self.gizmos.new("GIZMO_GT_button_2d")
 
-        # TODO Custom icons
-        giz.icon = "CANCEL"
+        # Where the icon would have gone
+        giz.icon = "BLANK1"
+
+        setup_pseudo_icon(view3d_position, 10, 10)
 
         self.foo_gizmo = giz
 
@@ -86,6 +103,66 @@ def add_custom_gizmo_bools(self, context):
 
     layout.label(text="Actors")
     layout.prop(gizmo_properties, "show_contents")
+
+
+def setup_pseudo_icon(position, width, height):
+
+    # Need to supply a "bpy.types.image" to the draw handler
+    img = bpy.data.images.new("src", 10, 10)
+
+    # Make the image into a texture
+    texture = gpu.texture.from_image(img)
+
+    # Make shader
+    shader = gpu.shader.from_builtin("2D_IMAGE")
+
+    # Supply the coordinates
+    batch = batch_for_shader(
+        shader,
+        "TRI_FAN",
+        {
+            "pos": (
+                (position[0] - width / 2, position[1] - height / 2),
+                (position[0] + width / 2, position[1] - height / 2),
+                (position[0] + width / 2, position[1] + height / 2),
+                (position[0] - width / 2, position[1] + height / 2),
+            ),
+            "texCoord": ((0, 0), (1, 0), (1, 1), (0, 1)),
+        },
+    )
+
+    # Full function to pass to the draw handler
+    def draw():
+        obj = bpy.context.active_object
+        height = 10
+        width = 10
+
+        # Grab the 2D position of the object in viewport
+        position = view3d_utils.location_3d_to_region_2d(
+            bpy.context.region,
+            bpy.context.space_data.region_3d,
+            obj.location,
+            default=None,
+        )
+        batch = batch_for_shader(
+            shader,
+            "TRI_FAN",
+            {
+                "pos": (
+                    (position[0] - width / 2, position[1] - height / 2),
+                    (position[0] + width / 2, position[1] - height / 2),
+                    (position[0] + width / 2, position[1] + height / 2),
+                    (position[0] - width / 2, position[1] + height / 2),
+                ),
+                "texCoord": ((0, 0), (1, 0), (1, 1), (0, 1)),
+            },
+        )
+        shader.bind()
+        shader.uniform_sampler("image", texture)
+        batch.draw(shader)
+
+    # Create the pseudo-icon
+    bpy.types.SpaceView3D.draw_handler_add(draw, (), "WINDOW", "POST_PIXEL")
 
 
 ##############################################################################
