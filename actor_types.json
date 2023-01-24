@@ -13,7 +13,13 @@
         "Show" : true,
 
         "Actor Type": "fuel-cell",
-        "Game Task": 0
+        "Game Task": 0,
+        "Light Index" : 0,
+        "Movie Position" : [
+                -1.1621229648590088,
+                2.7775051593780518,
+                -2.210111618041992
+            ]
       },
 
       {
@@ -23,7 +29,20 @@
         "Show" : true,
 
         "Actor Type": "money",
-        "Game Task": 0
+        "Game Task": 0,
+        "Light Index" : 0
+      },
+
+      {
+        "Text" : "Scout Fly",
+        "Icon" : "buzzer",
+        "Mesh" : "money",
+        "Show" : true,
+
+        "Actor Type": "buzzer",
+        "Game Task": 0,
+        "Light Index" : 0,
+        "Cell Position" : 0
       },
 
       {
@@ -33,7 +52,8 @@
         "Show" : true,
 
         "Actor Type": "",
-        "Game Task": 0
+        "Game Task": 0,
+        "Light Index" : 0
       },
 
       {
@@ -43,7 +63,8 @@
         "Show" : true,
 
         "Actor Type" : "eco-blue",
-        "Game Task": 0
+        "Game Task": 0,
+        "Light Index" : 0
       },
 
       {
@@ -53,7 +74,8 @@
         "Show" : true,
 
         "Actor Type" : "eco-red",
-        "Game Task": 0
+        "Game Task": 0,
+        "Light Index" : 0
       },
 
       {
@@ -63,7 +85,8 @@
         "Show" : true,
 
         "Actor Type" : "eco-yellow",
-        "Game Task": 0
+        "Game Task": 0,
+        "Light Index" : 0
       },
 
       {
@@ -73,7 +96,8 @@
         "Show" : true,
 
         "Actor Type": "",
-        "Game Task": 0
+        "Game Task": 0,
+        "Light Index" : 0
       }
     ],
 
@@ -93,7 +117,8 @@
         "Actor Type" : "crate",
         "Game Task": 0,
         "Crate Type" : "Wood idk",
-        "Contents" : "Not Implemented"
+        "Contents" : "Not Implemented",
+        "Light Index" : 0
       },
       
       {
@@ -104,7 +129,8 @@
 
         "Actor Type" : "crate",
         "Game Task": 0,
-        "Crate Type" : "'steel"
+        "Crate Type" : "'steel",
+        "Light Index" : 0
       },
       
       {
@@ -115,7 +141,8 @@
 
         "Actor Type" : "crate",
         "Game Task": 0,
-        "Crate Type" : ""
+        "Crate Type" : "",
+        "Light Index" : 0
       },
       
       {
@@ -126,7 +153,8 @@
 
         "Actor Type" : "crate",
         "Game Task": 0,
-        "Crate Type" : ""
+        "Crate Type" : "",
+        "Light Index" : 0
       }
     ],
 
@@ -144,7 +172,8 @@
         "Show" : true,
 
         "Actor Type": "",
-        "Game Task": 0
+        "Game Task": 0,
+        "Light Index" : 0
       },
       
       {
@@ -154,7 +183,8 @@
         "Show" : true,
 
         "Actor Type": "",
-        "Game Task": 0
+        "Game Task": 0,
+        "Light Index" : 0
       },
       
       {
@@ -164,7 +194,8 @@
         "Show" : true,
 
         "Actor Type": "",
-        "Game Task": 0
+        "Game Task": 0,
+        "Light Index" : 0
       },
       
       {
@@ -174,7 +205,8 @@
         "Show" : true,
 
         "Actor Type": "",
-        "Game Task": 0
+        "Game Task": 0,
+        "Light Index" : 0
       },
       
       {

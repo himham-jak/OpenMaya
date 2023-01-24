@@ -102,7 +102,18 @@
   - Show type of eco on top of vents etc
 - actor_types.json
   - Add more actors
+    - Bodies of water
+    - Nav-mesh
+    - Swing poles
+    - Spider webs
+    - Platforms
+    - Particles
   - Add more custom properties
+    - light-index?
+    - buzzers: movie-pos: where put cell
+  - Multiselect actors and change all their properties at once
+
 - export.py
   - Export Functionality
     - Upgrade to writing the level and actor info into the .glb itself
+  - Bezier curves for paths
