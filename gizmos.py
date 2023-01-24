@@ -127,6 +127,7 @@ def setup_pseudo_icon(position, width, height):
     shader = gpu.shader.from_builtin("2D_IMAGE")
 
     # Supply the coordinates
+    # TODO: Scale with distance from camera in viewport
     batch = batch_for_shader(
         shader,
         "TRI_FAN",

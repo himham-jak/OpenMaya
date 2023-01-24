@@ -6,6 +6,8 @@
 - To make your own release, put all of the contents of this repo into a folder, then put that folder in a `.zip`
 - There must be a subfolder in the `.zip` or it won't work
 - In Blender, choose `Edit > Preferences… > Add-ons > Install…` and select the `.zip`
+- In the same window, you should be able to update at any time. This will pull the most recent release from here.
+- Automatic updates may be finnicky for now, but manual ones are very easy.
 
 ## Tutorial:
 
