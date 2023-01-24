@@ -79,8 +79,7 @@ class ActorGizmos(GizmoGroup):
         giz = self.gizmos.new("GIZMO_GT_button_2d")
 
         # Where the icon would have gone
-        # giz.icon = "BLANK1"
-        giz.icon = "CANCEL"
+        giz.icon = "BLANK1"
         # Nothing between these lines or everything breaks
         self.foo_gizmo = giz
 
@@ -110,8 +109,6 @@ def add_custom_gizmo_bools(self, context):
 
 
 def setup_pseudo_icon(position, width, height):
-
-    gpu.state.blend_set("ALPHA")
 
     # Path to the folder where the icon is
     # The path is calculated relative to this py file inside the addon folder
@@ -146,6 +143,9 @@ def setup_pseudo_icon(position, width, height):
 
     # Full function to pass to the draw handler
     def draw():
+
+        gpu.state.blend_set("ALPHA")
+
         obj = bpy.context.active_object
 
         # Grab the 2D position of the object in viewport
