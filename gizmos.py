@@ -6,8 +6,10 @@
 import bpy
 from bpy.types import GizmoGroup
 from bpy_extras import view3d_utils
+import bgl
 import gpu
 from gpu_extras.batch import batch_for_shader
+import os
 
 
 ##############################################################################
@@ -61,9 +63,6 @@ class ActorGizmos(GizmoGroup):
         self.foo_gizmo.matrix_basis[0][3] = view3d_position[0]
         self.foo_gizmo.matrix_basis[1][3] = view3d_position[1]
 
-        # Move the icon too
-        move_pseudo_icon(view3d_position, 10, 10)
-
     def setup(self, context):
         # Get currently selected object
         obj = context.active_object
@@ -80,11 +79,16 @@ class ActorGizmos(GizmoGroup):
         giz = self.gizmos.new("GIZMO_GT_button_2d")
 
         # Where the icon would have gone
-        giz.icon = "BLANK1"
-
-        setup_pseudo_icon(view3d_position, 10, 10)
-
+        # giz.icon = "BLANK1"
+        giz.icon = "CANCEL"
+        # Nothing between these lines or everything breaks
         self.foo_gizmo = giz
+
+        self.pseudo_icon = setup_pseudo_icon(view3d_position, 30, 30)
+
+        # TODO Not sure when to run this
+        # Kills the pseudo icon
+        # bpy.types.SpaceView3D.draw_handler_remove(draw,"WINDOW")
 
 
 classes.append(ActorGizmos)  # Add the class to the array
@@ -107,8 +111,17 @@ def add_custom_gizmo_bools(self, context):
 
 def setup_pseudo_icon(position, width, height):
 
+    gpu.state.blend_set("ALPHA")
+
+    # Path to the folder where the icon is
+    # The path is calculated relative to this py file inside the addon folder
+    my_icons_dir = os.path.join(os.path.dirname(__file__), "icons")
+
+    # Find the icon image
+    img_filepath = os.path.join(my_icons_dir, "babak.png")
+
     # Need to supply a "bpy.types.image" to the draw handler
-    img = bpy.data.images.new("src", 10, 10)
+    img = bpy.data.images.load(img_filepath)
 
     # Make the image into a texture
     texture = gpu.texture.from_image(img)
@@ -134,8 +147,6 @@ def setup_pseudo_icon(position, width, height):
     # Full function to pass to the draw handler
     def draw():
         obj = bpy.context.active_object
-        height = 10
-        width = 10
 
         # Grab the 2D position of the object in viewport
         position = view3d_utils.location_3d_to_region_2d(
@@ -162,7 +173,7 @@ def setup_pseudo_icon(position, width, height):
         batch.draw(shader)
 
     # Create the pseudo-icon
-    bpy.types.SpaceView3D.draw_handler_add(draw, (), "WINDOW", "POST_PIXEL")
+    return bpy.types.SpaceView3D.draw_handler_add(draw, (), "WINDOW", "POST_PIXEL")
 
 
 ##############################################################################
@@ -178,6 +189,7 @@ def register():
     bpy.types.Scene.gizmo_properties = bpy.props.PointerProperty(type=GizmoProperties)
 
     # Add the custom gizmo booleans to the gizmo menu
+    # TODO unregister
     bpy.types.VIEW3D_PT_gizmo_display.append(add_custom_gizmo_bools)
 
 
