@@ -151,7 +151,7 @@
       
       {
         "Text" : "Bucket",
-        "Icon" : "open-goal",
+        "Icon" : "bucket",
         "Mesh" : "money",
         "Show" : true,
 
@@ -193,7 +193,7 @@
       
       {
         "Text" : "Orb Cache",
-        "Icon" : "ecovent",
+        "Icon" : "orb-cache",
         "Mesh" : "money",
         "Show" : true,
 
