@@ -16,9 +16,9 @@
         "Game Task": 0,
         "Light Index" : 0,
         "Movie Position" : [
-                -1.1621229648590088,
-                2.7775051593780518,
-                -2.210111618041992
+                0.0,
+                0.0,
+                0.0
             ]
       },
 
@@ -42,7 +42,11 @@
         "Actor Type": "buzzer",
         "Game Task": 0,
         "Light Index" : 0,
-        "Cell Position" : 0
+        "Cell Position" : [
+                0.0,
+                0.0,
+                0.0
+            ]
       },
 
       {
@@ -167,13 +171,37 @@
       
       {
         "Text" : "Eco Vent",
-        "Icon" : "eco-vent",
+        "Icon" : "ecovent",
         "Mesh" : "money",
         "Show" : true,
 
-        "Actor Type": "",
+        "Actor Type": "ecovent",
         "Game Task": 0,
         "Light Index" : 0
+      },
+      
+      {
+        "Text" : "Warp Gate",
+        "Icon" : "ecovent",
+        "Mesh" : "money",
+        "Show" : true,
+
+        "Actor Type": "warpgate",
+        "Game Task": 0,
+        "Light Index" : 0
+      },
+      
+      {
+        "Text" : "Orb Cache",
+        "Icon" : "ecovent",
+        "Mesh" : "money",
+        "Show" : true,
+
+        "Actor Type": "orb-cache-top",
+        "Game Task": 0,
+        "Light Index" : 0,
+        "Orb Count" : 10,
+        "Visible Distance" : 200.0
       },
       
       {

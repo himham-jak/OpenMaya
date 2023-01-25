@@ -143,8 +143,6 @@ class OBJECT_PT_LevelInfoMenu(bpy.types.Panel):
 
         layout.prop(level_properties, "double_sided_collide")
 
-        layout.prop(level_properties, "show_icons")
-
 
 classes.append(OBJECT_PT_LevelInfoMenu)  # Add the class to the array
 
