@@ -173,7 +173,7 @@ class ExportOperator(bpy.types.Operator):
                 actor_fields = {
                     "actor_name": actor.name,
                     "actor_translation_x": actor.location[0],
-                    "actor_translation_y": actor.location[1],
+                    "actor_translation_y": -actor.location[1],
                     "actor_translation_z": actor.location[2],
                     "actor_quaternion_w": actor.rotation_quaternion[0],
                     "actor_quaternion_x": actor.rotation_quaternion[1],
