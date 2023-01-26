@@ -1,10 +1,10 @@
 
     {
-      "trans": [${actor_translation_x}, ${actor_translation_z}, ${actor_translation_y}], // translation
+      "trans": [${actor_translation_x}, ${-actor_translation_y}, ${actor_translation_z}], // translation
       "etype": "${actor_etype}",  // actor type
       "game_task": ${actor_game_task}, // associated game task (for powercells, etc)
       "quat" : [${actor_quaternion_w}, ${actor_quaternion_x}, ${actor_quaternion_y}, ${actor_quaternion_z}], // quaternion
-      "bsphere": [${actor_translation_x}, ${actor_translation_z}, ${actor_translation_y}, 10], // bounding sphere
+      "bsphere": [${actor_translation_x}, ${-actor_translation_y}, ${actor_translation_z}, 10], // bounding sphere
       "lump": {
         "name":"${actor_name}"
       }
