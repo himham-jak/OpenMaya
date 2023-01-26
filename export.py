@@ -213,21 +213,46 @@ class ExportOperator(bpy.types.Operator):
                         "Game Task",
                         "Mesh",
                         "Icon",
+                        "Cell Position",
                         "JSON Category",
                         "JSON Index",
                     ]:
                         continue
 
-                    custom_fields = {
-                        "key": key,
-                        "value": value,
-                    }
-                    content = fill_template(
-                        os.path.join(
-                            script_path, "templates\\jsonc_cust_prop_template.txt"
-                        ),
-                        custom_fields,
-                    )
+                    # TODO: Here's some jank
+                    # If custom property is a vector3
+                    try:
+                        value1 = value[0]
+                        value2 = value[1]
+                        value3 = value[2]
+
+                        custom_fields = {
+                            "key": key,
+                            "value1": value1,
+                            "value2": value2,
+                            "value3": value3,
+                        }
+
+                        content = fill_template(
+                            os.path.join(
+                                script_path, "templates\\jsonc_cust_vec3_template.txt"
+                            ),
+                            custom_fields,
+                        )
+
+                    # If not...
+                    except:
+                        custom_fields = {
+                            "key": key,
+                            "value": value,
+                        }
+
+                        content = fill_template(
+                            os.path.join(
+                                script_path, "templates\\jsonc_cust_prop_template.txt"
+                            ),
+                            custom_fields,
+                        )
 
                     if add_comma:
                         content += ","
