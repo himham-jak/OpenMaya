@@ -1,17 +1,29 @@
 # OpenMaya
 
+## Supported:
+- Blender 3.3+
+- Previous versions may work but will not actively be supported.
+
 ## Installation:
 
 - If you're using a release, just download the `.zip` file, don't extract it
 - To make your own release, put all of the contents of this repo into a folder, then put that folder in a `.zip`
 - There must be a subfolder in the `.zip` or it won't work
 - In Blender, choose `Edit > Preferences… > Add-ons > Install…` and select the `.zip`
-- In the same window, you should be able to update at any time. This will pull the most recent release from here.
+- In the same window, you should be able to update at any time. This will pull the most recent release from github.
 - Automatic updates may be finnicky for now, but manual ones are very easy.
 
 ## Tutorial:
 
-- To do
+- Creating a custom Jak level with OpenMaya
+  - Ensure OpenMaya is updated before you begin.
+  - Model your level's geometry with Blender.
+  - Use the `n` toolbar tabs associated with OpenMaya to customize your level.
+    - For now, enter your level's information. All fields validate data, so they'll let you know if you made a mistake.
+  - Use the `Shift+A` menu to add actors to your scene.
+    - Return to the toolbar to edit the data of the currently selected actor as needed.
+  - When you'd like to test your level, hit export on the toolbar.
+- Loading your custom level
 
 ## Features:
 
@@ -19,7 +31,7 @@
 
 ## Conventions to follow while contributing:
 
-- Blender Version 3.3+
+- Blender 3.3+
 
 - Recommendation: Make the Blender addon folder your local repo
   - Clone the repo to %appdata%/Blender Foundation/Blender/{version number}/scripts/addons/OpenMaya
