@@ -4,7 +4,7 @@ Design the Jak level of your dreams with OpenMaya, the open-source (and code-fre
 
 ## Supported:
 - Blender 3.3+
-- Previous versions may work but will not actively be supported.
+  - Previous versions may work but will not be actively supported.
 
 ## Installation:
 
