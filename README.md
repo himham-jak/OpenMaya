@@ -1,5 +1,7 @@
 # OpenMaya
 
+Design the Jak level of your dreams with OpenMaya, the open-source (and code-free) level builder for Blender.
+
 ## Supported:
 - Blender 3.3+
 - Previous versions may work but will not actively be supported.
@@ -15,7 +17,7 @@
 
 ## Tutorial: TODO
 
-- For a full demonstration, refer to my YouTube. TODO
+- For a full demonstration, refer to my YouTube. 
 
 - Creating a custom Jak level with OpenMaya
   - Ensure OpenMaya is updated before you begin.
@@ -107,6 +109,11 @@
   - Playtest
     - Use the pre-made bash scripts
   - Move add actors to bottom of add list
+- Experimental options
+  - Toggle in Preferences
+  - Turns on potentially error producing features
+- Debug mode
+- Verbose Output
 
 ## Eventually:
 
