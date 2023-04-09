@@ -13,7 +13,9 @@
 - In the same window, you should be able to update at any time. This will pull the most recent release from github.
 - Automatic updates may be finnicky for now, but manual ones are very easy.
 
-## Tutorial:
+## Tutorial: TODO
+
+- For a full demonstration, refer to my YouTube. TODO
 
 - Creating a custom Jak level with OpenMaya
   - Ensure OpenMaya is updated before you begin.
