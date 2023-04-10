@@ -2,9 +2,15 @@
 
 Design the Jak level of your dreams with OpenMaya, the open-source (and code-free) level builder for Blender.
 
-## Supported:
-- Blender 3.3+
+## Table of Contents
+
+- [Compatibility](#compatibility)
+
+## Compatibility:
+
+- Blender 3.3+ minimum system requirements
   - Previous versions may work but will not be actively supported.
+- OpenGoal minimum system requirements
 
 ## Installation:
 
@@ -32,6 +38,17 @@ Design the Jak level of your dreams with OpenMaya, the open-source (and code-fre
 ## Features:
 
 - To do
+
+## :money_with_wings: Support me:
+
+Thank you for checking out this open source software!
+We pour a lot of time, effort, and love into creating and maintaining it.
+Developing and improving software like this is not only our passion but also our way of contributing to the open source community.
+If you find our software useful and would like to support our work, please consider making a donation through Ko-fi.
+Your contribution can help us cover the costs of maintaining and improving this software.
+We appreciate any amount you can give, no matter how small.
+Your support will help us continue to develop high-quality software that is free and accessible to everyone.
+Thank you for your consideration and for being a part of the open source community!
 
 ## Conventions to follow while contributing:
 
@@ -138,3 +155,18 @@ Design the Jak level of your dreams with OpenMaya, the open-source (and code-fre
   - Export Functionality
     - Upgrade to writing the level and actor info into the .glb itself
   - Bezier curves for paths
+
+- Missions
+  - Fish
+  - Rats
+  - Rings
+  - Mountain Pass Race (Countdown)
+  - Basin Race (Beat record)
+  - Mirrors
+  - Break object
+  - Kill enemy
+  - Step on switch
+  - Hit switch
+  - Collect xyz
+  - Cells
+  - Cutscene
