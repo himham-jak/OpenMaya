@@ -5,6 +5,13 @@ Design the Jak level of your dreams with OpenMaya, the open-source (and code-fre
 ## Table of Contents
 
 - [Compatibility](#compatibility)
+- [Installation](#installation)
+- [TODO: Tutorial](#tutorial)
+- [Features](#features)
+- [:money_with_wings: Support Me](#support--me)
+- [Contributing](#contributing)
+- [To Do](#to--do)
+- [Eventually](#eventually)
 
 ## Compatibility:
 
@@ -21,7 +28,7 @@ Design the Jak level of your dreams with OpenMaya, the open-source (and code-fre
 - In the same window, you should be able to update at any time. This will pull the most recent release from github.
 - Automatic updates may be finnicky for now, but manual ones are very easy.
 
-## Tutorial: TODO
+## Tutorial:
 
 - For a full demonstration, refer to my YouTube. 
 
@@ -30,7 +37,7 @@ Design the Jak level of your dreams with OpenMaya, the open-source (and code-fre
   - Model your level's geometry with Blender.
   - Use the `n` toolbar tabs associated with OpenMaya to customize your level.
     - For now, enter your level's information. All fields validate data, so they'll let you know if you made a mistake.
-  - Use the `Shift+A` menu to add actors to your scene.
+  - Use the `Shift + A` menu to add actors to your scene.
     - Return to the toolbar to edit the data of the currently selected actor as needed.
   - When you'd like to test your level, hit export on the toolbar.
 - Loading your custom level
@@ -39,7 +46,7 @@ Design the Jak level of your dreams with OpenMaya, the open-source (and code-fre
 
 - To do
 
-## :money_with_wings: Support me:
+## Support me:
 
 Thank you for checking out this open source software!
 We pour a lot of time, effort, and love into creating and maintaining it.
@@ -50,7 +57,7 @@ We appreciate any amount you can give, no matter how small.
 Your support will help us continue to develop high-quality software that is free and accessible to everyone.
 Thank you for your consideration and for being a part of the open source community!
 
-## Conventions to follow while contributing:
+## Contributing:
 
 - Blender 3.3+
 
