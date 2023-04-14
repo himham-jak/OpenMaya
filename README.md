@@ -60,7 +60,10 @@ Thank you for your consideration and for being a part of the open source communi
 
 ## Related:
 
-- To do
+- YouTube
+- Sound Tool
+- OpenGoal website
+- Mod Launcher
 
 ## Contributing:
 
