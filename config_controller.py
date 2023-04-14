@@ -4,6 +4,8 @@
 
 
 import bpy
+import os
+import string
 
 from . import export
 

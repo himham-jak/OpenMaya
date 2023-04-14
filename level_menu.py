@@ -105,14 +105,12 @@ class OBJECT_PT_LevelInfoMenu(bpy.types.Panel):
 
     def __init__(self):
 
-        print("init")
-
         # Set the custom levels path from the config on startup
     
         #config_controller.update_config()
 
         # Create the path to the config json file
-        filename = "openmaya_config.json"
+        filename = "userdata\\openmaya_config.json"
         json_path = os.path.join(os.path.dirname(__file__), filename)
 
         # Try to update the config settings from the json
@@ -127,8 +125,6 @@ class OBJECT_PT_LevelInfoMenu(bpy.types.Panel):
             print(f"Error: {e}")
 
     def draw(self, context):
-
-        print("draw")
 
         layout = self.layout
         scene = context.scene
