@@ -4,14 +4,15 @@ Design the Jak level of your dreams with OpenMaya, the open-source (and code-fre
 
 ## Table of Contents
 
-- [Compatibility](#compatibility)
-- [Installation](#installation)
-- [TODO: Tutorial](#tutorial)
-- [Features](#features)
-- [:money_with_wings: Support Me](#support--me)
-- [Contributing](#contributing)
-- [To Do](#to--do)
-- [Eventually](#eventually)
+- [:electric_plug: Compatibility](#compatibility)
+- [:scroll: Installation](#installation)
+- [TO DO: :nut_and_bolt: Tutorial](#tutorial)
+- [TO DO: :clipboard: Features](#features)
+- [:dollar: Support](#support)
+- [TO DO: :paperclip: Related](#related)
+- [:black_nib: Contributing](#contributing)
+- [TO DO: :calendar: Upcoming](#upcoming)
+- [TO DO: Eventually](#eventually)
 
 ## Compatibility:
 
@@ -46,7 +47,7 @@ Design the Jak level of your dreams with OpenMaya, the open-source (and code-fre
 
 - To do
 
-## Support Me:
+## Support:
 
 Thank you for checking out this open source software!
 We pour a lot of time, effort, and love into creating and maintaining it.
@@ -56,6 +57,10 @@ Your contribution can help us cover the costs of maintaining and improving this 
 We appreciate any amount you can give, no matter how small.
 Your support will help us continue to develop high-quality software that is free and accessible to everyone.
 Thank you for your consideration and for being a part of the open source community!
+
+## Related:
+
+- To do
 
 ## Contributing:
 
@@ -106,7 +111,7 @@ Thank you for your consideration and for being a part of the open source communi
   - Dependency inversion
     - Classes should only depend on abstract classes
 
-## To Do:
+## Upcoming:
 
 - level_menu.py
   - Config Save
