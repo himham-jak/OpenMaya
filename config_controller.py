@@ -6,8 +6,26 @@
 import bpy
 import os
 import string
+import json
 
 from . import export
+
+
+##############################################################################
+# Constants
+##############################################################################
+
+
+# Path to this script
+SCRIPT = os.path.dirname(__file__)
+
+
+# Relative path to the config file
+CONFIG = "userdata\\openmaya_config.json"
+
+
+# Relative path to the config template
+CONFIG_TEMPLATE = "templates\\config_template.txt"
 
 
 ##############################################################################
@@ -35,16 +53,20 @@ def write_file(file, text):
 
 
 def update_config():
-    script_path = os.path.dirname(__file__)
     custom_levels_path = bpy.context.scene.level_properties.custom_levels_path
     config_fields = {
             "custom_levels_path": custom_levels_path,
         }
     content = fill_template(
-        os.path.join(script_path, "templates\\config_template.txt"),
+        os.path.join(SCRIPT, CONFIG_TEMPLATE),
         config_fields,
         )
-    write_file(os.path.join(script_path, "userdata\\openmaya_config.json"), content)
+    write_file(os.path.join(SCRIPT, CONFIG), content)
+
+
+def read_from_config(key):
+    with open(os.path.join(SCRIPT, CONFIG), "r") as f:
+        return json.loads(f.read())[key]
 
 
 ##############################################################################
