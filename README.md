@@ -11,7 +11,7 @@
 
 ## Tutorial:
 
-- To doa
+- To do
 
 ## Features:
 
