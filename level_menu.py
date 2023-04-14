@@ -10,6 +10,7 @@ import os
 import json
 
 from . import export
+from . import config_controller
 
 
 ##############################################################################
@@ -102,7 +103,32 @@ class OBJECT_PT_LevelInfoMenu(bpy.types.Panel):
     bl_category = "Level Editor"
     bl_context = "objectmode"
 
+    def __init__(self):
+
+        print("init")
+
+        # Set the custom levels path from the config on startup
+    
+        #config_controller.update_config()
+
+        # Create the path to the config json file
+        filename = "openmaya_config.json"
+        json_path = os.path.join(os.path.dirname(__file__), filename)
+
+        # Try to update the config settings from the json
+        try:
+            with open(json_path, "r") as f:
+                json_data = json.loads(f.read())
+                levels_path = json_data["Working Directory"]
+                bpy.context.scene.level_properties.custom_levels_path = levels_path
+
+        # Catch the errors
+        except Exception as e:
+            print(f"Error: {e}")
+
     def draw(self, context):
+
+        print("draw")
 
         layout = self.layout
         scene = context.scene
