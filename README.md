@@ -4,20 +4,23 @@ Design the Jak level of your dreams with OpenMaya, the open-source (and code-fre
 
 ## Table of Contents
 
-- [Compatibility](#compatibility)
-- [Installation](#installation)
-- [TODO: Tutorial](#tutorial)
-- [Features](#features)
-- [:money_with_wings: Support Me](#support--me)
-- [Contributing](#contributing)
-- [To Do](#to--do)
-- [Eventually](#eventually)
+- [:electric_plug: Compatibility](#compatibility)
+- [:scroll: Installation](#installation)
+- [TO DO: :nut_and_bolt: Tutorial](#tutorial)
+- [TO DO: :clipboard: Features](#features)
+- [:dollar: Support](#support)
+  - <a href="https://ko-fi.com/himhamrex">Ko-fi</a>
+- [TO DO: :paperclip: Related](#related)
+  - Links
+- [:black_nib: Contributing](#contributing)
+- [TO DO: :calendar: Upcoming](#upcoming)
+- [TO DO: Eventually](#eventually)
 
 ## Compatibility:
 
-- Blender 3.3+ minimum system requirements
+- <a href="https://download.blender.org/release/">Blender</a> 3.3+ minimum system requirements
   - Previous versions may work but will not be actively supported.
-- OpenGoal minimum system requirements
+- <a href="https://opengoal.dev/">OpenGOAL</a> minimum system requirements
 
 ## Installation:
 
@@ -44,25 +47,35 @@ Design the Jak level of your dreams with OpenMaya, the open-source (and code-fre
 
 ## Features:
 
-- To do
+- Export level geometry in `.glb` format compatible with OpenGOAL.
+- Add and position OpenGOAL actors in 3D space
+- Modify custom properties within individual actors
+  - Documentation
 
-## Support me:
+## Support:
 
 Thank you for checking out this open source software!
 We pour a lot of time, effort, and love into creating and maintaining it.
 Developing and improving software like this is not only our passion but also our way of contributing to the open source community.
-If you find our software useful and would like to support our work, please consider making a donation through Ko-fi.
+If you find our software useful and would like to support our work, please consider making a donation through <a href="https://ko-fi.com/himhamrex">Ko-fi</a>.
 Your contribution can help us cover the costs of maintaining and improving this software.
 We appreciate any amount you can give, no matter how small.
 Your support will help us continue to develop high-quality software that is free and accessible to everyone.
 Thank you for your consideration and for being a part of the open source community!
+
+## Related:
+
+- YouTube
+- Sound Tool
+- OpenGoal website
+- Mod Launcher
 
 ## Contributing:
 
 - Blender 3.3+
 
 - Recommendation: Make the Blender addon folder your local repo
-  - Clone the repo to %appdata%/Blender Foundation/Blender/{version number}/scripts/addons/OpenMaya
+  - Clone the repo to `%appdata%/Blender Foundation/Blender/{version number}/scripts/addons/OpenMaya`
   - This way, all changes to the project can be immediately loaded into Blender
 
 - Use black formatter (I have it format on save)
@@ -106,7 +119,7 @@ Thank you for your consideration and for being a part of the open source communi
   - Dependency inversion
     - Classes should only depend on abstract classes
 
-## To Do:
+## Upcoming:
 
 - level_menu.py
   - Config Save
