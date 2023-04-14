@@ -103,11 +103,14 @@ class OBJECT_PT_LevelInfoMenu(bpy.types.Panel):
     bl_category = "Level Editor"
     bl_context = "objectmode"
 
+<<<<<<< Updated upstream
     #@classmethod
     #def poll(self, context):
     #    should_update_config = True
     #    return should_update_config
 
+=======
+>>>>>>> Stashed changes
     def __init__(self):
 
         # Set the custom levels path from the config on startup
