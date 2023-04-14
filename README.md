@@ -1,28 +1,81 @@
 # OpenMaya
 
+Design the Jak level of your dreams with OpenMaya, the open-source (and code-free) level builder for Blender.
+
+## Table of Contents
+
+- [:electric_plug: Compatibility](#compatibility)
+- [:scroll: Installation](#installation)
+- [TO DO: :nut_and_bolt: Tutorial](#tutorial)
+- [TO DO: :clipboard: Features](#features)
+- [:dollar: Support](#support)
+  - <a href="https://ko-fi.com/himhamrex">Ko-fi</a>
+- [TO DO: :paperclip: Related](#related)
+  - Links
+- [:black_nib: Contributing](#contributing)
+- [TO DO: :calendar: Upcoming](#upcoming)
+- [TO DO: Eventually](#eventually)
+
+## Compatibility:
+
+- <a href="https://download.blender.org/release/">Blender</a> 3.3+ minimum system requirements
+  - Previous versions may work but will not be actively supported.
+- <a href="https://opengoal.dev/">OpenGOAL</a> minimum system requirements
+
 ## Installation:
 
 - If you're using a release, just download the `.zip` file, don't extract it
 - To make your own release, put all of the contents of this repo into a folder, then put that folder in a `.zip`
 - There must be a subfolder in the `.zip` or it won't work
 - In Blender, choose `Edit > Preferences… > Add-ons > Install…` and select the `.zip`
-- In the same window, you should be able to update at any time. This will pull the most recent release from here.
+- In the same window, you should be able to update at any time. This will pull the most recent release from github.
 - Automatic updates may be finnicky for now, but manual ones are very easy.
 
 ## Tutorial:
 
-- To do
+- For a full demonstration, refer to my YouTube. 
+
+- Creating a custom Jak level with OpenMaya
+  - Ensure OpenMaya is updated before you begin.
+  - Model your level's geometry with Blender.
+  - Use the `n` toolbar tabs associated with OpenMaya to customize your level.
+    - For now, enter your level's information. All fields validate data, so they'll let you know if you made a mistake.
+  - Use the `Shift + A` menu to add actors to your scene.
+    - Return to the toolbar to edit the data of the currently selected actor as needed.
+  - When you'd like to test your level, hit export on the toolbar.
+- Loading your custom level
 
 ## Features:
 
-- To do
+- Export level geometry in `.glb` format compatible with OpenGOAL.
+- Add and position OpenGOAL actors in 3D space
+- Modify custom properties within individual actors
+  - Documentation
 
-## Conventions to follow while contributing:
+## Support:
 
-- Blender Version 3.3+
+Thank you for checking out this open source software!
+We pour a lot of time, effort, and love into creating and maintaining it.
+Developing and improving software like this is not only our passion but also our way of contributing to the open source community.
+If you find our software useful and would like to support our work, please consider making a donation through <a href="https://ko-fi.com/himhamrex">Ko-fi</a>.
+Your contribution can help us cover the costs of maintaining and improving this software.
+We appreciate any amount you can give, no matter how small.
+Your support will help us continue to develop high-quality software that is free and accessible to everyone.
+Thank you for your consideration and for being a part of the open source community!
+
+## Related:
+
+- YouTube
+- Sound Tool
+- OpenGoal website
+- Mod Launcher
+
+## Contributing:
+
+- Blender 3.3+
 
 - Recommendation: Make the Blender addon folder your local repo
-  - Clone the repo to %appdata%/Blender Foundation/Blender/{version number}/scripts/addons/OpenMaya
+  - Clone the repo to `%appdata%/Blender Foundation/Blender/{version number}/scripts/addons/OpenMaya`
   - This way, all changes to the project can be immediately loaded into Blender
 
 - Use black formatter (I have it format on save)
@@ -66,7 +119,7 @@
   - Dependency inversion
     - Classes should only depend on abstract classes
 
-## To Do:
+## Upcoming:
 
 - level_menu.py
   - Config Save
@@ -93,6 +146,11 @@
   - Playtest
     - Use the pre-made bash scripts
   - Move add actors to bottom of add list
+- Experimental options
+  - Toggle in Preferences
+  - Turns on potentially error producing features
+- Debug mode
+- Verbose Output
 
 ## Eventually:
 
@@ -117,3 +175,18 @@
   - Export Functionality
     - Upgrade to writing the level and actor info into the .glb itself
   - Bezier curves for paths
+
+- Missions
+  - Fish
+  - Rats
+  - Rings
+  - Mountain Pass Race (Countdown)
+  - Basin Race (Beat record)
+  - Mirrors
+  - Break object
+  - Kill enemy
+  - Step on switch
+  - Hit switch
+  - Collect xyz
+  - Cells
+  - Cutscene
