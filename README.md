@@ -46,7 +46,7 @@ Design the Jak level of your dreams with OpenMaya, the open-source (and code-fre
 
 - To do
 
-## Support me:
+## Support Me:
 
 Thank you for checking out this open source software!
 We pour a lot of time, effort, and love into creating and maintaining it.
