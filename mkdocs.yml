@@ -34,12 +34,6 @@ nav:
   - Home:
     - Markdown Preview: index.md
     - Installation: install.md
-    - Usage: usage.md
-    - Extras: extras.md
-  - About:
-    - Contributing &amp; Support: about/contributing.md
-    - Changes: about/changes.md
-    - License: about/license.md
 
 extra:
   social:
