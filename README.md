@@ -4,17 +4,16 @@ Design the Jak level of your dreams with OpenMaya, the open-source (and code-fre
 
 ## Table of Contents
 
-- [:electric_plug: Compatibility](#compatibility)
-- [:scroll: Installation](#installation)
-- [TO DO: :nut_and_bolt: Tutorial](#tutorial)
-- [TO DO: :clipboard: Features](#features)
-- [:dollar: Support](#support)
+- :electric_plug:[Compatibility](#compatibility)
+- :scroll:[Installation](#installation)
+- :nut_and_bolt:[Tutorial](#tutorial)
+- :clipboard:[Features](#features)
+- :dollar:[Support](#support)
   - <a href="https://ko-fi.com/himhamrex">Ko-fi</a>
-- [TO DO: :paperclip: Related](#related)
+- :paperclip:[ Related](#related)
   - Links
-- [:black_nib: Contributing](#contributing)
-- [TO DO: :calendar: Upcoming](#upcoming)
-- [TO DO: Eventually](#eventually)
+- :black_nib:[Contributing](#contributing)
+- :calendar:[Upcoming](#upcoming)
 
 ## Compatibility:
 
@@ -47,40 +46,46 @@ Design the Jak level of your dreams with OpenMaya, the open-source (and code-fre
 
 ## Features:
 
-- Export level geometry in `.glb` format compatible with OpenGOAL.
+- Manual and/or automatic updater built into Blender's interface
 - Add and position OpenGOAL actors in 3D space
 - Modify custom properties within individual actors
   - Documentation
+- Update files en masse or individually with precise exporting
+  - Level Info
+  - Actor Info
+  - Level Geometry
 
 ## Support:
 
 Thank you for checking out this open source software!
-We pour a lot of time, effort, and love into creating and maintaining it.
-Developing and improving software like this is not only our passion but also our way of contributing to the open source community.
-If you find our software useful and would like to support our work, please consider making a donation through <a href="https://ko-fi.com/himhamrex">Ko-fi</a>.
-Your contribution can help us cover the costs of maintaining and improving this software.
-We appreciate any amount you can give, no matter how small.
-Your support will help us continue to develop high-quality software that is free and accessible to everyone.
+I pour a lot of time, effort, and love into creating and maintaining it.
+Developing and improving software like this is not only my passion but also my way of contributing to the open source community.
+If you find my software useful and would like to support my work, <a href="https://ko-fi.com/himhamrex">consider making a donation through Ko-fi</a>.
+Your contribution can help me cover the costs of maintaining and improving this software.
+I appreciate any amount you can give, no matter how small.
+Your support will help me continue to develop high-quality software that is free and accessible to everyone.
 Thank you for your consideration and for being a part of the open source community!
 
 ## Related:
 
 - YouTube
 - Sound Tool
-- OpenGoal website
+- OpenGOAL website
 - Mod Launcher
 
 ## Contributing:
 
-- Blender 3.3+
-
-- Recommendation: Make the Blender addon folder your local repo
-  - Clone the repo to `%appdata%/Blender Foundation/Blender/{version number}/scripts/addons/OpenMaya`
-  - This way, all changes to the project can be immediately loaded into Blender
-
-- Use black formatter (I have it format on save)
-  - <a href="https://packagecontrol.io/packages/python-black">Sublime Text</a>
-  - <a href="https://dev.to/adamlombard/how-to-use-the-black-python-code-formatter-in-vscode-3lo0">VS Code</a>
+- Tools
+  - <a href="https://download.blender.org/release/">Blender</a> 3.3+
+  - Text editor for Python/C/C++
+    - Recommended: Black Formatter
+      - <a href="https://packagecontrol.io/packages/python-black">Black Formatter</a> for Sublime Text
+      - <a href="https://dev.to/adamlombard/how-to-use-the-black-python-code-formatter-in-vscode-3lo0">Black Formatter</a> for VS Code
+  - <a href="https://opengoal.dev/">OpenGOAL</a>
+  - Github (duh)
+    - Recommended: Make the Blender addon folder your local repo
+      - Clone the repo to `%appdata%/Blender Foundation/Blender/{version number}/scripts/addons/OpenMaya`
+      - This way, all changes to the project can be immediately loaded into Blender
 
 - Updating after modification
   - The best way to update the addon after an edit is to restart blender with the addon disabled and then enable it again afterwards.
@@ -102,22 +107,10 @@ Thank you for your consideration and for being a part of the open source communi
     - Third Party
     - Built-ins
     - Custom Modules
+  - Constants
   - Classes
   - Functions
   - Registration
-  
-- Logic Principles (these are mostly here for my benefit)
-  - Single-responsibility
-    - Methods of a class should be alternatives to each other, not sequential steps
-  - Open-closed
-    - Abstract classes should be extended by subclasses, not modified to add code
-  - Liskov substitution
-    - Subclasses should be able to be substituted for their parents, any extra input should be handled by the initializer
-  - Interface segregation
-    - Use an intermediate subclass to integrate functionality for two different types of subclasses
-    - Use composition
-  - Dependency inversion
-    - Classes should only depend on abstract classes
 
 ## Upcoming:
 
@@ -127,7 +120,8 @@ Thank you for your consideration and for being a part of the open source communi
     - Collapse Add actor menu?
     - Add actors at top or bottom of add menu?
     - Gizmo visibility
-    - Choose between toolbar and <a href="https://blender.stackexchange.com/questions/214228/how-do-i-add-a-new-panel-to-the-properties-editor">properties area</a> for OpenMaya
+    - Choose between toolbar
+      - and <a href="https://blender.stackexchange.com/questions/214228/how-do-i-add-a-new-panel-to-the-properties-editor">properties area</a> for OpenMaya
   - Error Messages
     - Popups
 - saved_actors.json
@@ -190,3 +184,7 @@ Thank you for your consideration and for being a part of the open source communi
   - Collect xyz
   - Cells
   - Cutscene
+  
+  
+- Automatically run macro on export
+  - jak-project/scripts/shell/
