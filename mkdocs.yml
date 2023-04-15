@@ -1,0 +1,55 @@
+site_name: OpenMaya Documentation
+site_url: https://himham-jak.github.io/OpenMaya
+repo_url: https://github.com/himham-jak/OpenMaya
+edit_uri: tree/master/docs/src/openmaya
+site_description: OpenGOAL level builder plugin for Blender
+copyright: |
+  All software is open source.
+docs_dir: docs/src/markdown
+theme:
+  name: material
+  custom_dir: docs/theme
+  icon:
+    logo: material/book-open-page-variant
+  palette:
+    scheme: dracula
+    primary: deep purple
+    accent: deep purple
+  font:
+    text: Roboto
+    code: Roboto Mono
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.instant
+    - navigation.indexes
+    - toc.follow
+    - content.code.copy
+    - navigation.footer
+    - search.share
+    - search.highlight
+    - search.suggest
+
+nav:
+  - Home:
+    - Markdown Preview: index.md
+    - Installation: install.md
+    - Usage: usage.md
+    - Extras: extras.md
+  - About:
+    - Contributing &amp; Support: about/contributing.md
+    - Changes: about/changes.md
+    - License: about/license.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/himham-jak
+
+plugins:
+  - search
+  - git-revision-date-localized:
+      fallback_to_build_date: true
+  - mkdocs_pymdownx_material_extras
+  - minify:
+      minify_html: true
