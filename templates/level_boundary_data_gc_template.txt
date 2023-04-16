@@ -1,0 +1,6 @@
+(static-load-boundary :flags ()
+  :top ${y1}  :bot ${y0}
+  :points (${x0} ${z0} ${x1} ${z1})
+  :fwd (load ${level1} ${level0})
+  :bwd (load ${level2} ${level0})
+  )
