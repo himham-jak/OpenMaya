@@ -17,8 +17,11 @@ from . import config_controller
 # Constants
 ##############################################################################
 
-# Path read out of the json config
-CUSTLVL = config_controller.read_from_config("Working Directory")
+# Read path out of the json config
+try:
+    CUSTLVL = config_controller.read_from_config("Working Directory")
+except Exception as e: # Catch the errors
+    print(f"Unable to load values from config\nError: {e}")
 
 
 ##############################################################################
@@ -56,31 +59,43 @@ class LevelProperties(bpy.types.PropertyGroup):
     should_export_level_info: bpy.props.BoolProperty(
         name="Level Info",
         description="Check if you'd like the level info to be included when you export",
-        default=True,
+        default=False,
     )
 
     should_export_actor_info: bpy.props.BoolProperty(
         name="Actor Info",
         description="Check if you'd like the actor info to be included when you export",
-        default=True,
+        default=False,
     )
 
     should_export_geometry: bpy.props.BoolProperty(
         name="Level Geometry",
         description="Check if you'd like the level geometry to be included when you export",
+        default=False,
+    )
+
+    should_export_boundaries: bpy.props.BoolProperty(
+        name="Loading Boundaries",
+        description="Check if you'd like the loading boundaries to be included when you export",
+        default=False,
+    )
+
+    should_export_progress: bpy.props.BoolProperty(
+        name="Progress Menu",
+        description="Check if you'd like the progress menu to be updated when you export",
         default=True,
     )
 
     should_playtest_level: bpy.props.BoolProperty(
         name="Playtest Level",
         description="Check if you'd like to launch the level immediately after export",
-        default=True,
+        default=False,
     )
 
     automatic_wall_detection: bpy.props.BoolProperty(
         name="Auto Wall Detection",
         description="Check if you'd like the level to automatically create walls above a certain angle",
-        default=True,
+        default=False,
     )
 
     automatic_wall_angle: bpy.props.FloatProperty(
@@ -116,19 +131,19 @@ class OBJECT_PT_LevelInfoMenu(bpy.types.Panel):
     #    should_update_config = True
     #    return should_update_config
 
-    def __init__(self):
+    #def __init__(self):
 
-        props = bpy.context.scene.level_properties
-        custom_levels_path = props.custom_levels_path
+    #    props = bpy.context.scene.level_properties
+    #    custom_levels_path = props.custom_levels_path
 
         # If custom_levels_path is set to empty, immediately replace it with the config default value
-        if len(custom_levels_path) < 1:
+    #    if len(custom_levels_path) < 1:
 
-            try: # Try to update the config settings from the json
-                props.custom_levels_path = CUSTLVL
+    #        try: # Try to update the config settings from the json
+    #            props.custom_levels_path = CUSTLVL
 
-            except Exception as e: # Catch the errors
-                print(f"Unable to load values from config\nError: {e}")
+    #        except Exception as e: # Catch the errors
+    #            print(f"Unable to load values from config\nError: {e}")
 
     def draw(self, context):
 
@@ -170,6 +185,10 @@ class OBJECT_PT_LevelInfoMenu(bpy.types.Panel):
         layout.prop(level_properties, "should_export_actor_info")
 
         layout.prop(level_properties, "should_export_geometry")
+
+        layout.prop(level_properties, "should_export_boundaries")
+
+        layout.prop(level_properties, "should_export_progress")
 
         # layout.prop(level_properties, "should_playtest_level")
 

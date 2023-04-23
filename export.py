@@ -23,6 +23,8 @@ class ExportOperator(bpy.types.Operator):
     bl_label = "Export"  # String for the UI
     bl_options = {"REGISTER", "UNDO"}  # Enable undo for the operator
 
+    #add poll method to restrict execute with error
+
     def execute(self, context):  # execute() is called when running the operator
 
         # Grab the level properties from the level menu
@@ -58,6 +60,11 @@ class ExportOperator(bpy.types.Operator):
             "goal_src\\jak1\\engine\\level",
         )
 
+        # Path to game_text_en.gs
+        text_en_path = os.path.join(
+            os.path.dirname(os.path.dirname(working_dir)), "game\\assets\\jak1\\text"
+        )
+
         # Level title with no dash
         leveltitle = props.level_title.replace("-", "")
 
@@ -86,6 +93,17 @@ class ExportOperator(bpy.types.Operator):
         def write_file(file, text):
             with open(file, "w") as f:
                 f.write(text)
+
+        def insert_before(file, text, divider):
+            with open(file, "r") as f:
+                contents = f.readlines()
+
+            with open(file, "w") as f:
+                for line in contents:
+                    # This is a shitty implementation
+                    if divider in line:
+                        f.write(text)
+                    f.write(line)
 
         def insert_after(file, text, divider):
             with open(file, "r") as f:
@@ -281,6 +299,41 @@ class ExportOperator(bpy.types.Operator):
             bpy.ops.export_scene.gltf(
                 filepath=os.path.join(level_path, f"{props.level_title}.glb"),
                 use_selection=True,  # export only the selection
+            )
+
+        # Check if the user wants to update the progress menu
+        if props.should_export_progress:
+
+            # Fields to fill in the template file
+
+            # Convert to hex
+            number = hex(11)
+
+            # Cut off leading 0
+            number = number[1:]
+
+            boundary_fields = {
+                "number": number,
+                "text": "blah",
+            }
+
+            # ../goal_src/jak1/game.gp
+            content = fill_template(
+                os.path.join(script_path, "templates\\game_text_en_gs_template.txt"),
+                boundary_fields,
+            )
+
+            print(content)
+
+            backup_file(
+                os.path.join(text_en_path, "game_text_en.gs"),
+                os.path.join(text_en_path, "game_text_en.bak"),
+            )
+
+            insert_before(
+                os.path.join(text_en_path, "game_text_en.gs"),
+                content,
+                ";; -----------------\n;; test (DO NOT TRANSLATE)",
             )
 
         # Check if the user wants to playtest
