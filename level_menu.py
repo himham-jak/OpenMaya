@@ -21,6 +21,7 @@ from . import config_controller
 try:
     CUSTLVL = config_controller.read_from_config("Working Directory")
 except Exception as e: # Catch the errors
+    CUSTLVL = "Unable to load from config"
     print(f"Unable to load values from config\nError: {e}")
 
 
@@ -131,27 +132,25 @@ class OBJECT_PT_LevelInfoMenu(bpy.types.Panel):
     #    should_update_config = True
     #    return should_update_config
 
-    #def __init__(self):
+    def __init__(self):
 
-    #    props = bpy.context.scene.level_properties
-    #    custom_levels_path = props.custom_levels_path
+        props = bpy.context.scene.level_properties
+        custom_levels_path = props.custom_levels_path
 
         # If custom_levels_path is set to empty, immediately replace it with the config default value
-    #    if len(custom_levels_path) < 1:
+        if len(custom_levels_path) < 1:
 
-    #        try: # Try to update the config settings from the json
-    #            props.custom_levels_path = CUSTLVL
+            try: # Try to update the config settings from the json
+                props.custom_levels_path = CUSTLVL
 
-    #        except Exception as e: # Catch the errors
-    #            print(f"Unable to load values from config\nError: {e}")
+            except Exception as e: # Catch the errors
+                print(f"Unable to load values from config\nError: {e}")
 
     def draw(self, context):
 
         layout = self.layout
         scene = context.scene
         level_properties = scene.level_properties
-
-
 
         def input_invalid(chars, value):
             return not (bool(re.match(chars, value)) and value)

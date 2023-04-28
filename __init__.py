@@ -1,7 +1,7 @@
 bl_info = {
     "name": "OpenMaya",
     "description": "Level editing tools for the OpenGoal version of the Jak and Daxter series.",
-    "author": "himham, tripp, kuitar",
+    "author": "himham, water111, tripp, kuitar",
     "version": (0, 0, 2),
     "blender": (3, 3, 0),
     "location": "View3D > N-Toolbar > Level Info",
@@ -22,6 +22,7 @@ from . import addon_updater_ops
 
 modules = [
     "level_menu",
+    "geom_menu",
     "actor_menu",
     "add_actor",
     "export",
