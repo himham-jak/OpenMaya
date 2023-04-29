@@ -200,16 +200,6 @@ classes.append(OBJECT_PT_LevelInfoMenu)  # Add the class to the array
 ##############################################################################
 
 
-# Need to implement a singleton pattern so this only shows once per error
-def show_message(message, title="Message", icon="INFO"):
-    """Make a little popup"""
-
-    def draw(self, context):
-        self.layout.label(text=message)
-
-    bpy.context.window_manager.popup_menu(draw, title=title, icon=icon)
-
-
 ##############################################################################
 # Registration
 ##############################################################################

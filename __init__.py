@@ -1,10 +1,10 @@
 bl_info = {
     "name": "OpenMaya",
-    "description": "Level editing tools for the OpenGoal version of the Jak and Daxter series.",
-    "author": "himham, water111, tripp, kuitar",
+    "description": "Custom level editing tools for the OpenGoal version of the Jak and Daxter series.",
+    "author": "himham, water111 (integrated code), kuitar (new graphics)",
     "version": (0, 0, 2),
     "blender": (3, 3, 0),
-    "location": "View3D > N-Toolbar > Level Info",
+    "location": "View3D > N Toolbar > Level Info",
     "warning": "Alpha Build",
     "doc_url": "https://github.com/himham-jak/OpenMaya",
     "tracker_url": "https://github.com/himham-jak/OpenMaya/issues",

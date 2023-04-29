@@ -7,6 +7,8 @@ import bpy
 import os
 import string
 
+from . import level_menu
+
 
 ##############################################################################
 # Classes
@@ -25,13 +27,20 @@ class ExportOperator(bpy.types.Operator):
 
     #add poll method to restrict execute with error
 
+    #show_message(message, title="Message", icon="INFO"):
+
     def execute(self, context):  # execute() is called when running the operator
 
         # Grab the level properties from the level menu
         props = context.scene.level_properties
 
         # Grab the working directory
-        working_dir = props.custom_levels_path
+        try:
+            working_dir = props.custom_levels_path
+        except Exception as e:
+            print(f"Errorororor: {e}")
+            show_message("HELLO")
+            return {"FINISHED"}
 
         # Validate the above info
 
@@ -351,6 +360,15 @@ classes.append(ExportOperator)  # Add the class to the array
 ##############################################################################
 # Functions
 ##############################################################################
+
+
+def show_message(message, title="Message", icon="INFO"):
+    """Make a little popup"""
+
+    def draw(self, context):
+        self.layout.label(text=message)
+
+    bpy.context.window_manager.popup_menu(draw, title=title, icon=icon)
 
 
 ##############################################################################

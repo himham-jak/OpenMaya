@@ -968,6 +968,12 @@ ADD_MENU_LOC = [
 ]
 
 
+ACTOR_DETAIL = [
+  ("all", "Extensive", "", 0),
+  ("min", "Minimal", "", 1),
+]
+
+
 class OpenMayaProperties(bpy.types.PropertyGroup):
 
     expand_om_config: bpy.props.BoolProperty(
@@ -993,6 +999,13 @@ class OpenMayaProperties(bpy.types.PropertyGroup):
         name="Actor Menu Location",
         items=MENU_LOC,
         description="Choose what panel the Actor Info tab calls home",
+        default=0,
+    )
+
+    actor_menu_detail: bpy.props.EnumProperty(
+        name="Actor Menu Detail",
+        items=ACTOR_DETAIL,
+        description="Choose the level of detail for your actor editing preferences",
         default=0,
     )
 
@@ -1063,6 +1076,18 @@ class OpenMayaProperties(bpy.types.PropertyGroup):
         default=False,
     )
 
+    debug: bpy.props.BoolProperty(
+        name="Debug",
+        description="Check if you'd like to see debug messages in the console",
+        default=False,
+    )
+
+    verbose: bpy.props.BoolProperty(
+        name="Verbose",
+        description="Check if you'd like to see an obnoxious amount of debug messages in the console",
+        default=False,
+    )
+
     show_contributions: bpy.props.BoolProperty(
         name="Show Opportunities to Contribute",
         description="Check if you'd like to see inactive features that you could help finish",
@@ -1088,11 +1113,16 @@ def update_settings_ui(self, context, element=None):
     om_properties = context.scene.om_properties
 
     # Show/Hide OpenMaya Config
+
+    # Add to om: Presets?
+
     box.prop(om_properties, "expand_om_config", text="OpenMaya Configuration", icon="TEXT") # change icon
     if (om_properties.expand_om_config):
         om_col = box.column()
         om_row = om_col.split(factor=0.5)
         om_row.operator("wm.default")
+
+        # Add to menu_loc:
 
         om_col.prop(om_properties, "expand_menu_loc_config", text="Menu Locations", icon="TEXT") # change icon
         if (om_properties.expand_menu_loc_config):
@@ -1100,14 +1130,20 @@ def update_settings_ui(self, context, element=None):
             om_col.prop(om_properties, "actor_menu_loc")
             om_col.prop(om_properties, "add_menu_loc")
 
+        # Add to level_menu: Data validation bool
+        
         om_col.prop(om_properties, "expand_level_menu_config", icon="TEXT") # change icon
         if (om_properties.expand_level_menu_config):
             om_col.prop(om_properties, "show_level_menu_icons")
 
+        # Add to actor_menu: Data validation bool
+
         om_col.prop(om_properties, "expand_actor_menu_config", icon="TEXT") # change icon
         if (om_properties.expand_actor_menu_config):
             om_col.prop(om_properties, "show_actor_menu_icons")
-            om_col.label(text="Detail: Extensive, Bare Minimum")
+            om_col.prop(om_properties, "actor_menu_detail")
+
+        # Add to add_menu: Append/prepend
 
         om_col.prop(om_properties, "expand_add_menu_config", icon="TEXT") # change icon
         if (om_properties.expand_add_menu_config):
@@ -1115,8 +1151,13 @@ def update_settings_ui(self, context, element=None):
             om_col.prop(om_properties, "show_categories")
             om_col.prop(om_properties, "show_sort")
 
+        # Add to dev: Show Open Console button
+
         om_col.prop(om_properties, "expand_dev_config", icon="TEXT") # change icon
         if (om_properties.expand_dev_config):
+            om_col.prop(om_properties, "debug")
+            if (om_properties.debug):
+                om_col.prop(om_properties, "verbose")
             om_col.prop(om_properties, "show_contributions")
             om_col.prop(context.preferences.view, "show_developer_ui", text="Blender's Developer Extras")
             om_col.prop(context.preferences.view, "show_tooltips", text="Blender's User Tooltips")
