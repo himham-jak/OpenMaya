@@ -124,7 +124,7 @@ class OBJECT_PT_LevelInfoMenu(bpy.types.Panel):
     bl_label = "Level Info"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "Level Editor"
+    bl_category = "OpenMaya"
     bl_context = "objectmode"
 
     #@classmethod

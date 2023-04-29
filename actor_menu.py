@@ -23,7 +23,7 @@ class OBJECT_PT_ActorInfoMenu(bpy.types.Panel):
     bl_label = "Actor Info"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "Level Editor"
+    bl_category = "OpenMaya"
     bl_context = "objectmode"
 
     def draw(self, context):

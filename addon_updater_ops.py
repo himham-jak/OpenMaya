@@ -1090,38 +1090,39 @@ def update_settings_ui(self, context, element=None):
     # Show/Hide OpenMaya Config
     box.prop(om_properties, "expand_om_config", text="OpenMaya Configuration", icon="TEXT") # change icon
     if (om_properties.expand_om_config):
-        om_row = box.column()
+        om_col = box.column()
+        om_row = om_col.split(factor=0.5)
         om_row.operator("wm.default")
 
-        om_row.prop(om_properties, "expand_menu_loc_config", text="Menu Locations", icon="TEXT") # change icon
+        om_col.prop(om_properties, "expand_menu_loc_config", text="Menu Locations", icon="TEXT") # change icon
         if (om_properties.expand_menu_loc_config):
-            om_row.prop(om_properties, "level_menu_loc")
-            om_row.prop(om_properties, "actor_menu_loc")
-            om_row.prop(om_properties, "add_menu_loc")
+            om_col.prop(om_properties, "level_menu_loc")
+            om_col.prop(om_properties, "actor_menu_loc")
+            om_col.prop(om_properties, "add_menu_loc")
 
-        om_row.prop(om_properties, "expand_level_menu_config", icon="TEXT") # change icon
+        om_col.prop(om_properties, "expand_level_menu_config", icon="TEXT") # change icon
         if (om_properties.expand_level_menu_config):
-            om_row.prop(om_properties, "show_level_menu_icons")
+            om_col.prop(om_properties, "show_level_menu_icons")
 
-        om_row.prop(om_properties, "expand_actor_menu_config", icon="TEXT") # change icon
+        om_col.prop(om_properties, "expand_actor_menu_config", icon="TEXT") # change icon
         if (om_properties.expand_actor_menu_config):
-            om_row.prop(om_properties, "show_actor_menu_icons")
-            om_row.label(text="Detail: Extensive, Bare Minimum")
+            om_col.prop(om_properties, "show_actor_menu_icons")
+            om_col.label(text="Detail: Extensive, Bare Minimum")
 
-        om_row.prop(om_properties, "expand_add_menu_config", icon="TEXT") # change icon
+        om_col.prop(om_properties, "expand_add_menu_config", icon="TEXT") # change icon
         if (om_properties.expand_add_menu_config):
-            om_row.prop(om_properties, "show_add_menu_icons")
-            om_row.prop(om_properties, "show_categories")
-            om_row.prop(om_properties, "show_sort")
+            om_col.prop(om_properties, "show_add_menu_icons")
+            om_col.prop(om_properties, "show_categories")
+            om_col.prop(om_properties, "show_sort")
 
-        om_row.prop(om_properties, "expand_dev_config", icon="TEXT") # change icon
+        om_col.prop(om_properties, "expand_dev_config", icon="TEXT") # change icon
         if (om_properties.expand_dev_config):
-            om_row.prop(om_properties, "show_contributions")
-            om_row.prop(context.preferences.view, "show_developer_ui", text="Blender's Developer Extras")
-            om_row.prop(context.preferences.view, "show_tooltips", text="Blender's User Tooltips")
-            om_row.prop(context.preferences.view, "show_tooltips_python", text="Blender's Python Tooltips")
+            om_col.prop(om_properties, "show_contributions")
+            om_col.prop(context.preferences.view, "show_developer_ui", text="Blender's Developer Extras")
+            om_col.prop(context.preferences.view, "show_tooltips", text="Blender's User Tooltips")
+            om_col.prop(context.preferences.view, "show_tooltips_python", text="Blender's Python Tooltips")
 
-        om_row.prop(om_properties, "expand_updater_config", icon="TEXT") # change icon
+        om_col.prop(om_properties, "expand_updater_config", icon="TEXT") # change icon
 
     # In case of error importing updater.
     if updater.invalid_updater:

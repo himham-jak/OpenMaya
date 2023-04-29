@@ -175,7 +175,7 @@ class OBJECT_PT_GeomInfoMenu(bpy.types.Panel):
     bl_label = "Geometry Info"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "Level Editor"
+    bl_category = "OpenMaya"
     bl_context = "mesh_edit"
 
     def draw(self, context):
