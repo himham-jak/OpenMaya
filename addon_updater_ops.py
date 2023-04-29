@@ -939,6 +939,35 @@ def update_notice_box_ui(self, context):
         col.operator("wm.url_open", text="Get it now").url = updater.website
 
 
+class DefaultOperator(bpy.types.Operator):
+    """Export the selected options"""  # Be careful, operator docstrings are exposed to the user
+
+    bl_idname = "wm.default"  # Unique operator reference name
+    bl_label = "Revert to Defaults"  # String for the UI
+    bl_options = {"REGISTER", "UNDO"}  # Enable undo for the operator
+
+    #add poll method to restrict execute with error
+
+    def execute(self, context):  # execute() is called when running the operator
+
+        return {"FINISHED"}
+
+
+MENU_LOC = [
+  ("n", "N Toolbar", "", 0),
+  ("prop", "Properties Editor", "", 1),
+  ("hide", "Hide", "", 2),
+]
+
+
+ADD_MENU_LOC = [
+  ("mesh", "Mesh", "", 0),
+  ("sub", "Mesh > Actors", "", 1),
+  ("actors", "Actors", "", 2),
+  ("hide", "Hide", "TEXT", 3),
+]
+
+
 class OpenMayaProperties(bpy.types.PropertyGroup):
 
     expand_om_config: bpy.props.BoolProperty(
@@ -953,10 +982,37 @@ class OpenMayaProperties(bpy.types.PropertyGroup):
         default=False,
     )
 
+    level_menu_loc: bpy.props.EnumProperty(
+        name="Level Menu Location",
+        items=MENU_LOC,
+        description="Choose what panel the Level Info tab calls home",
+        default=0,
+    )
+
+    actor_menu_loc: bpy.props.EnumProperty(
+        name="Actor Menu Location",
+        items=MENU_LOC,
+        description="Choose what panel the Actor Info tab calls home",
+        default=0,
+    )
+
+    add_menu_loc: bpy.props.EnumProperty(
+        name="Add Menu Location",
+        items=ADD_MENU_LOC,
+        description="Choose what dropdown the Add Actor tab calls home",
+        default=0,
+    )
+
     expand_level_menu_config: bpy.props.BoolProperty(
         name="Level Menu",
         description="Open to modify options to your personal taste",
         default=False,
+    )
+
+    show_level_menu_icons: bpy.props.BoolProperty(
+        name="Show Icons",
+        description="Check if you'd like to see icons in the Level Info panel",
+        default=True,
     )
 
     expand_actor_menu_config: bpy.props.BoolProperty(
@@ -965,10 +1021,34 @@ class OpenMayaProperties(bpy.types.PropertyGroup):
         default=False,
     )
 
+    show_actor_menu_icons: bpy.props.BoolProperty(
+        name="Show Icons",
+        description="Check if you'd like to see icons in the Actor Info panel",
+        default=True,
+    )
+
     expand_add_menu_config: bpy.props.BoolProperty(
         name="Add Menu",
         description="Open to modify options to your personal taste",
         default=False,
+    )
+
+    show_add_menu_icons: bpy.props.BoolProperty(
+        name="Show Icons",
+        description="Check if you'd like to see icons in the Add Actor dropdown",
+        default=True,
+    )
+
+    show_categories: bpy.props.BoolProperty(
+        name="Show Categories",
+        description="Check if you'd like the actors divided into categories",
+        default=True,
+    )
+
+    show_sort: bpy.props.BoolProperty(
+        name="Show Sort Operators",
+        description="Check if you'd like to have sort buttons for the actors",
+        default=True,
     )
 
     expand_updater_config: bpy.props.BoolProperty(
@@ -980,6 +1060,12 @@ class OpenMayaProperties(bpy.types.PropertyGroup):
     expand_dev_config: bpy.props.BoolProperty(
         name="Dev",
         description="Open to modify options to your personal taste",
+        default=False,
+    )
+
+    show_contributions: bpy.props.BoolProperty(
+        name="Show Opportunities to Contribute",
+        description="Check if you'd like to see inactive features that you could help finish",
         default=False,
     )
 
@@ -1005,32 +1091,32 @@ def update_settings_ui(self, context, element=None):
     box.prop(om_properties, "expand_om_config", text="OpenMaya Configuration", icon="TEXT") # change icon
     if (om_properties.expand_om_config):
         om_row = box.column()
-        om_row.label(text="Revert to Defaults")
+        om_row.operator("wm.default")
 
         om_row.prop(om_properties, "expand_menu_loc_config", text="Menu Locations", icon="TEXT") # change icon
         if (om_properties.expand_menu_loc_config):
-            om_row.label(text="Level Menu Location: N Toolbar, Properties Editor, Hide")
-            om_row.label(text="Actor Menu Location: N Toolbar, Properties Editor, Hide")
-            om_row.label(text="Add Menu Location: Actors, Mesh, Mesh > Actors, Hide")
+            om_row.prop(om_properties, "level_menu_loc")
+            om_row.prop(om_properties, "actor_menu_loc")
+            om_row.prop(om_properties, "add_menu_loc")
 
         om_row.prop(om_properties, "expand_level_menu_config", icon="TEXT") # change icon
         if (om_properties.expand_level_menu_config):
-            om_row.label(text="Show Icons: True")
+            om_row.prop(om_properties, "show_level_menu_icons")
 
         om_row.prop(om_properties, "expand_actor_menu_config", icon="TEXT") # change icon
         if (om_properties.expand_actor_menu_config):
-            om_row.label(text="Show Icons: True")
+            om_row.prop(om_properties, "show_actor_menu_icons")
             om_row.label(text="Detail: Extensive, Bare Minimum")
 
         om_row.prop(om_properties, "expand_add_menu_config", icon="TEXT") # change icon
         if (om_properties.expand_add_menu_config):
-            om_row.label(text="Show Icons: True")
-            om_row.label(text="Display Categories: True")
-            om_row.label(text="Show Sort operators: True")
+            om_row.prop(om_properties, "show_add_menu_icons")
+            om_row.prop(om_properties, "show_categories")
+            om_row.prop(om_properties, "show_sort")
 
         om_row.prop(om_properties, "expand_dev_config", icon="TEXT") # change icon
         if (om_properties.expand_dev_config):
-            om_row.label(text="Show Opportunities to Contribute: False")
+            om_row.prop(om_properties, "show_contributions")
             om_row.prop(context.preferences.view, "show_developer_ui", text="Blender's Developer Extras")
             om_row.prop(context.preferences.view, "show_tooltips", text="Blender's User Tooltips")
             om_row.prop(context.preferences.view, "show_tooltips_python", text="Blender's Python Tooltips")
@@ -1413,6 +1499,7 @@ classes = (
     AddonUpdaterRestoreBackup,
     AddonUpdaterIgnore,
     AddonUpdaterEndBackground,
+    DefaultOperator,
     OpenMayaProperties,
 )
 
