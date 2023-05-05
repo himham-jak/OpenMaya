@@ -189,11 +189,11 @@ class OBJECT_PT_GeomInfoMenu(bpy.types.Panel):
 classes.append(OBJECT_PT_GeomInfoMenu)  # Add the class to the array
 
 
-class AddMaterialOperator(bpy.types.Operator):
-    """Export the selected options"""  # Be careful, operator docstrings are exposed to the user
+class FillMaterialOperator(bpy.types.Operator):
+    """Apply material to the whole object"""  # Be careful, operator docstrings are exposed to the user
 
-    bl_idname = "wm.new_material"  # Unique operator reference name
-    bl_label = "+"  # String for the UI
+    bl_idname = "wm.fill_material"  # Unique operator reference name
+    bl_label = "Fill"  # String for the UI
     bl_options = {"REGISTER", "UNDO"}  # Enable undo for the operator
 
     #add poll method to restrict execute with error
@@ -210,7 +210,55 @@ class AddMaterialOperator(bpy.types.Operator):
         return {"FINISHED"}  # Let Blender know the operator finished successfully
 
 
-classes.append(AddMaterialOperator)  # Add the class to the array
+classes.append(FillMaterialOperator)  # Add the class to the array
+
+
+class RenameMaterialOperator(bpy.types.Operator):
+    """Rename material"""  # Be careful, operator docstrings are exposed to the user
+
+    bl_idname = "wm.rename_material"  # Unique operator reference name
+    bl_label = "Rename"  # String for the UI
+    bl_options = {"REGISTER", "UNDO"}  # Enable undo for the operator
+
+    #add poll method to restrict execute with error
+
+    def execute(self, context):  # execute() is called when running the operator
+
+        obj = context.object
+
+        # This line creates a "0" bug in the dropdown ui but I can't fix all of Blender's UI
+        #obj.active_material = obj.active_material.copy()
+
+        obj.data.materials.append(obj.active_material.copy())
+
+        return {"FINISHED"}  # Let Blender know the operator finished successfully
+
+
+classes.append(RenameMaterialOperator)  # Add the class to the array
+
+
+class DupMaterialOperator(bpy.types.Operator):
+    """Duplicate material"""  # Be careful, operator docstrings are exposed to the user
+
+    bl_idname = "wm.dup_material"  # Unique operator reference name
+    bl_label = "Duplicate"  # String for the UI
+    bl_options = {"REGISTER", "UNDO"}  # Enable undo for the operator
+
+    #add poll method to restrict execute with error
+
+    def execute(self, context):  # execute() is called when running the operator
+
+        obj = context.object
+
+        # This line creates a "0" bug in the dropdown ui but I can't fix all of Blender's UI
+        #obj.active_material = obj.active_material.copy()
+
+        obj.data.materials.append(obj.active_material.copy())
+
+        return {"FINISHED"}  # Let Blender know the operator finished successfully
+
+
+classes.append(DupMaterialOperator)  # Add the class to the array
 
 
 ##############################################################################
@@ -227,9 +275,21 @@ def draw_props(self, context):
     matrow = layout.row()
 
     # This needs to work per face, not per object
-    matrow.prop(obj, "active_material", text="Selected Material")
+    #bpy.context.active_object.data.polygons[2].select = True
+    matrow.prop(obj.data, "polygons", text="Material")
+    matrow.prop(obj, "active_material", text="Material")
+    matrow.prop(obj.active_material, "name", text="")
+    matrow.prop(obj.active_material, "diffuse_color", text="Color")
 
-    matrow.operator("wm.new_material", icon="ADD", text="")
+    # Material chooser
+    matrow2 = layout.row()
+
+    matrow2.operator("object.material_slot_assign", text="Assign")
+    matrow2.operator("object.material_slot_select", text="Select")
+    matrow2.operator("object.material_slot_deselect", text="Deselect")
+    matrow2.operator("wm.fill_material")
+    matrow2.operator("wm.rename_material")
+    matrow2.operator("wm.dup_material")
 
     # Toggle invisibility
     layout.prop(obj.active_material, "set_invisible")
