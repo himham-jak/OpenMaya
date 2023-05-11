@@ -65,9 +65,11 @@ def update_config():
 
 
 def read_from_config(key):
-    with open(os.path.join(SCRIPT, CONFIG), "r") as f:
-        return json.loads(f.read())[key]
-
+    try:
+        with open(os.path.join(SCRIPT, CONFIG), "r") as f:
+            return json.loads(f.read())[key]
+    except:
+        return 0
 
 ##############################################################################
 # Registration
