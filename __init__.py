@@ -1,11 +1,11 @@
 bl_info = {
     "name": "OpenMaya",
     "description": "Custom level editing tools for the OpenGoal version of the Jak and Daxter series.",
-    "author": "himham, water111 (integrated code), kuitar (new graphics)",
-    "version": (0, 0, 2),
+    "author": "himham, evelyntsmg (code), water111 (code), kuitar (graphics)",
+    "version": (0, 1, 0),
     "blender": (3, 3, 0),
     "location": "View3D > N Toolbar > Level Info",
-    "warning": "Alpha Build",
+    "warning": "Beta Build",
     "doc_url": "https://github.com/himham-jak/OpenMaya",
     "tracker_url": "https://github.com/himham-jak/OpenMaya/issues",
     "support": "COMMUNITY",
@@ -13,11 +13,16 @@ bl_info = {
 }
 
 
-import bpy
+##############################################################################
+# Imports           Order: Imports, Custom Modules
+##############################################################################
 
+from . import addon_updater_ops     # Updater ops import, prefs in this file, move to a module
+from . import io                    # Importing io lets us debug this file
 
-# Updater ops import, all setup in this file.
-from . import addon_updater_ops
+imports = [
+    "bpy",
+]  # <import_name>
 
 
 modules = [
@@ -27,24 +32,29 @@ modules = [
     "add_actor",
     "export",
     "gizmos",
+    "api",
+    "io", # Haven't found any circular issues being imported twice, once for debugging, once for registration
 ]  # <module_name>.py
 
 
+io.debug("OpenMaya Startup\n")
+
+
+io.debug("Import Start\n")
+
+
+for imp in imports:
+    exec(f"import {imp}")
+    io.verbose(f"{imp} import success")
+print()
+
+
+io.mods(modules)
+print()
+
+
 ##############################################################################
-# Imports           Order: 3rd Party Imports, Python Built-ins, Custom Modules
-##############################################################################
-
-
-for module in modules:  # Import all modules listed in the modules array
-    try:
-        exec(f"from . import {module}")
-    except Exception as e:
-        print(f"Error importing {module}.py")
-        print(e)
-
-
-##############################################################################
-# Preferences
+# Preferences and Classes
 ##############################################################################
 
 
@@ -117,36 +127,77 @@ class DemoPreferences(bpy.types.AddonPreferences):
 
 
 ##############################################################################
+# Functions
+##############################################################################
+
+
+def action(verb, item, instruction):
+    """Generic Action"""
+    try:
+        io.verbose(f"{item} {verb} success")
+        return exec(instruction)
+    except Exception as e:
+        io.error("unregister", f"{item}", e)
+
+
+def reg(item, instruction):
+    """Generic Registration"""
+    action("register", item, instruction)
+
+
+def reg_mod(item):
+    """Module Registration"""
+    reg(item, f"{item}.register()")
+
+
+def reg_cls(item):
+    """Class Registration"""
+    reg(item, f"bpy.utils.register_class({item})")
+
+
+def unreg(item, instruction):
+    """Generic Unregistration"""
+    action("unregister", item, instruction)
+
+
+def unreg_mod(item):
+    """Module Unregistration"""
+    unreg(item, f"{item}.unregister()")
+
+
+def unreg_cls(item):
+    """Class Unregistration"""
+    unreg(item, f"bpy.utils.unregister_class({item})")
+
+
+##############################################################################
 # Registration
 ##############################################################################
 
 
 def register():
 
+    io.verbose("Registration Start\n")
+
+    # Register all classes
+    reg_cls("DemoPreferences")
+
+    # Registering this one first, bl_info isn't passedto any other module
     addon_updater_ops.register(bl_info)
 
-    bpy.utils.register_class(DemoPreferences)
-
+    # Register all modules
     for module in modules:  # Register all the modules
-        try:
-            exec(f"{module}.register()")
-        except Exception as e:
-            print(f"Error registering {module}.py")
-            print(e)
+        reg_mod(module)
 
 
 def unregister():
 
-    for module in reversed(modules):  # Unregister all the modules
-        try:
-            exec(f"{module}.unregister()")
-        except Exception as e:
-            print(f"Error unregistering {module}.py")
-            print(e)
+    # Unregister all modules
+    for module in reversed(["addon_updater_ops"]+modules):  # Unregister all the modules
+        unreg_mod(module)
 
-    bpy.utils.unregister_class(DemoPreferences)
-
-    addon_updater_ops.unregister()
+    # Unregister any classes
+    unreg_cls("DemoPreferences")
 
 
 # if __name__ == "__main__":  # For internal Blender script testing

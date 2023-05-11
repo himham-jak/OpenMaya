@@ -356,7 +356,7 @@ def unregister():
 
     del bpy.types.Scene.geom_properties
 
-    bpy.types.MATERIAL_PT_custom_props.remove(draw_func)
+    bpy.types.MATERIAL_PT_custom_props.remove(draw_props)
 
     #del all the extras?
 

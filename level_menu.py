@@ -9,24 +9,22 @@ import re
 import os
 import json
 
+
 from . import export
-from . import config_controller
+from . import io
 
 
 ##############################################################################
 # Constants
 ##############################################################################
 
-# Read path out of the json config
-try:
-    CUSTLVL = config_controller.read_from_config("Working Directory")
-except Exception as e: # Catch the errors
-    CUSTLVL = "Unable to load from config"
-    print(f"Unable to load values from config\nError: {e}")
+
+# Name of this script without .py
+NAME = os.path.basename(__file__)[:-3]
 
 
 ##############################################################################
-# Classes
+# Properties and Classes
 ##############################################################################
 
 
@@ -127,24 +125,11 @@ class OBJECT_PT_LevelInfoMenu(bpy.types.Panel):
     bl_category = "OpenMaya"
     bl_context = "objectmode"
 
-    #@classmethod
-    #def poll(self, context):
-    #    should_update_config = True
-    #    return should_update_config
-
     def __init__(self):
-
+        # If custom_levels_path is set to empty (poll above), replace it with the config value
         props = bpy.context.scene.level_properties
-        custom_levels_path = props.custom_levels_path
-
-        # If custom_levels_path is set to empty, immediately replace it with the config default value
-        if len(custom_levels_path) < 1:
-
-            try: # Try to update the config settings from the json
-                props.custom_levels_path = CUSTLVL
-
-            except Exception as e: # Catch the errors
-                print(f"Unable to load values from config\nError: {e}")
+        if len(props.custom_levels_path) < 1:
+            props.custom_levels_path = io.read_config("Working Directory")
 
     def draw(self, context):
 
@@ -207,15 +192,19 @@ classes.append(OBJECT_PT_LevelInfoMenu)  # Add the class to the array
 
 def register():
 
+    # Register all classes
     for cls in classes:  # Register all the classes
+        io.verbose(f"{NAME}.{cls} registered")
         bpy.utils.register_class(cls)
 
+    # Point the properties somewhere usable
     bpy.types.Scene.level_properties = bpy.props.PointerProperty(type=LevelProperties)
 
 
 def unregister():
 
     for cls in reversed(classes):  # Unregister all the classes
+        io.verbose(f"{NAME}.{cls} class unregistered")
         bpy.utils.unregister_class(cls)
 
     del bpy.types.Scene.level_properties

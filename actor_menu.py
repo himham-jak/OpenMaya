@@ -105,8 +105,6 @@ def unregister():
     for cls in reversed(classes):  # Unregister all the classes
         bpy.utils.unregister_class(cls)
 
-    del bpy.types.Scene.actor_properties
-
 
 # if __name__ == "__main__":  # For internal Blender script testing
 #    register()

@@ -12,14 +12,15 @@
         "Mesh" : "money",
         "Show" : true,
 
-        "Actor Type": "fuel-cell",
-        "Game Task": 0,
-        "Light Index" : 0,
         "Movie Position" : [
                 0.0,
                 0.0,
                 0.0
-            ]
+            ],
+
+        "Actor Type": "fuel-cell",
+        "Game Task": 0,
+        "Light Index" : 0
       },
 
       {
@@ -39,14 +40,15 @@
         "Mesh" : "money",
         "Show" : true,
 
-        "Actor Type": "buzzer",
-        "Game Task": 0,
-        "Light Index" : 0,
         "Cell Position" : [
                 0.0,
                 0.0,
                 0.0
-            ]
+            ],
+
+        "Actor Type": "buzzer",
+        "Game Task": 0,
+        "Light Index" : 0
       },
 
       {
@@ -118,10 +120,12 @@
         "Mesh" : "money",
         "Show" : true,
 
+        "Crate Type" : "",
+        "Content" : "",
+        "Amount" : 0,
+
         "Actor Type" : "crate",
         "Game Task": 0,
-        "Crate Type" : "Wood idk",
-        "Contents" : "Not Implemented",
         "Light Index" : 0
       },
       
@@ -131,9 +135,12 @@
         "Mesh" : "money",
         "Show" : true,
 
+        "Crate Type" : "'steel",
+        "Content" : "",
+        "Amount" : 0,
+
         "Actor Type" : "crate",
         "Game Task": 0,
-        "Crate Type" : "'steel",
         "Light Index" : 0
       },
       
@@ -143,9 +150,27 @@
         "Mesh" : "money",
         "Show" : true,
 
+        "Crate Type" : "'iron",
+        "Content" : "",
+        "Amount" : 0,
+
         "Actor Type" : "crate",
         "Game Task": 0,
-        "Crate Type" : "",
+        "Light Index" : 0
+      },
+      
+      {
+        "Text" : "Barrel",
+        "Icon" : "barrel",
+        "Mesh" : "money",
+        "Show" : true,
+
+        "Crate Type" : "'barrel",
+        "Content" : "",
+        "Amount" : 0,
+
+        "Actor Type" : "crate",
+        "Game Task": 0,
         "Light Index" : 0
       },
       
@@ -155,14 +180,17 @@
         "Mesh" : "money",
         "Show" : true,
 
+        "Crate Type" : "'bucket",
+        "Content" : "",
+        "Amount" : 0,
+
         "Actor Type" : "crate",
         "Game Task": 0,
-        "Crate Type" : "",
         "Light Index" : 0
       }
     ],
 
-  "Other" : 
+  "Landmarks" : 
     [
       {
         "Icon" : "open-goal",
@@ -197,44 +225,20 @@
         "Mesh" : "money",
         "Show" : true,
 
+        "Orb Count" : 10,
+        "Visible Distance" : 200.0,
+
         "Actor Type": "orb-cache-top",
         "Game Task": 0,
-        "Light Index" : 0,
-        "Orb Count" : 10,
-        "Visible Distance" : 200.0
-      },
-      
-      {
-        "Text" : "Jump Pad",
-        "Icon" : "jump-pad",
-        "Mesh" : "money",
-        "Show" : true,
-
-        "Actor Type": "",
-        "Game Task": 0,
         "Light Index" : 0
-      },
-      
-      {
-        "Text" : "Swing Pole",
-        "Icon" : "swing-pole",
-        "Mesh" : "money",
-        "Show" : true,
+      }
+    ],
 
-        "Actor Type": "",
-        "Game Task": 0,
-        "Light Index" : 0
-      },
-      
+  "Gameplay" :
+    [
       {
-        "Text" : "Floating Platform",
-        "Icon" : "floating-plat",
-        "Mesh" : "money",
-        "Show" : true,
-
-        "Actor Type": "",
-        "Game Task": 0,
-        "Light Index" : 0
+        "Icon" : "open-goal",
+        "Show" : true
       },
       
       {
@@ -265,6 +269,113 @@
 
         "Actor Type": "",
         "Game Task": 0
+      }
+    ],
+
+  "Platforming" : 
+    [
+      {
+        "Icon" : "open-goal",
+        "Show" : true
+      },
+
+      {
+        "Text" : "Jump Pad",
+        "Icon" : "jump-pad",
+        "Mesh" : "money",
+        "Show" : true,
+
+        "Height": 0.0,
+        "Target": "optional vector4",
+        "Game Task": 0,
+
+        "Actor Type": "",
+        "Game Task": 0,
+        "Light Index" : 0
+      },
+      
+      {
+        "Text" : "Swing Pole",
+        "Icon" : "swing-pole",
+        "Mesh" : "money",
+        "Show" : true,
+
+        "Actor Type": "swingpole",
+        "Game Task": 0,
+        "Light Index" : 0
+      },
+      
+      {
+        "Text" : "Floating Platform",
+        "Icon" : "floating-plat",
+        "Mesh" : "money",
+        "Show" : true,
+
+        "Actor Type": "plat",
+        "Game Task": 0,
+        "Light Index" : 0
+      },
+      
+      {
+        "Text" : "Blue Eco Platform",
+        "Icon" : "floating-plat",
+        "Mesh" : "money",
+        "Show" : true,
+
+        "Task" : "",
+        "Path" : "",
+        "Path K?" : "",
+        "Notice Distance" : "",
+        "Up Next" : "",
+
+        "Actor Type": "plat-eco",
+        "Game Task": 0,
+        "Light Index" : 0
+      },
+      
+      {
+        "Text" : "Drop Platform",
+        "Icon" : "floating-plat",
+        "Mesh" : "money",
+        "Show" : true,
+
+        "Width" : 0,
+        "Length" : 0,
+        "Rotation" : "Type?",
+
+        "Actor Type": "citb-drop-plat",
+        "Game Task": 0,
+        "Light Index" : 0
+      }
+    ],
+
+  "Vehicles" : 
+    [
+      {
+        "Icon" : "open-goal",
+        "Show" : true
+      },
+      
+      {
+        "Text" : "Zoomer",
+        "Icon" : "zoomer",
+        "Mesh" : "money",
+        "Show" : true,
+
+        "Actor Type": "zoomer",
+        "Game Task": 0,
+        "Light Index" : 0
+      },
+      
+      {
+        "Text" : "Flut Flut",
+        "Icon" : "flutflut",
+        "Mesh" : "money",
+        "Show" : true,
+
+        "Actor Type": "flutflut",
+        "Game Task": 0,
+        "Light Index" : 0
       }
     ]
 }
