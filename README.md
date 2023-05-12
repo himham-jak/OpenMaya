@@ -32,7 +32,8 @@ Design the Jak level of your dreams with OpenMaya, the open-source (and code-fre
 
 ## Tutorial:
 
-- For a full demonstration, refer to my YouTube. 
+
+
 
 - Creating a custom Jak level with OpenMaya
   - Ensure OpenMaya is updated before you begin.
