@@ -6,12 +6,14 @@
 imports = [
     "bpy",
     "os",
+    "string",
     "time",
 ]  # <module_name>.py
 
 
 import bpy
 import os
+import string
 import time
 
 
@@ -92,12 +94,28 @@ def fill_template(template, fields):
 
 
 def write_file(file, text):
+
+    # Grab the folder
+    directory = os.path.dirname(file)
+
+    # If there's no folder, make one
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+    # Now write
     with open(file, "w") as f:
         f.write(text)
 
 
 def write_config(): # Add try, except
     custom_levels_path = bpy.context.scene.level_properties.custom_levels_path
+
+    # Fix empty string
+    if len(custom_levels_path)<1:
+        debug("smol")
+        custom_levels_path = "smol"
+
+    # Now do the thing
     config_fields = {
             "custom_levels_path": custom_levels_path,
         }
@@ -113,7 +131,24 @@ def read_config(key):
     try:
         with open(os.path.join(SCRIPT, CONFIG), "r") as f:
             return json.loads(f.read())[key]
-    except (Exception) as e: # Catch the errors
+    except Exception as e: # Catch the errors
+
+        # File Not Found
+        if isinstance(e, FileNotFoundError):
+
+            # Find it
+            write_config()
+
+            # Print the error
+            error("read", key, e)
+
+            # Print the fix
+            debug("Error fix: config written, retrying...")
+
+            # Retry
+            return  read_config(key)
+        
+        # Return generic error reading file
         return  error("read", key, e)
 
 
