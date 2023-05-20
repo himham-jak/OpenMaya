@@ -325,8 +325,6 @@ class ExportOperator(bpy.types.Operator):
                 "number": number,
                 "text": "blah",
             }
-
-            # ../goal_src/jak1/game.gp
             content = fill_template(
                 os.path.join(script_path, "templates\\game_text_en_gs_template.txt"),
                 boundary_fields,

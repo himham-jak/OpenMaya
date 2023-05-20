@@ -71,7 +71,8 @@ def verbose(message):
 def error(verb, item, e):
     """Generic Error"""
     debug(f"Error {verb}ing {item}:")
-    debug(f"\t{e}")
+    debug(f"{e}")
+    return "E"
 
 
 def reg_error(item, e):
@@ -112,7 +113,7 @@ def read_config(key):
     try:
         with open(os.path.join(SCRIPT, CONFIG), "r") as f:
             return json.loads(f.read())[key]
-    except Exception as e: # Catch the errors
+    except (Exception) as e: # Catch the errors
         return  error("read", key, e)
 
 

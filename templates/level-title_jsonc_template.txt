@@ -8,6 +8,10 @@
 
   "double_sided_collide": ${double_sided_collide},
 
+  "base_id": 101,
+
+  "ambients": [],
+
   "actors" : [
   ]
 }
