@@ -5,6 +5,7 @@
 
 imports = [
     "bpy",
+    "json",
     "os",
     "string",
     "time",
@@ -12,6 +13,7 @@ imports = [
 
 
 import bpy
+import json
 import os
 import string
 import time
@@ -112,8 +114,7 @@ def write_config(): # Add try, except
 
     # Fix empty string
     if len(custom_levels_path)<1:
-        debug("smol")
-        custom_levels_path = "smol"
+        custom_levels_path = " "
 
     # Now do the thing
     config_fields = {
