@@ -28,6 +28,7 @@ imports = [
 modules = [
     "level_menu",
     "geom_menu",
+    "browser",
     "actor_menu",
     "add_actor",
     "export",

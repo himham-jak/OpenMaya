@@ -110,6 +110,8 @@ def write_file(file, text):
 
 
 def write_config(): # Add try, except
+
+    # Read working directory
     custom_levels_path = bpy.context.scene.level_properties.custom_levels_path
 
     # Fix empty string
