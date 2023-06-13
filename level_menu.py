@@ -163,6 +163,7 @@ class OBJECT_PT_LevelInfoMenu(bpy.types.Panel):
         layout.separator()
 
         layout.operator("wm.export")
+        layout.operator("wm.repl")
 
         layout.prop(level_properties, "should_export_level_info")
 

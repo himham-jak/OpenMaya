@@ -12,7 +12,7 @@ import os
 ##############################################################################
 
 
-SCAN_DIR = "D:\\Git\\jak-project\\custom_levels"
+SCAN_DIR = "D:\\Git\\jak-project"
 
 
 ##############################################################################
@@ -53,24 +53,60 @@ def draw_props(self, context):
     layout = self.layout
     obj = context.object
     
+    # Draw an Error
     layout.label(text="Unable to open blah")
 
-    _, clean_name = SCAN_DIR.rsplit("\\", 1)
-    clean_ancestor = clean_name.replace("-", "_") # This cleans the var names imperfectly
+    # Clean the paths
+    _, clean_root = SCAN_DIR.rsplit("\\", 1)
+    clean_ancestor = clean_root.replace("-", "_") # This cleans the var names imperfectly
+
+    # Draw the folder itself being expanded
     ancestor = draw_item(layout, f'{clean_ancestor}/', 'Root', 0.01, 0.95)
 
+    # Walk all files, drawing UI elements in browser
     for root, dirs, files in os.walk(SCAN_DIR):
 
+        # Files directly in the root/ancestor
+        for file in files:
+
+            # Skip hidden (.) files
+            if file[0] == ".": 
+                continue
+
+            # Get parent alone
+            _, parent = root.rsplit("\\", 1)
+
+            # Skip files not in root
+            if parent != clean_root:
+                continue
+
+            name, ext = os.path.splitext(file)
+
+            clean_name = name.replace("-", "_")
+
+            exec(f"{clean_name} = draw_item(ancestor, '{name}', '{ext} file', 0.05, 0.95)")
+
         for folder in dirs:
+
+            # Skip hidden (.) folders
+            if folder[0] == ".": 
+                continue
+
             clean_name = folder.replace("-", "_") # This cleans the var names imperfectly
             exec(f"{clean_name} = draw_folder(ancestor, f'{folder}/')")
 
         for file in files:
-            #fullpath = os.path.join(root, file)
-            _, parent = root.rsplit("\\", 1) # and again
 
-            if parent == clean_ancestor:
-                parent = "ancestor"
+            # Skip hidden (.) files
+            if file[0] == ".": 
+                continue
+
+            # Get parent alone
+            _, parent = root.rsplit("\\", 1)
+
+            # Skip files in root
+            if parent == clean_root:
+                continue
 
             clean_parent = parent.replace("-", "_")
 
@@ -78,6 +114,7 @@ def draw_props(self, context):
 
             clean_name = name.replace("-", "_")
 
+            print(f"{name}{ext} added to {clean_parent}")
             exec(f"{clean_name} = draw_item({clean_parent}, '{name}', '{ext} file', 0.05, 0.95)")
 
 
