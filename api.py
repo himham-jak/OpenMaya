@@ -1,3 +1,6 @@
+# TODO: docstring
+
+
 ##############################################################################
 # Imports           Order: 3rd Party Imports, Python Built-ins, Custom Modules
 ##############################################################################
@@ -9,7 +12,12 @@ import struct
 
 
 ##############################################################################
-# Classes
+# Constants
+##############################################################################
+
+
+##############################################################################
+# Properties and Classes
 ##############################################################################
 
 
@@ -20,14 +28,17 @@ class REPLButton(bpy.types.Operator):
     """Send an expression to the OpenGOAL REPL, if one is open"""  # Be careful, operator docstrings are exposed to the user
 
     bl_idname = "wm.repl"  # Unique operator reference name
-    bl_label = "REPL"  # String for the UI
+    bl_label = "Send"  # String for the UI
     bl_options = {"REGISTER", "UNDO"}  # Enable undo for the operator
 
     def execute(cls, context):  # execute() is called when running the operator
 
+        props = context.scene.level_properties
+
         # test
         print("running repl")
-        repl("*target*")
+        repl(props.level_title)
+        ml("goal_src/jak1/engine/target/target-util.gc")
 
         return {"FINISHED"}  # Let Blender know the operator finished successfully
 
@@ -52,6 +63,14 @@ def repl(expression: str):
     header = struct.pack('<II', len(expression), 10)
 
     clientSocket.sendall(header + expression.encode())
+
+
+def ml(file_to_reload: str):
+    repl(f"(ml \"{file_to_reload}\")")
+
+
+def mi():
+    repl("(mi)")
 
 ##############################################################################
 # Registration

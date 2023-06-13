@@ -1,3 +1,6 @@
+# TODO: docstring
+
+
 ##############################################################################
 # Imports           Order: 3rd Party Imports, Python Built-ins, Custom Modules
 ##############################################################################
@@ -111,6 +114,13 @@ class LevelProperties(bpy.types.PropertyGroup):
         default=False,
     )
 
+    repl_expr: bpy.props.StringProperty(
+        name="REPL",
+        description="Enter a command to be sent to any open REPL\nThis should be written in GOAL.\nDefault: (:status)",
+        default="(:status)",
+        maxlen=1024,
+    )
+
 
 classes.append(LevelProperties)  # Add the class to the array
 
@@ -163,7 +173,10 @@ class OBJECT_PT_LevelInfoMenu(bpy.types.Panel):
         layout.separator()
 
         layout.operator("wm.export")
-        layout.operator("wm.repl")
+
+        repl = layout.row()
+        repl.prop(level_properties, "repl_expr", icon="TEXT")
+        repl.operator("wm.repl")
 
         layout.prop(level_properties, "should_export_level_info")
 

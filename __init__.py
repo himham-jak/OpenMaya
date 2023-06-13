@@ -1,25 +1,33 @@
 bl_info = {
     "name": "OpenMaya",
     "description": "Custom level editing tools for the OpenGoal version of the Jak and Daxter series.",
-    "author": "himham, evelyntsmg (code), water111 (code), kuitar (graphics)",
+    "author": "himham, evelyntsmg (code), water111 (code), kuitar (graphics)", # TODO: change
     "version": (0, 1, 0),
     "blender": (3, 3, 0),
-    "location": "View3D > N Toolbar > Level Info",
+    "location": "View3D > N Toolbar > Level Info", # TODO: change
     "warning": "Beta Build",
-    "doc_url": "https://github.com/himham-jak/OpenMaya",
+    "doc_url": "https://github.com/himham-jak/OpenMaya", # TODO: change
     "tracker_url": "https://github.com/himham-jak/OpenMaya/issues",
     "support": "COMMUNITY",
     "category": "Development",
 }
 
 
+# TODO: docstring
+
+
 ##############################################################################
 # Imports           Order: Imports, Custom Modules
 ##############################################################################
 
-from . import addon_updater_ops     # Updater ops import, prefs in this file, move to a module
-from . import io                    # Importing io lets us debug this file
+# Updater ops import, prefs in this file
+# TODO move to a new module
+from . import addon_updater_ops
 
+# Importing io allows us to debug this file before registration
+from . import io
+
+# Not gonna get far without importing bpy
 imports = [
     "bpy",
 ]  # <import_name>
@@ -34,34 +42,37 @@ modules = [
     "export",
     "gizmos",
     "api",
-    "io", # Haven't found any circular issues being imported twice, once for debugging, once for registration
+    "io", # Haven't found circular issues importing once for debugging, once for registration
 ]  # <module_name>.py
 
-
+# Splash screen
 io.debug("OpenMaya Startup\n")
+# TODO make splash screen
 
-
+# Import the imports list
 io.debug("Import Start\n")
-
-
 for imp in imports:
     exec(f"import {imp}")
     io.verbose(f"{imp} import success")
 print()
 
-
+# Import the modules list
 io.mods(modules)
 print()
 
+##############################################################################
+# Constants
+##############################################################################
+
 
 ##############################################################################
-# Preferences and Classes
+# Properties and Classes
 ##############################################################################
 
 
 @addon_updater_ops.make_annotations
 class DemoPreferences(bpy.types.AddonPreferences):
-    """Demo bare-bones preferences"""
+    """Updater Preferences"""
 
     bl_idname = __package__
 
@@ -132,6 +143,9 @@ class DemoPreferences(bpy.types.AddonPreferences):
 ##############################################################################
 
 
+# Some functions are intentional repeats which run in context without importing io
+
+
 def action(verb, item, instruction):
     """Generic Action"""
     try:
@@ -183,21 +197,21 @@ def register():
     # Register all classes
     reg_cls("DemoPreferences")
 
-    # Registering this one first, bl_info isn't passedto any other module
+    # Registering this one first, bl_info isn't passed to any other module
     addon_updater_ops.register(bl_info)
 
     # Register all modules
-    for module in modules:  # Register all the modules
+    for module in modules:
         reg_mod(module)
 
 
 def unregister():
 
-    # Unregister all modules
-    for module in reversed(["addon_updater_ops"]+modules):  # Unregister all the modules
+    # Unregister all modules, including the stray
+    for module in reversed(["addon_updater_ops"]+modules):
         unreg_mod(module)
 
-    # Unregister any classes
+    # Unregister all classes
     unreg_cls("DemoPreferences")
 
 
