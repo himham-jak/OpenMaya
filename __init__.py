@@ -143,7 +143,7 @@ class DemoPreferences(bpy.types.AddonPreferences):
 ##############################################################################
 
 
-# Some functions are intentional repeats which run in context without importing io
+# Some functions are intentional repeats which must run without importing io
 
 
 def action(verb, item, instruction):

@@ -33,11 +33,13 @@ class REPLButton(bpy.types.Operator):
 
     def execute(cls, context):  # execute() is called when running the operator
 
-        props = context.scene.level_properties
+        # Grab the repl textbox's contents
+        repl_expr = context.scene.level_properties.repl_expr
 
-        # test
-        print("running repl")
-        repl(props.level_title)
+        # Send the expression
+        repl(repl_expr)
+
+        # Reload an associated file, test
         ml("goal_src/jak1/engine/target/target-util.gc")
 
         return {"FINISHED"}  # Let Blender know the operator finished successfully
@@ -55,9 +57,9 @@ def repl(expression: str):
     #Send an expression to the OpenGOAL REPL, if one is open
 
     clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM);
-    clientSocket.connect(("127.0.0.1", 8181))
+    clientSocket.connect(("127.0.0.1", 8112))
     #print(clientSocket)
-    data = clientSocket.recv(1024)
+    data = clientSocket.recv(0)
     #print(data.decode())
 
     header = struct.pack('<II', len(expression), 10)
