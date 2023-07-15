@@ -42,6 +42,7 @@ modules = [
     "export",
     "gizmos",
     "api",
+    "ui",
     "io", # Haven't found circular issues importing once for debugging, once for registration
 ]  # <module_name>.py
 
