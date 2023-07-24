@@ -8,7 +8,9 @@
 
 import bpy
 import socket
+import threading
 import struct
+import time
 
 
 from . import io
@@ -65,10 +67,21 @@ class REPLButton(bpy.types.Operator):
     gkx_port = 8120 # fingers crossed
     goalc_port = 8181
 
+    _timer = None
+    refresh = 1/60
+
     #def __init__(cls):
+
+    def modal(cls, context, event):
+        if event.type == 'TIMER':
+            #loop functions
+            cls.clear_stack()
+        return {'PASS_THROUGH'}
 
     @classmethod
     def create_socket(cls):
+
+        # Create a TCP socket
         cls.clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     
     # def enter_disconnected_PEPL(cls, context):
@@ -78,67 +91,78 @@ class REPLButton(bpy.types.Operator):
     # def validate_port()
 
     @classmethod
-    def connect_port(cls, port):
+    def bind_port(cls, port):
 
         # Socket is not created, so create
         if cls.clientSocket is None:
             cls.create_socket()
             io.debug("Opening socket")
 
-            cls.clientSocket.connect(("127.0.0.1", port))
-            io.debug(f"Socket bound to [{port}]")
+            try:
+                cls.clientSocket.connect(("127.0.0.1", port))
+                io.debug(f"Socket bound to [{port}]")
 
-            # grab the ping message
-            data = cls.clientSocket.recv(300)
-            io.verbose(data.decode())
+                # OpenGOAL auto-sends a ping message
+                # Capture it and print it
+                data = cls.clientSocket.recv(300)
+                io.verbose(data.decode())
 
-            # Start eval stack
-            io.verbose("Starting stack-1")
-            cls.start_stack()
-            io.verbose("Starting stack")
+                # Start stack loop
+
+            # You'll get this error if there's no REPL or GK running.
+            except ConnectionRefusedError:
+                
+                # Reassure the populace
+                print(f"No connection could be made, nothing to connect to.")
+                
+                # Close
+                cls.close_socket()
 
         # Socket is already connected, so no need to connect
-        if not cls.clientSocket._closed:
-            io.verbose("Using open socket")
-            return
+        io.verbose("Using open socket")
+        return
 
     @classmethod
-    async def start_stack(cls):
-        """Begins send-eval-return loop"""
+    def clear_stack(cls):
+        """Executes send-eval-return pattern on the packet stack"""
 
-        # As long as we are not disconnected
-        while not cls.clientSocket._closed:
+        # Make loop less opaque
+        #io.verbose("No packets")
 
-            # Check if there are any packets in the stack
-            if len(cls.packet_stack) > 0:
+        # Check if there are any packets in the stack
+        if len(cls.packet_stack) > 0:
 
-                io.verbose(len(cls.packet_stack))
+            io.verbose(f"Stack size: {len(cls.packet_stack)}")
+            start_time = time.time()
 
-                # Prepare pointers for after evaluation
-                pointers = []
+            # Prepare pointers for after evaluation
+            pointers = []
 
-                # Prepare packets to be sent
-                packets = []
+            # Prepare packets to be sent
+            packets = []
 
-                # Add them to parallel arrays to keep them aligned
-                for signed_packet in cls.packet_stack:
-                    packets.append(signed_packet['packet'])
-                    pointers.append(signed_packet['pointer'])
+            # Add them to parallel arrays to keep them aligned
+            for signed_packet in cls.packet_stack:
+                packets.append(signed_packet['packet'])
+                pointers.append(signed_packet['pointer'])
 
-                # Send the command packets all at once
-                commands_data = '\n'.join(packets) + '\n'
-                await sock.sendall(commands_data.encode())
+            # Send the command packets all at once
+            cls.clientSocket.sendall(b"".join(packets))
 
-                # Clear the command stack
-                cls.packet_stack = []
+            # Clear the packet stack
+            cls.packet_stack = []
 
-                # Receive and redirect the responses to associated pointers
-                for pointer in pointers:
-                    response = await sock.recv(1024).decode().strip()
-                    # Redirect the response to the associated pointer or process it as needed
-                    print(f"{pointer}: {response}")  # Example: Redirect response to object location
+            # Receive and redirect the responses to associated pointers
+            for pointer in pointers:
 
-        print("stack dead")
+                # Interpret the response
+                response = cls.clientSocket.recv(1024).decode().strip()
+
+                # TODO Redirect the response to the associated pointer that requested it
+                print(f"{pointer}: {response}")
+
+            process_time = time.time() - start_time
+            io.verbose(f"Stack time: {process_time}")
 
     @classmethod
     def goalc_packet(cls, expression:str, msg_kind:int):
@@ -152,24 +176,28 @@ class REPLButton(bpy.types.Operator):
         return header + expression.encode()
 
     @classmethod
-    def gk_packet(cls, expression:str, msg_kind:int):
+    def gk_packet(cls, expression:str, ltt_msg_kind:int):
         """Return packet to be sent to OpenGOAL Game instance"""
         
         # Pack header
         header = struct.pack('<IIHBBBHIQ', 
-                     len(expression) + 32, # Full struct length             u32=I
-                     0,              # 0 rsvd, unused?                      u32=I
-                     0xe042,         # 0xe042="D" DECI2 protocol            u16=H
-                     0x48,           # 0x48="H" Host source                 u8=B
-                     0x45,           # 0x45="E" Emotion Engine destination  u8=B
-                     ltt_msg_kind,   # (ListenerToTargetMsgKind)            u8=B
-                     0,              # 0 u6, unused?                        u16=H
-                     len(expression),# expression size                      u32=I
-                     0)              # 0 msg_id, tracks consecutive msgs    u64=Q
+                    len(expression) + 32, # Full struct length              u32=I
+                    0xe048,         # 0xe048="D" DECI2 protocol             u16=H
+                    0x45,           # 0x45="H" Host source                  u8=B
+                    0x05,           # 0x05="E" Emotion Engine destination   u8=B
+                    0,              # rsvd, unused?                         u32=I
+                    ltt_msg_kind,   # (ListenerToTargetMsgKind)             u8=B
+                    0,              # 0 u6, unused?                         u16=H
+                    len(expression),# expression size                       u32=I
+                    0)              # 0 msg_id, tracks consecutive msgs     u64=Q
 
         # Return the packet
         # TODO return packet class instance instead
-        return header + expression.encode()
+        #return header + expression.encode()
+
+        a=b"290000000000000042e04845050000000900000000000000020000000000000031363134343638000a"
+        a=bytearray(a)
+        return a
 
     @classmethod
     def send_goalc_packet(cls, expression:str, msg_kind:int):
@@ -177,7 +205,7 @@ class REPLButton(bpy.types.Operator):
         # TODO add packet to stack, send async from there, not here.
 
         # Connect if needed
-        cls.connect_port(cls.goalc_port)
+        cls.bind_port(cls.goalc_port)
 
         # Pack up a message
         packet = cls.goalc_packet(expression, msg_kind)
@@ -190,11 +218,12 @@ class REPLButton(bpy.types.Operator):
 
         # Send
         #cls.clientSocket.sendall(packet)
+        #cls.clear_stack()
 
         # Pull response data from the socket
         #data = cls.clientSocket.recv(300) # Be more accurate with size?
 
-        return #data.decode()
+        return True
 
     @classmethod
     def send_gk_packet(cls, expression:str, ltt_msg_kind:int):
@@ -202,21 +231,27 @@ class REPLButton(bpy.types.Operator):
         # TODO add packet to stack, send async from there, not here.
 
         # Connect if needed
-        cls.connect_port(cls.gk_port)
+        cls.bind_port(cls.gk_port)
 
-        expression = str(0x001614468)
+        #expression = str(0x001614468)
 
         # Pack up a message
-        message = cls.goalc_packet(expression, ltt_msg_kind)
+        packet = cls.gk_packet(expression, ltt_msg_kind)
+
+        # Add return address
+        signed_packet={'packet': packet, 'pointer': 'pointer1'}
+
+        # Push it to the stack
+        cls.packet_stack.append(signed_packet)
 
         # Send
-        cls.clientSocket.sendall(message)
+        #cls.clientSocket.sendall(message)
 
         # Pull response data from the socket
-        data = cls.clientSocket.recv(300) # Be more accurate with size?
+        #data = cls.clientSocket.recv(300) # Be more accurate with size?
 
         # Return the response
-        return data.decode()
+        return #data.decode()
 
     @classmethod
     def send_ping(cls, expression):
@@ -241,18 +276,22 @@ class REPLButton(bpy.types.Operator):
             cls.clientSocket = None
             io.debug("Socket closed")
         
-
     def execute(cls, context):  # execute() is called when running the operator
 
         # Grab the repl textbox's contents
         repl_expr = context.scene.level_properties.repl_expr
 
         # Send the expression
-        response = cls.send_eval(repl_expr)
+        #response = cls.send_eval(repl_expr)
 
+        # Send a stack of n expressions
+        n=1
+        for i in range(n):
+            response = cls.send_eval(repl_expr)
+        
         # Do something with the response
-        # TODO - return to sender
-        print(f"we got {response} as a reply!")
+        # TODO - use as confirmation that message arrived
+        io.verbose(f"Send success: {response}")
 
         # Reload an associated file, test
         # ml("goal_src/jak1/engine/target/target-util.gc")
@@ -260,7 +299,13 @@ class REPLButton(bpy.types.Operator):
         # Close
         #cls.close_socket()
 
-        return {"FINISHED"}  # Let Blender know the operator finished successfully
+        cls._timer = context.window_manager.event_timer_add(1/60, window=context.window)
+        context.window_manager.modal_handler_add(cls)
+        return {'RUNNING_MODAL'}
+
+    def cancel(cls, context):
+        context.window_manager.event_timer_remove(cls._timer)
+        return {'CANCELLED'}
 
 
 classes.append(REPLButton)  # Add the class to the array
