@@ -66,18 +66,166 @@ print()
 ##############################################################################
 
 
+MENU_LOC = [
+  ("n", "N Toolbar", "", 0),
+  ("prop", "Properties Editor", "", 1),
+  ("hide", "Hide", "", 2),
+]
+
+
+ADD_MENU_LOC = [
+  ("mesh", "Mesh", "", 0),
+  ("sub", "Mesh > Actors", "", 1),
+  ("actors", "Actors", "", 2),
+  ("hide", "Hide", "TEXT", 3),
+]
+
+
+ACTOR_DETAIL = [
+  ("all", "Extensive", "", 0),
+  ("min", "Minimal", "", 1),
+]
+
+
 ##############################################################################
 # Properties and Classes
 ##############################################################################
 
 
 @addon_updater_ops.make_annotations
-class DemoPreferences(bpy.types.AddonPreferences):
-    """Updater Preferences"""
+class UserPreferences(bpy.types.AddonPreferences):
+    """Tip: Place global preferences here and pull them out with:
+                settings = get_user_preferences(context)
+                settings.auto_check_update
+        Like: whether or not to render a panel."""
 
     bl_idname = __package__
 
-    # Addon updater preferences.
+    # Install preferences
+
+    # dir/nickname dropdown
+    
+    allow_sockets: bpy.props.BoolProperty(
+        name="Allow the use of sockets.",
+        description="Check if you'd like to allow the use of sockets",
+        default=True,
+    )
+    
+    # auto edit/ml
+    auto_compile: bpy.props.BoolProperty(
+        name="Automatically compile file changes",
+        description="Check if you'd like to automatically compile file changes",
+        default=True,
+    )
+    
+    # auto clear command stack
+    auto_send: bpy.props.BoolProperty(
+        name="Automatically send any DECI2 packets on the stack",
+        description="Check if you'd like to automatically send commands to a REPL",
+        default=True,
+    )
+
+    # import models from game
+    rip_models: bpy.props.BoolProperty(
+        name="Import geometry and actor models from the game",
+        description="Check if you'd like your actors to look real and your levels to fit in seamlessly",
+        default=True,
+    )
+
+    # auto run REPL and GK for patch
+    auto_patch: bpy.props.BoolProperty(
+        name="Don't ask before opening a REPL or game while patching",
+        description="Uncheck if you'd like to always be asked",
+        default=True,
+    )
+    
+    # Geometry preferences
+    
+    # File preferences
+
+    level_menu_loc: bpy.props.EnumProperty(
+        name="Level Menu Location",
+        items=MENU_LOC,
+        description="Choose what panel the Level Info tab calls home",
+        default=0,
+    )
+
+    show_level_menu_icons: bpy.props.BoolProperty(
+        name="Show Icons",
+        description="Check if you'd like to see icons in the Level Info panel",
+        default=True,
+    )
+    
+    # Playtesting preferences
+
+    # Actor Preferences
+
+    actor_menu_loc: bpy.props.EnumProperty(
+        name="Actor Menu Location",
+        items=MENU_LOC,
+        description="Choose what panel the Actor Info tab calls home",
+        default=0,
+    )
+
+    actor_menu_detail: bpy.props.EnumProperty(
+        name="Actor Menu Detail",
+        items=ACTOR_DETAIL,
+        description="Choose the level of detail for your actor editing preferences",
+        default=0,
+    )
+
+    add_menu_loc: bpy.props.EnumProperty(
+        name="Add Menu Location",
+        items=ADD_MENU_LOC,
+        description="Choose what dropdown the Add Actor tab calls home",
+        default=0,
+    )
+
+    show_actor_menu_icons: bpy.props.BoolProperty(
+        name="Show Icons",
+        description="Check if you'd like to see icons in the Actor Info panel",
+        default=True,
+    )
+
+    show_add_menu_icons: bpy.props.BoolProperty(
+        name="Show Icons",
+        description="Check if you'd like to see icons in the Add Actor dropdown",
+        default=True,
+    )
+
+    show_categories: bpy.props.BoolProperty(
+        name="Show Categories",
+        description="Check if you'd like the actors divided into categories",
+        default=True,
+    )
+
+    show_sort: bpy.props.BoolProperty(
+        name="Show Sort Operators",
+        description="Check if you'd like to have sort buttons for the actors",
+        default=True,
+    )
+    
+    # Dev preferences
+
+    debug: bpy.props.BoolProperty(
+        name="Debug Logging",
+        description="Check if you'd like to see debug messages in the console",
+        default=False,
+    )
+
+    verbose: bpy.props.BoolProperty(
+        name="Verbose Logging",
+        description="Check if you'd like to see an obnoxious amount of debug messages in the console",
+        default=False,
+    )
+
+    show_contributions: bpy.props.BoolProperty(
+        name="Show Opportunities to Contribute",
+        description="Check if you'd like to see inactive features that you could help finish",
+        default=False,
+    )
+
+    # Updater preferences
 
     auto_check_update = bpy.props.BoolProperty(
         name="Auto-check for Update",
@@ -125,18 +273,6 @@ class DemoPreferences(bpy.types.AddonPreferences):
 
         # Updater draw function, could also pass in col as third arg.
         addon_updater_ops.update_settings_ui(self, context)
-
-        # Alternate draw function, which is more condensed and can be
-        # placed within an existing draw function. Only contains:
-        #   1) check for update/update now buttons
-        #   2) toggle for auto-check (interval will be equal to what is set above)
-        # addon_updater_ops.update_settings_ui_condensed(self, context, col)
-
-        # Adding another column to help show the above condensed ui as one column
-        # col = mainrow.column()
-        # col.scale_y = 2
-        # ops = col.operator("wm.url_open","Open webpage ")
-        # ops.url=addon_updater_ops.updater.website
 
 
 ##############################################################################
@@ -196,7 +332,7 @@ def register():
     io.verbose("Registration Start\n")
 
     # Register all classes
-    reg_cls("DemoPreferences")
+    reg_cls("UserPreferences")
 
     # Registering this one first, bl_info isn't passed to any other module
     addon_updater_ops.register(bl_info)
@@ -213,7 +349,7 @@ def unregister():
         unreg_mod(module)
 
     # Unregister all classes
-    unreg_cls("DemoPreferences")
+    unreg_cls("UserPreferences")
 
 
 # if __name__ == "__main__":  # For internal Blender script testing

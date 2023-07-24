@@ -27,7 +27,6 @@ class TOPBAR_MT_custom_menu(bpy.types.Menu):
         Like: Adding Preferences to the topbar because Edit > Preferences is so annoying. """
     
     bl_label = "Custom Menu"
-    bl_idname = "view3D.custom_menu"
 
     #Methods
     # Add to File menu top left
@@ -54,7 +53,6 @@ class TOPBAR_MT_custom_sub_menu(bpy.types.Menu):
         Like: Adding File > Import > VAGWAD. """
         
     bl_label = "Sub Menu"
-    bl_idname = "view3D.custom_sub_menu"
 
     def draw(self, context):
         layout = self.layout
@@ -63,7 +61,7 @@ class TOPBAR_MT_custom_sub_menu(bpy.types.Menu):
 bpy.utils.register_class(TOPBAR_MT_custom_sub_menu)
 
 
-class OM_Header(bpy.types.Header):
+class OM_HT_Header(bpy.types.Header):
     """ Tip: Use this to create a new category of editor panels.
     	Like: If you registered OpenMaya as a new category in layout.template_header()
     	which is the Editor Type dropdown. """
@@ -78,7 +76,7 @@ class OM_Header(bpy.types.Header):
         layout.menu("TOPBAR_MT_custom_menu", text="Custom Panel", icon='PLUGIN')
 
 #TODO fix
-bpy.utils.register_class(OM_Header)
+bpy.utils.register_class(OM_HT_Header)
 
 
 ##############################################################################

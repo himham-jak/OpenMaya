@@ -45,11 +45,7 @@ classes = []  # Initialize the class array to be registered
 class REPLButton(bpy.types.Operator):
 # Change to PEPL Port to reflect PEPL <-> REPL connection in either GOALC or GK
     """ Tip: Use this to turn any UI into an easy GK or GOALC contact point.
-        Like: Sending the expression (set! (-> *target* )
-        to the OpenGOAL REPL, if one is open. """
-
-    # TODO: Expand class to include other types of buttons,
-    # send to gk, send to generic ip, port, etc.
+        Like: Sending the expression (:status) to the OpenGOAL REPL, if one is open. """
 
     # Be careful, operator docstrings are exposed to the user
     # TODO move to contributer docs^
@@ -193,11 +189,7 @@ class REPLButton(bpy.types.Operator):
 
         # Return the packet
         # TODO return packet class instance instead
-        #return header + expression.encode()
-
-        a=b"290000000000000042e04845050000000900000000000000020000000000000031363134343638000a"
-        a=bytearray(a)
-        return a
+        return header + expression.encode()
 
     @classmethod
     def send_goalc_packet(cls, expression:str, msg_kind:int):
@@ -223,6 +215,7 @@ class REPLButton(bpy.types.Operator):
         # Pull response data from the socket
         #data = cls.clientSocket.recv(300) # Be more accurate with size?
 
+        # Success
         return True
 
     @classmethod
@@ -233,8 +226,6 @@ class REPLButton(bpy.types.Operator):
         # Connect if needed
         cls.bind_port(cls.gk_port)
 
-        #expression = str(0x001614468)
-
         # Pack up a message
         packet = cls.gk_packet(expression, ltt_msg_kind)
 
@@ -243,15 +234,9 @@ class REPLButton(bpy.types.Operator):
 
         # Push it to the stack
         cls.packet_stack.append(signed_packet)
-
-        # Send
-        #cls.clientSocket.sendall(message)
-
-        # Pull response data from the socket
-        #data = cls.clientSocket.recv(300) # Be more accurate with size?
-
-        # Return the response
-        return #data.decode()
+        
+        # Success
+        return True
 
     @classmethod
     def send_ping(cls, expression):
